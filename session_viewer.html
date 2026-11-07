@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SneaKey session viewer</title>
+<style>
+  :root { --bg:#2c2e31; --panel:#323437; --fg:#d1d0c5; --dim:#7a7c80; --accent:#e2b714;
+          --ok:#5fbf6a; --bad:#ff5a50; --bs:#f0a030; --mod:#c08cff; --other:#b0b0b0; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.45 system-ui, sans-serif; }
+  main { max-width:1400px; margin:0 auto; padding:16px 18px 40px; }
+  h1 { font-size:18px; margin:0; color:var(--accent); }
+  .meta { color:var(--dim); font-size:12.5px; margin:2px 0 12px; }
+  .panel { background:var(--panel); border-radius:8px; padding:10px 12px; margin-bottom:10px; }
+  canvas { display:block; width:100%; }
+  #overview { height:56px; cursor:pointer; }
+  #main { height:420px; cursor:crosshair; }
+  .controls { display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; }
+  button { background:var(--bg); color:var(--fg); border:1px solid #4a4c50; border-radius:6px; padding:6px 12px; font:inherit; cursor:pointer; }
+  button:hover { border-color:var(--accent); color:var(--accent); }
+  button.on { background:var(--accent); color:#222; border-color:var(--accent); }
+  button.primary { background:var(--accent); color:#222; border-color:var(--accent); font-weight:600; min-width:96px; }
+  label { color:var(--dim); font-size:12.5px; display:inline-flex; align-items:center; gap:6px; }
+  input[type=range] { width:120px; }
+  input[type=number] { width:70px; background:var(--bg); color:var(--fg); border:1px solid #4a4c50; border-radius:4px; padding:3px 5px; }
+  select { background:var(--bg); color:var(--fg); border:1px solid #4a4c50; border-radius:4px; padding:3px; }
+  .sep { width:1px; align-self:stretch; background:#45474b; }
+  #meter { width:90px; height:10px; background:var(--bg); border-radius:3px; overflow:hidden; display:inline-block; }
+  #meter > div { height:100%; width:0; background:var(--ok); }
+  #astate { font-size:12px; color:var(--dim); }
+  #astate.bad { color:var(--bad); }
+  .grid { display:grid; grid-template-columns: 2fr 1fr; gap:10px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  #strip { display:flex; gap:4px; min-height:54px; align-items:flex-end; overflow:hidden; }
+  .k { font:20px "DejaVu Sans Mono", monospace; min-width:30px; text-align:center; padding:4px 6px; border-radius:5px; background:var(--bg); border-bottom:3px solid var(--ok); opacity:.55; cursor:pointer; }
+  .k.bad { border-color:var(--bad); color:var(--bad); }
+  .k.bs { border-color:var(--bs); color:var(--bs); }
+  .k.mod { border-color:var(--mod); color:var(--mod); }
+  .k.other { border-color:var(--other); }
+  .k.now { opacity:1; transform:scale(1.25); margin:0 6px; }
+  .k.flash { animation: flash .25s ease-out; }
+  @keyframes flash { from { background:#6b5d1e; } }
+  #typed { font:16px/1.7 "DejaVu Sans Mono", monospace; max-height:180px; overflow:auto; white-space:pre-wrap; word-break:break-word; }
+  #typed .u { color:#5d5f63; } #typed .c { color:var(--fg); } #typed .x { color:var(--bad); background:rgba(229,83,75,.2); }
+  #typed .cur { box-shadow: inset 2px 0 0 var(--accent); }
+  #details table { border-collapse:collapse; font-size:12.5px; width:100%; }
+  #details td { padding:1px 6px; border-bottom:1px solid #3c3e42; vertical-align:top; }
+  #details td:first-child { color:var(--dim); white-space:nowrap; }
+  .legend span { display:inline-flex; align-items:center; gap:4px; margin-right:12px; font-size:12px; color:var(--dim); }
+  .legend i { width:12px; height:3px; display:inline-block; }
+  .hint { color:var(--dim); font-size:12px; }
+  .warn { color:var(--accent); }
+  #loader { display:none; }
+  #progress { color:var(--accent); font-size:12.5px; }
+  kbd { background:var(--bg); border:1px solid #4a4c50; border-radius:3px; padding:0 4px; font-size:11.5px; }
+  h3 { margin:0 0 6px; font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--dim); font-weight:600; }
+</style>
+</head>
+<body>
+<main>
+  <h1>SneaKey session viewer</h1>
+  <div class="meta" id="meta">Loading...</div>
+
+  <div class="panel" id="loader">
+    <p>Could not fetch the session over HTTP. Serve the project (<code>python3 -m http.server 8000</code>) and open
+      <code>http://localhost:8000/session_viewer.html?dir=session</code>, or pick the files here:</p>
+    <input type="file" id="files" multiple accept=".wav,.csv,.json">
+    <span class="hint">audio.wav + keystrokes.csv (+ metadata.json, sync_stats.json, event_matches.csv optional)</span>
+  </div>
+
+  <div class="panel"><canvas id="overview"></canvas></div>
+  <div class="panel">
+    <canvas id="main"></canvas>
+    <div class="legend" style="margin-top:6px">
+      <span><i style="background:var(--ok)"></i>correct char</span>
+      <span><i style="background:var(--bad)"></i>wrong char</span>
+      <span><i style="background:var(--bs)"></i>backspace</span>
+      <span><i style="background:var(--mod)"></i>modifier</span>
+      <span><i style="background:var(--other)"></i>other</span>
+      <span>solid = keydown, dashed = keyup, bar = key held, ▲ = onset matched by the analysis script</span>
+      <span id="progress"></span>
+    </div>
+  </div>
+
+  <div class="panel controls">
+    <button id="play" class="primary">▶ Play</button>
+    <button id="prev" title="previous keydown (←)">◀ key</button>
+    <button id="next" title="next keydown (→)">key ▶</button>
+    <button id="loop" title="loop the selected keystroke (L)">Loop clip</button>
+    <button id="beep" title="beep at each keydown label (B)">Label beeps</button>
+    <label>speed <select id="rate"><option value="1" selected>1×</option><option value="0.5">0.5× (pitch ↓)</option><option value="0.25">0.25× (pitch ↓↓)</option></select></label>
+    <span class="sep"></span>
+    <label>volume boost <input type="range" id="vol" min="0" max="36" step="1" value="18"><span id="volv"></span></label>
+    <label><input type="checkbox" id="hp" checked> high-pass 1 kHz (listening)</label>
+    <span id="meter" title="output level"><div></div></span>
+    <span id="astate">audio: not started (press Play)</span>
+  </div>
+  <div class="panel controls">
+    <label>view <select id="view"><option value="spec" selected>spectrogram (noise floor removed)</option><option value="specraw">spectrogram (raw dB)</option><option value="wave">waveform</option></select></label>
+    <label>contrast <input type="range" id="contrast" min="8" max="50" step="1" value="28"><span id="contrastv"></span></label>
+    <label>window <input type="range" id="zoom" min="0.3" max="12" step="0.1" value="2.5"><span id="zoomv"></span></label>
+    <span class="sep"></span>
+    <label>label offset <input type="number" id="off" step="1" value="0"> ms</label>
+    <button id="sugg" title="use the analysis-measured offset">Use measured offset</button>
+    <button id="zero">0 ms</button>
+  </div>
+  <div class="hint" style="margin:-4px 0 10px 2px">
+    <kbd>Space</kbd> play/pause · <kbd>←</kbd>/<kbd>→</kbd> previous/next keystroke (plays its clip) · <kbd>↑</kbd>/<kbd>↓</kbd> zoom · <kbd>[</kbd>/<kbd>]</kbd> offset −/+1 ms · <kbd>L</kbd> loop · <kbd>B</kbd> label beeps ·
+    click a marker to select it · wheel to pan, Ctrl+wheel to zoom. Markers are drawn at <code>sample_index_est</code> + label offset. Display/listening processing (noise-floor removal, boost, high-pass) never touches the files.
+    <span id="latnote"></span>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="panel"><h3>Keystrokes at the playhead</h3><div id="strip"></div></div>
+      <div class="panel"><h3>Typed text at the playhead (replayed from keystrokes.csv)</h3><div id="typed"></div></div>
+    </div>
+    <div class="panel" id="details"><h3>Selected event</h3><div class="hint">Click a marker or use ← / →.</div></div>
+  </div>
+</main>
+
+<script>
+"use strict";
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const S = {
+    sr: 0, x: null, mins: null, maxs: null, BIN: 16, dur: 0, ready: false,
+    // spectrogram
+    N: 512, hop: 96, F: 0, spec: null, floorQ: null, lowQ: 0, highQ: 255, eDB: null, eFloor: 0, specDone: false,
+    ev: [], downs: [], meta: null, stats: null, matches: null,
+    viewStart: 0, viewLen: 2.5, offMs: 0, view: "spec", contrast: 28,
+    ctx: null, buf: null, src: null, playing: false, startCtx: 0, startPos: 0, pausedPos: 0, until: null,
+    rate: 1, loop: false, beep: false, beepNodes: [], sel: -1, follow: true, lastApplied: -1, lastStripKey: -1, cache: null
+  };
+  window.__sv = S;   // handle for debugging/tests
+  const COL = { ok: "#5fbf6a", bad: "#ff5a50", bs: "#f0a030", mod: "#c08cff", other: "#b0b0b0" };
+  const MODS = new Set(["Shift", "Control", "Alt", "Meta", "AltGraph", "CapsLock", "OS"]);
+
+  // colour map (black -> purple -> orange -> pale yellow)
+  const LUT = (() => {
+    const stops = [[0, 0, 0, 4], [0.25, 60, 15, 110], [0.5, 180, 55, 100], [0.75, 250, 140, 40], [1, 252, 250, 190]];
+    const lut = new Uint8Array(256 * 3);
+    for (let i = 0; i < 256; i++) {
+      const t = i / 255; let k = 0; while (k < stops.length - 2 && t > stops[k + 1][0]) k++;
+      const [t0, r0, g0, b0] = stops[k], [t1, r1, g1, b1] = stops[k + 1], u = (t - t0) / (t1 - t0);
+      lut[i * 3] = r0 + (r1 - r0) * u; lut[i * 3 + 1] = g0 + (g1 - g0) * u; lut[i * 3 + 2] = b0 + (b1 - b0) * u;
+    }
+    return lut;
+  })();
+
+  // ------------------------------------------------------------------ parsing
+  function parseCSV(text) {
+    const rows = []; let row = [], f = "", q = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (q) { if (c === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
+      else if (c === '"') q = true;
+      else if (c === ",") { row.push(f); f = ""; }
+      else if (c === "\n" || c === "\r") { if (c === "\r" && text[i + 1] === "\n") i++; row.push(f); rows.push(row); row = []; f = ""; }
+      else f += c;
+    }
+    if (f !== "" || row.length) { row.push(f); rows.push(row); }
+    const h = rows.shift();
+    return rows.filter((r) => r.length === h.length).map((r) => Object.fromEntries(h.map((k, i) => [k, r[i]])));
+  }
+
+  function parseWav(ab) {
+    const v = new DataView(ab), tag = (o) => String.fromCharCode(v.getUint8(o), v.getUint8(o + 1), v.getUint8(o + 2), v.getUint8(o + 3));
+    if (tag(0) !== "RIFF" || tag(8) !== "WAVE") throw new Error("not a WAV file");
+    let o = 12, fmt = null, data = null;
+    while (o + 8 <= v.byteLength) {
+      const id = tag(o), sz = v.getUint32(o + 4, true);
+      if (id === "fmt ") fmt = { fmt: v.getUint16(o + 8, true), ch: v.getUint16(o + 10, true), sr: v.getUint32(o + 12, true), bits: v.getUint16(o + 22, true) };
+      if (id === "data") data = { off: o + 8, len: Math.min(sz, v.byteLength - o - 8) };
+      o += 8 + sz + (sz & 1);
+    }
+    if (!fmt || !data || fmt.fmt !== 1 || fmt.bits !== 16) throw new Error("expected 16-bit PCM WAV");
+    const n = Math.floor(data.len / (2 * fmt.ch)), x = new Float32Array(n);
+    for (let i = 0; i < n; i++) x[i] = v.getInt16(data.off + i * 2 * fmt.ch, true) / 32768;
+    return { x, sr: fmt.sr };
+  }
+
+  function glyph(k) { return k === " " ? "␣" : k === "Backspace" ? "⌫" : k === "Shift" ? "⇧" : k === "Enter" ? "⏎" : k === "Tab" ? "⇥" : k === "Control" ? "Ctrl" : k; }
+
+  // ------------------------------------------------------------------ spectrogram (computed once, in chunks)
+  function makeFFT(N) {
+    const lev = Math.log2(N), rev = new Uint32Array(N), cos = new Float64Array(N / 2), sin = new Float64Array(N / 2);
+    for (let i = 0; i < N; i++) { let r = 0; for (let b = 0; b < lev; b++) r |= ((i >> b) & 1) << (lev - 1 - b); rev[i] = r; }
+    for (let i = 0; i < N / 2; i++) { cos[i] = Math.cos(2 * Math.PI * i / N); sin[i] = -Math.sin(2 * Math.PI * i / N); }
+    return (re, im) => {
+      for (let i = 0; i < N; i++) { const j = rev[i]; if (j > i) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+      for (let size = 2; size <= N; size *= 2) {
+        const half = size / 2, step = N / size;
+        for (let i = 0; i < N; i += size) for (let j = 0, k = 0; j < half; j++, k += step) {
+          const a = i + j, b = a + half, tr = re[b] * cos[k] - im[b] * sin[k], ti = re[b] * sin[k] + im[b] * cos[k];
+          re[b] = re[a] - tr; im[b] = im[a] - ti; re[a] += tr; im[a] += ti;
+        }
+      }
+    };
+  }
+
+  async function computeSpectrogram() {
+    const N = S.N, B = N / 2 + 1, hop = S.hop = Math.max(1, Math.round(S.sr * 0.002));
+    const F = S.F = Math.max(0, Math.floor((S.x.length - N) / hop) + 1);
+    const spec = S.spec = new Uint8Array(F * B), eDB = S.eDB = new Float32Array(F);
+    const fft = makeFFT(N), re = new Float64Array(N), im = new Float64Array(N), win = new Float64Array(N);
+    let ws = 0; for (let i = 0; i < N; i++) { win[i] = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / N); ws += win[i]; }
+    const norm = 4 / (ws * ws), binHz = S.sr / N;
+    const eLo = Math.round(1500 / binHz), eHi = Math.min(B - 1, Math.round(10000 / binHz));
+    const hist = new Uint32Array(B * 256);
+    for (let f = 0; f < F; f++) {
+      const o = f * hop;
+      for (let i = 0; i < N; i++) { re[i] = S.x[o + i] * win[i]; im[i] = 0; }
+      fft(re, im);
+      let e = 0;
+      for (let k = 0; k < B; k++) {
+        const p = (re[k] * re[k] + im[k] * im[k]) * norm;
+        if (k >= eLo && k <= eHi) e += p;
+        let q = Math.round((10 * Math.log10(p + 1e-14) + 130) * 2);   // 0.5 dB steps from -130 dBFS
+        q = q < 0 ? 0 : q > 255 ? 255 : q;
+        spec[f * B + k] = q; hist[k * 256 + q]++;
+      }
+      eDB[f] = 10 * Math.log10(e + 1e-14);
+      if ((f & 4095) === 4095) { $("progress").textContent = `computing spectrogram ${Math.round(f / F * 100)}%`; await new Promise((r) => setTimeout(r, 0)); }
+    }
+    // per-frequency noise floor = median level of that bin over the whole recording
+    S.floorQ = new Uint8Array(B);
+    const all = new Uint32Array(256);
+    for (let k = 0; k < B; k++) {
+      let c = 0; for (let q = 0; q < 256; q++) { c += hist[k * 256 + q]; all[q] += hist[k * 256 + q]; if (c >= F / 2) { S.floorQ[k] = q; break; } }
+      for (let q = S.floorQ[k] + 1; q < 256; q++) all[q] += hist[k * 256 + q];
+    }
+    const tot = F * B, pct = (p) => { let c = 0; for (let q = 0; q < 256; q++) { c += all[q]; if (c >= tot * p) return q; } return 255; };
+    S.lowQ = pct(0.2); S.highQ = Math.max(S.lowQ + 20, pct(0.9995));
+    S.eFloor = Float32Array.from(eDB).sort()[Math.floor(F / 2)];
+    S.specDone = true; S.cache = null;
+    $("progress").textContent = "";
+  }
+
+  // ------------------------------------------------------------------ data setup
+  async function setup(wavAB, csvText, meta, stats, matchesText) {
+    const w = parseWav(wavAB);
+    S.x = w.x; S.sr = w.sr; S.dur = w.x.length / w.sr;
+    const nb = Math.ceil(S.x.length / S.BIN);
+    S.mins = new Float32Array(nb); S.maxs = new Float32Array(nb);
+    const peaks = new Float32Array(nb);
+    for (let b = 0; b < nb; b++) {
+      let lo = 1, hi = -1;
+      for (let i = b * S.BIN, e = Math.min(S.x.length, i + S.BIN); i < e; i++) { const s = S.x[i]; if (s < lo) lo = s; if (s > hi) hi = s; }
+      S.mins[b] = lo; S.maxs[b] = hi; peaks[b] = Math.max(-lo, hi);
+    }
+    const sorted = Float32Array.from(peaks).sort();
+    S.peak999 = Math.max(1e-4, sorted[Math.floor(sorted.length * 0.9995)]);
+
+    S.meta = meta; S.stats = stats;
+    S.matches = matchesText ? new Map(parseCSV(matchesText).map((r) => [+r.event_index, r])) : null;
+    S.ev = parseCSV(csvText).map((r) => {
+      const key = r.key, isDown = r.event_type === "keydown";
+      const cat = MODS.has(key) ? "mod" : key === "Backspace" ? "bs" : (r.action === "char" ? (r.correct === "1" ? "ok" : "bad") : "other");
+      return { i: +r.event_index, down: isDown, key, code: r.code, t: +r.sample_index_est / S.sr, repeat: r.repeat === "1",
+               action: r.action, cat, raw: r, typed: r.typed_char, up: null, lane: 0 };
+    }).sort((a, b) => a.t - b.t || a.i - b.i);
+    const open = new Map();
+    for (const e of S.ev) {
+      if (e.down) { if (!e.repeat) open.set(e.code, e); }
+      else { const d = open.get(e.code); if (d) { d.up = e; e.cat = d.cat; open.delete(e.code); } else e.cat = MODS.has(e.key) ? "mod" : "other"; }
+    }
+    const laneEnd = [];
+    S.downs = S.ev.filter((e) => e.down);
+    for (const d of S.downs) {
+      const end = d.up ? d.up.t : d.t + 0.05;
+      let l = laneEnd.findIndex((t) => t < d.t);
+      if (l < 0) { l = laneEnd.length; laneEnd.push(0); }
+      laneEnd[l] = end; d.lane = l;
+    }
+    S.lanes = Math.max(1, Math.min(4, laneEnd.length));
+    S.target = meta ? meta.target_text : "";
+    S.edits = S.downs.filter((d) => d.action === "char" || d.action === "backspace");
+
+    const sugg = suggestedOffset();
+    $("sugg").textContent = sugg === null ? "No analysis offset" : `Use measured offset (${sugg.toFixed(1)} ms)`;
+    $("sugg").disabled = sugg === null;
+    const m = meta || {}, st = m.stats || {};
+    $("meta").innerHTML = [
+      `<b>${m.folder || "session"}</b>`, `${S.dur.toFixed(1)} s @ ${S.sr} Hz`,
+      `${S.downs.length} keydowns, ${S.ev.length - S.downs.length} keyups`,
+      st.wpm !== undefined ? `${st.wpm} wpm, ${st.accuracy_keystrokes_pct}% keystroke accuracy` : "",
+      st.incorrect_keystrokes !== undefined ? `${st.incorrect_keystrokes} wrong chars, ${st.backspace_keystrokes} backspaces` : "",
+      sugg !== null ? `analysis: sound lags labels by ~${sugg.toFixed(1)} ms` : "no analysis output found (run analysis/sync_analysis.py for the measured offset)"
+    ].filter(Boolean).join(" · ");
+    S.ready = true;
+    if (sugg !== null) setOffset(sugg);
+    resize(); renderTyped(true); requestAnimationFrame(loop);
+    await computeSpectrogram();
+  }
+
+  function suggestedOffset() {
+    const st = S.stats;
+    if (!st) return null;
+    const m = st.offset_stats_ms && st.offset_stats_ms["down/char/matched"];
+    if (m && m.n) return Math.round(m.median * 10) / 10;
+    const u = st.lag_search && st.lag_search.used_modes_ms;
+    return u ? u.down : null;
+  }
+
+  // ------------------------------------------------------------------ audio
+  // Created on the first user gesture: Firefox keeps an AudioContext made at page load suspended.
+  function ensureAudio() {
+    if (!S.ctx) {
+      const ctx = S.ctx = new AudioContext();
+      S.buf = ctx.createBuffer(1, S.x.length, S.sr);
+      S.buf.copyToChannel(S.x, 0);
+      S.hpNode = ctx.createBiquadFilter(); S.hpNode.type = "highpass"; S.hpNode.frequency.value = 1000; S.hpNode.Q.value = 0.707;
+      S.boost = ctx.createGain();
+      S.limiter = ctx.createDynamicsCompressor();          // keeps boosted clicks from clipping
+      S.limiter.threshold.value = -6; S.limiter.knee.value = 0; S.limiter.ratio.value = 20; S.limiter.attack.value = 0.001; S.limiter.release.value = 0.05;
+      S.master = ctx.createGain();
+      S.analyser = ctx.createAnalyser(); S.analyser.fftSize = 1024; S.meterBuf = new Float32Array(1024);
+      S.input = ctx.createGain();
+      S.boost.connect(S.limiter); S.limiter.connect(S.master); S.master.connect(S.analyser); S.analyser.connect(ctx.destination);
+      routeInput(); applyVolume();
+      const lat = ctx.outputLatency || ctx.baseLatency || 0;
+      $("latnote").textContent = lat ? ` Playhead is compensated for ${(lat * 1000).toFixed(0)} ms of output latency.` : "";
+    }
+    if (S.ctx.state !== "running") S.ctx.resume().then(showAudioState, showAudioState);
+    showAudioState();
+  }
+  function routeInput() {
+    try { S.input.disconnect(); S.hpNode.disconnect(); } catch (e) {}
+    if ($("hp").checked) { S.input.connect(S.hpNode); S.hpNode.connect(S.boost); } else S.input.connect(S.boost);
+  }
+  function applyVolume() { const db = +$("vol").value; $("volv").textContent = "+" + db + " dB"; if (S.boost) S.boost.gain.value = Math.pow(10, db / 20); }
+  function showAudioState() {
+    const st = S.ctx ? S.ctx.state : "not started";
+    const el = $("astate");
+    el.textContent = "audio: " + st + (S.ctx ? ` @ ${S.ctx.sampleRate} Hz` : "");
+    el.className = S.ctx && st !== "running" ? "bad" : "";
+  }
+
+  function pos() { return S.playing ? S.startPos + Math.max(0, S.ctx.currentTime - S.startCtx) * S.rate : S.pausedPos; }
+  function heardPos() {
+    const lat = S.playing ? (S.ctx.outputLatency || S.ctx.baseLatency || 0) : 0;
+    return Math.max(0, pos() - lat * S.rate);
+  }
+
+  function play(from, until) {
+    ensureAudio();
+    stop(true);
+    from = Math.max(0, Math.min(from, S.dur - 0.01));
+    const src = S.ctx.createBufferSource();
+    src.buffer = S.buf; src.playbackRate.value = S.rate; src.connect(S.input);
+    S.startCtx = S.ctx.currentTime + 0.03; S.startPos = from; S.until = until ?? null;
+    src.start(S.startCtx, from);
+    S.src = src; S.playing = true;
+    if (S.beep) scheduleBeeps(from, until ?? S.dur);
+    $("play").textContent = "❚❚ Pause";
+  }
+
+  function stop(keepPos) {
+    if (S.src) { try { S.src.stop(); } catch (e) {} S.src.disconnect(); S.src = null; }
+    for (const n of S.beepNodes) { try { n.stop(); } catch (e) {} }
+    S.beepNodes = [];
+    if (S.playing && !keepPos) S.pausedPos = Math.min(pos(), S.dur);
+    S.playing = false;
+    $("play").textContent = "▶ Play";
+  }
+
+  function scheduleBeeps(from, until) {
+    const off = S.offMs / 1000;
+    for (const d of S.downs) {
+      if (d.repeat) continue;
+      const t = d.t + off;
+      if (t < from || t > until) continue;
+      const when = S.startCtx + (t - from) / S.rate;
+      const o = S.ctx.createOscillator(), g = S.ctx.createGain();
+      o.frequency.value = d.cat === "bad" ? 660 : d.cat === "bs" ? 440 : 1320;
+      g.gain.setValueAtTime(0, when); g.gain.linearRampToValueAtTime(0.25, when + 0.002); g.gain.exponentialRampToValueAtTime(0.0005, when + 0.03);
+      o.connect(g); g.connect(S.master); o.start(when); o.stop(when + 0.035);
+      S.beepNodes.push(o);
+    }
+  }
+
+  function playClip(d) {
+    const t = d.t + S.offMs / 1000;
+    S.viewStart = Math.max(0, t - S.viewLen * 0.35);
+    play(t - 0.15, Math.min(S.dur, (d.up ? d.up.t + S.offMs / 1000 : t) + 0.15));
+  }
+
+  // ------------------------------------------------------------------ drawing
+  const ov = $("overview"), mc = $("main");
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    for (const c of [ov, mc]) { c.width = Math.round(c.clientWidth * dpr); c.height = Math.round(c.clientHeight * dpr); }
+    S.cache = null;
+  }
+  window.addEventListener("resize", resize);
+
+  function drawWave(g, x0, w, y0, h, t0, t1, scale) {
+    const spp = (t1 - t0) * S.sr / w, mid = y0 + h / 2;
+    g.fillStyle = "#5b7fb5";
+    for (let px = 0; px < w; px++) {
+      const s0 = Math.floor(t0 * S.sr + px * spp), s1 = Math.max(s0 + 1, Math.floor(t0 * S.sr + (px + 1) * spp));
+      if (s1 <= 0 || s0 >= S.x.length) continue;
+      let lo = 1, hi = -1;
+      if (spp >= S.BIN * 2) {
+        for (let b = Math.max(0, Math.floor(s0 / S.BIN)), e = Math.min(S.mins.length, Math.ceil(s1 / S.BIN)); b < e; b++) { if (S.mins[b] < lo) lo = S.mins[b]; if (S.maxs[b] > hi) hi = S.maxs[b]; }
+      } else {
+        for (let i = Math.max(0, s0), e = Math.min(S.x.length, s1); i < e; i++) { const s = S.x[i]; if (s < lo) lo = s; if (s > hi) hi = s; }
+      }
+      if (hi < lo) continue;
+      const a = Math.max(y0, mid - hi * scale * h / 2), b = Math.min(y0 + h, mid - lo * scale * h / 2);
+      g.fillRect(x0 + px, a, 1, Math.max(1, b - a));
+    }
+  }
+
+  const FMAX = 20000;
+  // spectrogram image for the current view, cached until the view changes
+  function specImage(W, H, t0, t1) {
+    const key = [W, H, t0, t1, S.view, S.contrast].join("|");
+    if (S.cache && S.cache.key === key) return S.cache.canvas;
+    const B = S.N / 2 + 1, binHz = S.sr / S.N, kMax = Math.min(B - 1, Math.floor(Math.min(FMAX, S.sr / 2) / binHz));
+    const img = new ImageData(W, H), d = img.data;
+    const whiten = S.view === "spec", scaleW = 255 / (S.contrast * 2), lo = S.lowQ, span = 255 / Math.max(1, S.highQ - lo);
+    const rowBin = new Int32Array(H);
+    for (let y = 0; y < H; y++) rowBin[y] = Math.round((1 - y / (H - 1)) * kMax);
+    for (let x = 0; x < W; x++) {
+      const ta = t0 + (t1 - t0) * x / W, tb = t0 + (t1 - t0) * (x + 1) / W;
+      let f0 = Math.floor((ta * S.sr - S.N / 2) / S.hop), f1 = Math.ceil((tb * S.sr - S.N / 2) / S.hop);
+      f0 = Math.max(0, f0); f1 = Math.min(S.F, Math.max(f1, f0 + 1));
+      if (f0 >= S.F) continue;
+      for (let y = 0; y < H; y++) {
+        const k = rowBin[y];
+        let q = 0; for (let f = f0; f < f1; f++) { const v = S.spec[f * B + k]; if (v > q) q = v; }   // max: short clicks survive zoom-out
+        let v = whiten ? (q - S.floorQ[k]) * scaleW : (q - lo) * span;
+        v = v < 0 ? 0 : v > 255 ? 255 : v | 0;
+        const p = (y * W + x) * 4;
+        d[p] = LUT[v * 3]; d[p + 1] = LUT[v * 3 + 1]; d[p + 2] = LUT[v * 3 + 2]; d[p + 3] = 255;
+      }
+    }
+    const c = document.createElement("canvas"); c.width = W; c.height = H;
+    c.getContext("2d").putImageData(img, 0, 0);
+    S.cache = { key, canvas: c };
+    return c;
+  }
+
+  // click-band (1.5-10 kHz) energy, dB above its median, as a line
+  function drawEnergy(g, y0, h, t0, t1, W, color, dbRange) {
+    if (!S.specDone) return;
+    g.strokeStyle = color; g.lineWidth = 1.2; g.beginPath();
+    for (let x = 0; x < W; x++) {
+      const ta = t0 + (t1 - t0) * x / W, tb = t0 + (t1 - t0) * (x + 1) / W;
+      let f0 = Math.max(0, Math.floor((ta * S.sr - S.N / 2) / S.hop)), f1 = Math.min(S.F, Math.max(f0 + 1, Math.ceil((tb * S.sr - S.N / 2) / S.hop)));
+      let m = -1e9; for (let f = f0; f < f1; f++) if (S.eDB[f] > m) m = S.eDB[f];
+      const v = Math.max(0, Math.min(1, (m - S.eFloor + 3) / dbRange));
+      const y = y0 + h - v * h;
+      x ? g.lineTo(x, y) : g.moveTo(x, y);
+    }
+    g.stroke();
+  }
+
+  function drawOverview() {
+    const g = ov.getContext("2d"), W = ov.width, H = ov.height;
+    g.fillStyle = "#1d1f22"; g.fillRect(0, 0, W, H);
+    if (S.specDone) drawEnergy(g, 2, H * 0.72, 0, S.dur, W, "#e2b714", 30);
+    else drawWave(g, 0, W, 0, H * 0.75, 0, S.dur, 0.7 / S.peak999);
+    const off = S.offMs / 1000;
+    for (const d of S.downs) { g.fillStyle = COL[d.cat]; g.fillRect(Math.round((d.t + off) / S.dur * W), H * 0.78, 1, H * 0.22); }
+    g.strokeStyle = "#fff"; g.lineWidth = 2;
+    g.strokeRect(S.viewStart / S.dur * W, 1, Math.max(3, S.viewLen / S.dur * W), H - 2);
+    g.fillStyle = "#fff"; g.fillRect(heardPos() / S.dur * W, 0, 2, H);
+  }
+
+  function drawMain() {
+    const g = mc.getContext("2d"), W = mc.width, H = mc.height, dpr = window.devicePixelRatio || 1;
+    const t0 = S.viewStart, t1 = S.viewStart + S.viewLen, X = (t) => (t - t0) / (t1 - t0) * W;
+    const labelH = 24 * dpr, laneH = 11 * dpr, lanesH = laneH * S.lanes;
+    const energyH = Math.round(H * 0.17);
+    const specY = labelH, specH = H - labelH - energyH - lanesH - 10 * dpr, energyY = specY + specH + 2 * dpr, laneY = energyY + energyH + 6 * dpr;
+    g.fillStyle = "#1d1f22"; g.fillRect(0, 0, W, H);
+
+    if (S.view === "wave" || !S.specDone) {
+      drawWave(g, 0, W, specY, specH, t0, t1, 0.9 / S.peak999);
+      if (!S.specDone) { g.fillStyle = "#e2b714"; g.font = `${12 * dpr}px system-ui`; g.fillText("computing spectrogram...", 8 * dpr, specY + 16 * dpr); }
+    } else {
+      g.imageSmoothingEnabled = false;
+      g.drawImage(specImage(Math.round(W), Math.round(specH), t0, t1), 0, specY);
+      g.fillStyle = "rgba(255,255,255,.55)"; g.font = `${10 * dpr}px system-ui`;
+      const kHz = (f) => specY + specH * (1 - f / Math.min(FMAX, S.sr / 2));
+      for (const f of [1000, 5000, 10000, 15000]) { g.fillRect(0, kHz(f), 6 * dpr, 1); g.fillText(f / 1000 + "k", 8 * dpr, kHz(f) + 4 * dpr); }
+    }
+    // energy strip
+    g.fillStyle = "#18191b"; g.fillRect(0, energyY, W, energyH);
+    drawEnergy(g, energyY + 2 * dpr, energyH - 4 * dpr, t0, t1, W, "#e2b714", 30);
+    g.fillStyle = "#7a7c80"; g.font = `${10 * dpr}px system-ui`; g.fillText("click energy 1.5-10 kHz (dB above floor)", 8 * dpr, energyY + 11 * dpr);
+    // time grid
+    const step = S.viewLen > 6 ? 1 : S.viewLen > 2 ? 0.5 : S.viewLen > 0.8 ? 0.1 : 0.05;
+    for (let t = Math.ceil(t0 / step) * step; t < t1; t += step) {
+      g.fillStyle = "#9a9c9f"; g.fillText(t.toFixed(step < 0.1 ? 2 : 1) + "s", X(t) + 2, energyY + energyH - 3 * dpr);
+      g.fillStyle = "rgba(255,255,255,.12)"; g.fillRect(X(t), energyY, 1, energyH);
+    }
+    const off = S.offMs / 1000;
+    for (const e of S.ev) {
+      const t = e.t + off;
+      if (t < t0 - 1 || t > t1 + 1) continue;
+      const x = X(t), c = COL[e.cat];
+      g.strokeStyle = c; g.globalAlpha = e.down ? 0.9 : 0.55; g.lineWidth = (e.down ? 1.5 : 1) * dpr;
+      g.setLineDash(e.down ? [] : [4 * dpr, 4 * dpr]);
+      g.beginPath(); g.moveTo(x, specY); g.lineTo(x, energyY + energyH); g.stroke();
+      g.setLineDash([]); g.globalAlpha = 1;
+      if (e.down) {
+        if (e.up) { g.fillStyle = c; g.globalAlpha = 0.75; g.fillRect(x, laneY + (e.lane % S.lanes) * laneH, Math.max(2, X(e.up.t + off) - x), laneH - 2 * dpr); g.globalAlpha = 1; }
+        const sel = S.downs[S.sel] === e;
+        g.font = `bold ${(sel ? 16 : 14) * dpr}px "DejaVu Sans Mono", monospace`; g.fillStyle = c;
+        g.fillText(glyph(e.key) + (e.repeat ? "ʳ" : ""), x - 4 * dpr, labelH - 7 * dpr);
+        if (sel) { g.strokeStyle = "#fff"; g.lineWidth = 1 * dpr; g.strokeRect(x - 7 * dpr, 2 * dpr, 18 * dpr, labelH - 4 * dpr); }
+      }
+      if (S.matches) {
+        const m = S.matches.get(e.i);
+        if (m && m.onset_sample !== "" && m.status === "matched") {
+          const ox = X(+m.onset_sample / S.sr), y = energyY + energyH - 2 * dpr;
+          g.fillStyle = c; g.beginPath(); g.moveTo(ox, y - 8 * dpr); g.lineTo(ox - 5 * dpr, y); g.lineTo(ox + 5 * dpr, y); g.closePath(); g.fill();
+        }
+      }
+    }
+    if (S.until !== null && S.playing) { g.fillStyle = "rgba(255,255,255,.07)"; g.fillRect(X(S.startPos), specY, X(S.until) - X(S.startPos), specH + energyH); }
+    const hx = X(heardPos()); g.fillStyle = "#fff"; g.fillRect(hx - dpr, 0, 2 * dpr, H);
+  }
+
+  function drawMeter() {
+    if (!S.analyser) return;
+    S.analyser.getFloatTimeDomainData(S.meterBuf);
+    let p = 0; for (const v of S.meterBuf) { const a = Math.abs(v); if (a > p) p = a; }
+    S.lastPeak = p;
+    const db = 20 * Math.log10(p + 1e-6);
+    $("meter").firstChild.style.width = Math.max(0, Math.min(100, (db + 60) / 60 * 100)) + "%";
+  }
+
+  // ------------------------------------------------------------------ text + strip
+  function countBefore(arr, t) {
+    let lo = 0, hi = arr.length; const off = S.offMs / 1000;
+    while (lo < hi) { const m = (lo + hi) >> 1; if (arr[m].t + off <= t) lo = m + 1; else hi = m; }
+    return lo;
+  }
+
+  function renderTyped(force) {
+    const n = countBefore(S.edits, heardPos());
+    if (n === S.lastApplied && !force) return;
+    S.lastApplied = n;
+    const typed = [];
+    for (let i = 0; i < n; i++) { const d = S.edits[i]; if (d.action === "backspace") typed.pop(); else typed.push(d.typed); }
+    const T = S.target || "", esc = (c) => c === "<" ? "&lt;" : c === "&" ? "&amp;" : c === ">" ? "&gt;" : c;
+    let html = "";
+    for (let i = 0, len = Math.max(T.length, typed.length); i < len; i++) {
+      const cur = i === typed.length ? " cur" : "";
+      if (i < typed.length) html += `<span class="${typed[i] === T[i] ? "c" : "x"}${cur}">${esc(T[i] ?? typed[i])}</span>`;
+      else html += `<span class="u${cur}">${esc(T[i])}</span>`;
+    }
+    const el = $("typed"); el.innerHTML = html;
+    const c = el.querySelector(".cur"); if (c && S.playing) c.scrollIntoView({ block: "nearest" });
+  }
+
+  function renderStrip() {
+    const k = countBefore(S.downs, heardPos()) - 1;
+    if (k === S.lastStripKey) return;
+    const fresh = k > S.lastStripKey && S.playing;
+    S.lastStripKey = k;
+    const el = $("strip"); el.replaceChildren();
+    for (let i = Math.max(0, k - 14), to = Math.min(S.downs.length, k + 4); i < to; i++) {
+      const d = S.downs[i], s = document.createElement("span");
+      s.className = "k " + d.cat + (i === k ? " now" + (fresh ? " flash" : "") : "");
+      s.style.opacity = i > k ? 0.2 : "";
+      s.textContent = glyph(d.key);
+      s.title = `${d.key} (${d.code}) @ ${d.t.toFixed(3)} s`;
+      s.onclick = () => select(i, true);
+      el.appendChild(s);
+    }
+  }
+
+  function select(i, playIt) {
+    if (i < 0 || i >= S.downs.length) return;
+    S.sel = i;
+    const d = S.downs[i];
+    if (playIt) playClip(d);
+    else { S.viewStart = Math.max(0, d.t + S.offMs / 1000 - S.viewLen * 0.35); S.pausedPos = Math.max(0, d.t + S.offMs / 1000 - 0.15); }
+    const r = d.raw, m = S.matches && S.matches.get(d.i), mu = S.matches && d.up && S.matches.get(d.up.i);
+    const mods = `${r.repeat === "1" ? "REPEAT " : ""}${r.shift === "1" ? "Shift " : ""}${r.ctrl === "1" ? "Ctrl " : ""}${r.alt === "1" ? "Alt " : ""}`;
+    const rows = [
+      ["key / code", `<b>${glyph(d.key)}</b> &nbsp;${d.code}`],
+      ["action", `${r.action || "-"}${r.action === "char" ? (r.correct === "1" ? " (correct)" : ` (WRONG, expected ${JSON.stringify(r.target_char)})`) : ""}`],
+      ["repeat / mods", mods || "-"],
+      ["held", d.up ? `${((d.up.t - d.t) * 1000).toFixed(0)} ms` : "no keyup"],
+      ["time_ms (raw)", r.time_ms], ["t_rel_ms", r.t_rel_ms], ["sample_index_est", `${r.sample_index_est} (${d.t.toFixed(4)} s)`],
+      ["drawn at", `${(d.t + S.offMs / 1000).toFixed(4)} s (offset ${S.offMs} ms)`],
+      ["analysis (press)", m ? `${m.status}${m.reason ? " – " + m.reason : ""}${m.offset_ms ? `, onset ${(+m.offset_ms).toFixed(1)} ms after label` : ""}` : "–"],
+      ["analysis (release)", mu ? `${mu.status}${mu.offset_ms ? `, onset ${(+mu.offset_ms).toFixed(1)} ms after label` : ""}` : "–"],
+      ["event #", `${d.i} of ${S.ev.length}`]
+    ];
+    $("details").innerHTML = "<h3>Selected event</h3><table>" + rows.map(([a, b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join("") + "</table>";
+  }
+
+  // ------------------------------------------------------------------ main loop
+  function loop() {
+    if (S.playing) {
+      const p = pos();
+      if (S.until !== null && p >= S.until) {
+        if (S.loop && S.sel >= 0) playClip(S.downs[S.sel]); else { S.pausedPos = S.until; stop(true); S.until = null; }
+      } else if (p >= S.dur) { stop(); S.pausedPos = 0; }
+      const h = heardPos();
+      if (S.follow && S.until === null && (h > S.viewStart + S.viewLen * 0.85 || h < S.viewStart)) S.viewStart = Math.max(0, h - S.viewLen * 0.15);
+    }
+    drawOverview(); drawMain(); drawMeter(); renderTyped(false); renderStrip();
+    if (S.ctx && S.ctx.state !== S.lastState) { S.lastState = S.ctx.state; showAudioState(); }
+    requestAnimationFrame(loop);
+  }
+
+  // ------------------------------------------------------------------ UI
+  function setZoom(v) {
+    const c = S.viewStart + S.viewLen / 2;
+    S.viewLen = Math.max(0.3, Math.min(30, v)); S.viewStart = Math.max(0, c - S.viewLen / 2);
+    $("zoom").value = S.viewLen; $("zoomv").textContent = S.viewLen.toFixed(1) + " s";
+  }
+  function setOffset(v) {
+    S.offMs = Math.round(v * 10) / 10; $("off").value = S.offMs; S.lastApplied = -1; S.lastStripKey = -2;
+    if (S.playing && S.beep) play(pos(), S.until);
+    if (S.sel >= 0) select(S.sel, false);
+  }
+  function togglePlay() { if (!S.ready) return; if (S.playing) { stop(); S.until = null; } else play(S.pausedPos >= S.dur - 0.05 ? 0 : S.pausedPos); }
+  function nextIdx(dir) {
+    const base = S.sel >= 0 ? S.sel : countBefore(S.downs, heardPos()) - (dir > 0 ? 1 : 0);
+    return Math.max(0, Math.min(S.downs.length - 1, base + dir));
+  }
+
+  $("play").onclick = togglePlay;
+  $("prev").onclick = () => S.ready && select(nextIdx(-1), true);
+  $("next").onclick = () => S.ready && select(nextIdx(1), true);
+  $("loop").onclick = () => { S.loop = !S.loop; $("loop").classList.toggle("on", S.loop); };
+  $("beep").onclick = () => { S.beep = !S.beep; $("beep").classList.toggle("on", S.beep); if (S.playing) play(pos(), S.until); };
+  $("rate").onchange = (e) => { S.rate = +e.target.value; if (S.playing) play(pos(), S.until); };
+  $("vol").oninput = applyVolume;
+  $("hp").onchange = () => { if (S.ctx) routeInput(); };
+  $("view").onchange = (e) => { S.view = e.target.value; S.cache = null; };
+  $("contrast").oninput = (e) => { S.contrast = +e.target.value; $("contrastv").textContent = S.contrast + " dB"; };
+  $("zoom").oninput = (e) => setZoom(+e.target.value);
+  $("off").onchange = (e) => setOffset(+e.target.value || 0);
+  $("sugg").onclick = () => { const s = suggestedOffset(); if (s !== null) setOffset(s); };
+  $("zero").onclick = () => setOffset(0);
+  $("contrastv").textContent = S.contrast + " dB"; applyVolume();
+
+  ov.addEventListener("click", (e) => {
+    if (!S.ready) return;
+    const t = e.offsetX / ov.clientWidth * S.dur;
+    S.viewStart = Math.max(0, t - S.viewLen / 2); S.sel = -1;
+    if (S.playing) play(t); else S.pausedPos = t;
+  });
+  mc.addEventListener("click", (e) => {
+    if (!S.ready) return;
+    const t = S.viewStart + e.offsetX / mc.clientWidth * S.viewLen, off = S.offMs / 1000;
+    let best = -1, bd = 8 / mc.clientWidth * S.viewLen;
+    S.downs.forEach((d, i) => { const dd = Math.abs(d.t + off - t); if (dd < bd) { bd = dd; best = i; } });
+    if (best >= 0) select(best, true);
+    else { S.sel = -1; if (S.playing) play(t); else S.pausedPos = t; }
+  });
+  mc.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    if (e.ctrlKey) setZoom(S.viewLen * (e.deltaY > 0 ? 1.15 : 1 / 1.15));
+    else { S.follow = false; S.viewStart = Math.max(0, Math.min(S.dur - S.viewLen, S.viewStart + (e.deltaY + e.deltaX) / 600 * S.viewLen)); clearTimeout(S.ft); S.ft = setTimeout(() => { S.follow = true; }, 1500); }
+  }, { passive: false });
+  document.addEventListener("keydown", (e) => {
+    if (e.target.tagName === "INPUT" && e.target.type !== "checkbox" && e.target.type !== "range") return;
+    if (e.target.tagName === "SELECT") return;
+    const k = e.key;
+    if (k === " ") { e.preventDefault(); togglePlay(); }
+    else if (k === "ArrowRight") { e.preventDefault(); $("next").onclick(); }
+    else if (k === "ArrowLeft") { e.preventDefault(); $("prev").onclick(); }
+    else if (k === "ArrowUp") { e.preventDefault(); setZoom(S.viewLen / 1.4); }
+    else if (k === "ArrowDown") { e.preventDefault(); setZoom(S.viewLen * 1.4); }
+    else if (k === "[") setOffset(S.offMs - 1);
+    else if (k === "]") setOffset(S.offMs + 1);
+    else if (k === "l" || k === "L") $("loop").onclick();
+    else if (k === "b" || k === "B") $("beep").onclick();
+  });
+  setZoom(2.5);
+
+  // ------------------------------------------------------------------ loading
+  async function getText(u) { const r = await fetch(u); if (!r.ok) throw new Error(u + " " + r.status); return r.text(); }
+  async function opt(p) { try { return await p; } catch (e) { return null; } }
+  (async () => {
+    const dir = (new URLSearchParams(location.search).get("dir") || "session").replace(/\/+$/, "");
+    const name = dir.split("/").pop();
+    try {
+      const wr = await fetch(dir + "/audio.wav"); if (!wr.ok) throw new Error("audio.wav " + wr.status);
+      const [wav, csv] = await Promise.all([wr.arrayBuffer(), getText(dir + "/keystrokes.csv")]);
+      const meta = await opt(getText(dir + "/metadata.json").then(JSON.parse));
+      const stats = await opt(getText(`analysis_output/${name}/sync_stats.json`).then(JSON.parse));
+      const matches = await opt(getText(`analysis_output/${name}/event_matches.csv`));
+      await setup(wav, csv, meta, stats, matches);
+    } catch (err) {
+      console.error(err);
+      $("meta").innerHTML = `<span class="warn">Could not load <code>${dir}/</code>: ${err.message}</span>`;
+      $("loader").style.display = "block";
+    }
+  })();
+  $("files").onchange = async (e) => {
+    const fs = [...e.target.files], find = (re) => fs.find((f) => re.test(f.name));
+    const w = find(/\.wav$/i), c = find(/keystrokes\.csv$/i);
+    if (!w || !c) { alert("Need audio.wav and keystrokes.csv"); return; }
+    const m = find(/metadata\.json$/i), s = find(/sync_stats\.json$/i), em = find(/event_matches\.csv$/i);
+    $("loader").style.display = "none";
+    await setup(await w.arrayBuffer(), await c.text(), m ? JSON.parse(await m.text()) : null, s ? JSON.parse(await s.text()) : null, em ? await em.text() : null);
+  };
+})();
+</script>
+</body>
+</html>

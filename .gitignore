@@ -1,0 +1,19 @@
+# --- Recordings and anything derived from them (audio of real typing: kept local, never committed)
+recordings/
+session/
+session_*.zip
+session_*_audio.wav
+session_*_keystrokes.csv
+session_*_metadata.json
+dataset/
+datasets/
+
+# --- Generated analysis outputs, caches, model predictions, plots, logs
+analysis_output/
+*.log
+
+# --- Environments and caches
+.venv/
+__pycache__/
+*.pyc
+node_modules/

@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SneaKey live predictor</title>
+<style>
+  :root { --bg:#2c2e31; --panel:#323437; --fg:#d1d0c5; --dim:#7a7c80; --accent:#e2b714; --ok:#5fbf6a; --bad:#ff5a50; --na:#8a8c90; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.45 system-ui, sans-serif; }
+  main { max-width:1200px; margin:0 auto; padding:16px 18px 40px; }
+  h1 { font-size:18px; margin:0; color:var(--accent); }
+  .sub { color:var(--dim); font-size:12.5px; margin:2px 0 12px; max-width:900px; }
+  .panel { background:var(--panel); border-radius:8px; padding:12px 14px; margin-bottom:10px; }
+  h3 { margin:0 0 8px; font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--dim); font-weight:600; }
+  .controls { display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; }
+  button, select { background:var(--bg); color:var(--fg); border:1px solid #4a4c50; border-radius:6px; padding:6px 12px; font:inherit; cursor:pointer; }
+  button:hover:not(:disabled) { border-color:var(--accent); color:var(--accent); }
+  button:disabled { opacity:.45; cursor:default; }
+  button.primary { background:var(--accent); color:#222; border-color:var(--accent); font-weight:600; }
+  label { color:var(--dim); font-size:12.5px; display:inline-flex; align-items:center; gap:6px; }
+  input[type=range] { width:130px; }
+  #status { font-size:12.5px; color:var(--dim); } #status.bad { color:var(--bad); } #status.ok { color:var(--ok); }
+  #rec { width:10px; height:10px; border-radius:50%; background:var(--bad); display:none; animation:pulse 1.2s infinite; }
+  #rec.on { display:inline-block; } @keyframes pulse { 50% { opacity:.3; } }
+  textarea { width:100%; min-height:90px; background:var(--bg); color:var(--fg); border:1px solid #4a4c50; border-radius:6px; padding:10px;
+    font:17px/1.5 "DejaVu Sans Mono", monospace; resize:vertical; }
+  textarea:focus { outline:none; border-color:var(--accent); }
+  .grid { display:grid; grid-template-columns:1fr 1.3fr; gap:10px; } @media (max-width:880px) { .grid { grid-template-columns:1fr; } }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(130px,1fr)); gap:10px; }
+  .card { background:var(--bg); border-radius:7px; padding:8px 10px; }
+  .card .v { font-size:24px; color:var(--accent); font-variant-numeric:tabular-nums; } .card .l { font-size:11px; color:var(--dim); }
+  .now { display:flex; gap:20px; align-items:center; }
+  .big { text-align:center; min-width:80px; } .big .g { font:46px "DejaVu Sans Mono", monospace; line-height:1.1; } .big .l { font-size:11px; color:var(--dim); }
+  .bars { flex:1; min-width:180px; }
+  .bar { display:grid; grid-template-columns:62px 1fr 46px; gap:6px; align-items:center; font-size:12.5px; margin:3px 0; }
+  .bar .t { height:12px; background:var(--bg); border-radius:3px; overflow:hidden; } .bar .t > div { height:100%; background:var(--accent); }
+  .bar.truth .t > div { background:var(--ok); }
+  #strip { display:flex; flex-wrap:wrap; gap:2px; max-height:150px; overflow:auto; font:15px "DejaVu Sans Mono", monospace; }
+  .c { display:inline-flex; flex-direction:column; align-items:center; min-width:16px; border-radius:3px; padding:0 1px; }
+  .c .p { font-size:13px; } .c.hit .p { color:var(--ok); } .c.miss .p { color:var(--bad); } .c.na .p { color:var(--na); } .c.na .a { color:var(--na); }
+  canvas { display:block; width:100%; height:120px; background:#1d1f22; border-radius:6px; }
+  .legend span { display:inline-flex; align-items:center; gap:5px; margin-right:14px; font-size:12px; color:var(--dim); }
+  .legend i { width:12px; height:12px; border-radius:2px; display:inline-block; }
+  .hint { color:var(--dim); font-size:12px; } .warn { color:var(--accent); } kbd { background:var(--bg); border:1px solid #4a4c50; border-radius:3px; padding:0 4px; font-size:11.5px; }
+  #err { color:var(--bad); display:none; }
+</style>
+</head>
+<body>
+<main>
+  <h1>SneaKey live predictor</h1>
+  <div class="sub">Your microphone and your keystrokes, on this machine. Type in the box: for each key, the browser finds the click in the live audio, runs the same baseline model as the dashboard, and shows the key it predicts from sound alone next to the key you actually pressed. The keyboard is used to time and score each press (actual vs predicted) — the prediction itself uses only the audio clip. Lowercase, 22 keys, trained on your recorded sessions.</div>
+  <div id="err" class="panel"></div>
+
+  <div class="panel controls">
+    <button id="start" class="primary">Start microphone</button>
+    <button id="stop" disabled>Stop</button>
+    <span id="rec"></span>
+    <span id="status">idle</span>
+    <span style="flex:1"></span>
+    <label>search offset <input type="range" id="offset" min="10" max="90" step="1" value="38"><span id="offsetv">38 ms</span></label>
+    <label title="snap to the acoustic onset found near each keypress"><input type="checkbox" id="auto" checked> auto-onset</label>
+    <button id="reset" title="clear the running tally">reset stats</button>
+  </div>
+
+  <div class="panel">
+    <textarea id="box" placeholder="Click Start microphone, then type here (quietly is fine — just type normally)..." spellcheck="false"></textarea>
+  </div>
+
+  <div class="cards" id="cards" style="margin-bottom:10px"></div>
+
+  <div class="grid">
+    <div class="panel">
+      <h3>Last keystroke</h3>
+      <div class="now">
+        <div class="big"><div class="g" id="nowA">–</div><div class="l">you pressed</div></div>
+        <div class="big"><div class="g" id="nowP">–</div><div class="l">predicted from sound</div></div>
+        <div class="bars" id="bars"></div>
+      </div>
+      <div class="hint" id="nowInfo" style="margin-top:8px"></div>
+    </div>
+    <div class="panel">
+      <h3>Recent keystrokes: pressed (top) / predicted (bottom)</h3>
+      <div id="strip"></div>
+      <div class="legend" style="margin-top:8px">
+        <span><i style="background:var(--ok)"></i>correct</span><span><i style="background:var(--bad)"></i>wrong</span><span><i style="background:var(--na)"></i>key the model doesn't know</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Live audio around the last keypress (high-frequency energy)</h3>
+    <canvas id="scope"></canvas>
+    <div class="hint" style="margin-top:6px">White line = keypress time · yellow = the extracted 30&nbsp;ms clip · green tick = detected onset. If predictions look mistimed, turn off auto-onset and adjust the search offset.</div>
+  </div>
+
+  <div class="hint" style="margin-top:4px">
+    <kbd>Start</kbd> asks for mic access. Everything runs locally; nothing is uploaded. Accuracy here will be lower than the recorded dashboard: live onset timing is coarser and the room/mic may differ from the training sessions. This only works on the machine the model was trained on.
+  </div>
+</main>
+
+<script src="sneakey/live_features.js"></script>
+<script>
+"use strict";
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const CONSTRAINTS = { channelCount: { ideal: 1 }, echoCancellation: false, noiseSuppression: false, autoGainControl: false };
+  const S = {
+    model: null, extract: null, predict: null, classSet: null,
+    ctx: null, stream: null, node: null, ring: null, ringFrames: 0, written: 0, lastMsgPerf: 0, lastMsgFrame: 0,
+    sr: 0, running: false, offset: 38, auto: true,
+    pending: [], recent: [], nTotal: 0, nTop1: 0, nTop3: 0, nInset: 0, lastClip: null,
+  };
+  window.__live = S;
+  const glyph = (code, key) => code === "Space" ? "␣" : code === "Backspace" ? "⌫" : code === "Comma" ? "," : code === "Period" ? "." :
+    code && code.startsWith("Key") && code.length === 4 ? code[3].toLowerCase() : code && code.startsWith("Digit") ? code[5] :
+    code === "ShiftLeft" || code === "ShiftRight" ? "⇧" : code === "CapsLock" ? "⇪" : (key && key.length === 1 ? key.toLowerCase() : "·");
+  const pct = (a, b) => b ? (100 * a / b).toFixed(1) + "%" : "–";
+
+  async function loadModel() {
+    try {
+      S.model = await (await fetch("analysis_output/live_model/model.json")).json();
+      S.classSet = new Set(S.model.classes);
+    } catch (e) {
+      $("err").style.display = "block";
+      $("err").innerHTML = `Could not load the model (${e.message}). Run <code>.venv/bin/python analysis/export_model.py</code>, serve the project with <code>python3 -m http.server 8000</code>, and open <code>http://localhost:8000/live_predict.html</code>.`;
+      $("start").disabled = true;
+    }
+  }
+
+  // ---- mic ----------------------------------------------------------------------------------------
+  async function start() {
+    if (S.running) return;
+    setStatus("requesting microphone...");
+    let ctx = new AudioContext(); ctx.resume().catch(() => {});
+    let stream;
+    try { stream = await navigator.mediaDevices.getUserMedia({ audio: CONSTRAINTS }); }
+    catch (e) { try { ctx.close(); } catch (_) {} setStatus("microphone denied: " + (e.name || e.message), true); return; }
+    S.sr = ctx.sampleRate;
+    S.ringFrames = Math.ceil(S.sr * 4);
+    S.ring = new Float32Array(S.ringFrames); S.written = 0;
+    try {
+      await ctx.audioWorklet.addModule("sneakey/live_worklet.js");
+      const node = new AudioWorkletNode(ctx, "sneakey-live", { numberOfInputs: 1, numberOfOutputs: 0, channelCount: 1, channelCountMode: "explicit" });
+      const srcN = ctx.createMediaStreamSource(stream);
+      srcN.connect(node);
+      node.port.onmessage = (e) => onBlock(e.data);
+      S.node = node; S.srcN = srcN;
+    } catch (e) { try { stream.getTracks().forEach((t) => t.stop()); ctx.close(); } catch (_) {} setStatus("audio setup failed: " + e.message, true); return; }
+    S.ctx = ctx; S.stream = stream; S.running = true;
+    S.extract = SneaKeyFeatures.makeExtractor(S.model.feature_config, S.sr, Math.round(0.030 * S.sr));
+    S.predict = SneaKeyFeatures.makeClassifier(S.model);
+    $("start").disabled = true; $("stop").disabled = false; $("rec").classList.add("on"); $("box").focus();
+    const warn = S.sr !== S.model.sr_train ? ` — WARNING: mic is ${S.sr} Hz but the model was trained at ${S.model.sr_train} Hz, predictions will be unreliable` : "";
+    setStatus(`listening @ ${S.sr} Hz${warn}`, false, !warn);
+  }
+
+  function stop() {
+    S.running = false;
+    try { S.node && S.node.disconnect(); S.srcN && S.srcN.disconnect(); } catch (e) {}
+    try { S.stream && S.stream.getTracks().forEach((t) => t.stop()); } catch (e) {}
+    try { S.ctx && S.ctx.close(); } catch (e) {}
+    S.ctx = null; $("start").disabled = false; $("stop").disabled = true; $("rec").classList.remove("on"); setStatus("stopped");
+  }
+
+  function onBlock(m) {
+    const s = m.samples, start = m.frame, R = S.ringFrames;
+    for (let i = 0; i < s.length; i++) S.ring[(start + i) % R] = s[i];
+    S.written = start + s.length;
+    S.lastMsgPerf = performance.now(); S.lastMsgFrame = S.written;
+  }
+  function frameAtPerf(t) { return Math.round(S.lastMsgFrame - (S.lastMsgPerf - t) * S.sr / 1000); }
+  function ringAvailable(a, b) { return a >= S.written - S.ringFrames + 1 && b <= S.written; }
+  function readRing(a, b) { const out = new Float64Array(b - a), R = S.ringFrames; for (let i = a; i < b; i++) out[i - a] = S.ring[((i % R) + R) % R]; return out; }
+
+  // ---- keyboard -----------------------------------------------------------------------------------
+  $("box").addEventListener("keydown", (e) => {
+    if (!S.running) return;
+    if (e.ctrlKey || e.altKey || e.metaKey) return;
+    const isChar = e.key.length === 1, isBksp = e.key === "Backspace";
+    if (!isChar && !isBksp) return;                       // ignore Shift/arrows/etc as events (no reliable single sound)
+    S.pending.push({ perf: performance.now(), code: e.code, key: e.key });
+  });
+
+  function processPending() {
+    const ready = performance.now() - 130;                // onset + 25 ms clip + margin must be buffered
+    while (S.pending.length && S.pending[0].perf <= ready) {
+      const ev = S.pending.shift();
+      if (S.running) classifyEvent(ev);
+    }
+  }
+
+  function classifyEvent(ev) {
+    const sr = S.sr, pre = Math.round(0.005 * sr), clipN = Math.round(0.030 * sr);
+    const kd = frameAtPerf(ev.perf);
+    let onset = kd + Math.round(S.offset / 1000 * sr);
+    let detail = "fixed offset";
+    if (S.auto) {
+      const w0 = kd + Math.round(0.008 * sr), w1 = kd + Math.round(0.075 * sr);
+      if (ringAvailable(w0 - 2, w1 + 2)) { const o = findOnset(w0, w1); if (o != null) { onset = o; detail = "auto-onset"; } }
+    }
+    const a = onset - pre, b = a + clipN;
+    if (!ringAvailable(a, b)) { show(ev, null, "clip not in buffer"); return; }
+    const seg = readRing(a, b);
+    const probs = S.predict(S.extract(seg));
+    S.lastClip = { kd, onset, a, b, w0: kd + Math.round(0.008 * sr), w1: kd + Math.round(0.075 * sr) };
+    show(ev, probs, detail);
+  }
+
+  // onset = leading edge of the strongest high-frequency burst in [w0,w1)
+  function findOnset(w0, w1) {
+    const x = readRing(w0 - 1, w1), n = x.length, env = new Float64Array(n);
+    let acc = 0, K = Math.max(1, Math.round(0.0005 * S.sr));
+    for (let i = 1; i < n; i++) { const d = x[i] - x[i - 1]; env[i] = d * d; }
+    // smooth
+    const sm = new Float64Array(n);
+    for (let i = 0; i < n; i++) { acc += env[i]; if (i >= K) acc -= env[i - K]; sm[i] = acc / Math.min(i + 1, K); }
+    let pk = 1, pv = 0; for (let i = 1; i < n; i++) if (sm[i] > pv) { pv = sm[i]; pk = i; }
+    const floor = median(sm);
+    if (pv < Math.max(4 * floor, 1e-9)) return null;      // nothing clearly above the noise floor
+    const level = floor + 0.3 * (pv - floor);
+    let j = pk; while (j > 0 && sm[j] > level) j--;
+    return w0 - 1 + j;
+  }
+  function median(a) { const s = Float64Array.from(a).sort(); return s[s.length >> 1]; }
+
+  // ---- display ------------------------------------------------------------------------------------
+  function show(ev, probs, detail) {
+    const inSet = S.classSet.has(ev.code);
+    const pred = probs ? probs[0][0] : null;
+    const hit = pred === ev.code, hit3 = probs && probs.slice(0, 3).some((p) => p[0] === ev.code);
+    if (probs && inSet) { S.nInset++; S.nTotal++; if (hit) S.nTop1++; if (hit3) S.nTop3++; }
+    else if (probs) S.nTotal++;
+    S.recent.push({ ev, pred, inSet, hit, probs }); if (S.recent.length > 80) S.recent.shift();
+    renderCards(); renderStrip();
+    $("nowA").textContent = glyph(ev.code, ev.key);
+    $("nowP").textContent = pred ? glyph(pred) : "·";
+    $("nowP").style.color = !probs ? "var(--dim)" : !inSet ? "var(--na)" : hit ? "var(--ok)" : "var(--bad)";
+    $("bars").innerHTML = probs ? probs.slice(0, 5).map(([c, p]) =>
+      `<div class="bar${c === ev.code ? " truth" : ""}"><span>${glyph(c)} <span class="hint">${c.replace("Key", "")}</span></span><div class="t"><div style="width:${(p * 100).toFixed(1)}%"></div></div><span>${(p * 100).toFixed(1)}%</span></div>`).join("") : "";
+    $("nowInfo").innerHTML = `${ev.code}${inSet ? "" : ' <span class="warn">(not one of the 22 known keys — cannot be predicted)</span>'} · ${detail}`;
+  }
+
+  function renderCards() {
+    $("cards").innerHTML = [
+      [pct(S.nTop1, S.nInset), `top-1 on known keys (n=${S.nInset})`],
+      [pct(S.nTop3, S.nInset), "top-3 on known keys"],
+      [String(S.nTotal), "keys classified"],
+      [String(S.model ? S.model.classes.length : 0), "keys the model knows"],
+    ].map(([v, l]) => `<div class="card"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+  }
+
+  function renderStrip() {
+    const el = $("strip");
+    el.replaceChildren(...S.recent.slice(-60).map((r) => {
+      const c = document.createElement("span");
+      c.className = "c " + (!r.probs ? "" : !r.inSet ? "na" : r.hit ? "hit" : "miss");
+      c.innerHTML = `<span class="a"></span><span class="p"></span>`;
+      c.children[0].textContent = glyph(r.ev.code, r.ev.key);
+      c.children[1].textContent = r.pred ? glyph(r.pred) : "·";
+      c.title = `pressed ${r.ev.code}, predicted ${r.pred || "-"}`;
+      return c;
+    }));
+    if (el.lastChild) el.scrollTop = el.scrollHeight;
+  }
+
+  // ---- scope --------------------------------------------------------------------------------------
+  const cv = $("scope");
+  function drawScope() {
+    const dpr = window.devicePixelRatio || 1;
+    if (cv.width !== Math.round(cv.clientWidth * dpr)) { cv.width = Math.round(cv.clientWidth * dpr); cv.height = Math.round(cv.clientHeight * dpr); }
+    const g = cv.getContext("2d"), W = cv.width, H = cv.height;
+    g.fillStyle = "#1d1f22"; g.fillRect(0, 0, W, H);
+    const lc = S.lastClip;
+    if (!S.running || !lc || !ringAvailable(lc.kd - Math.round(0.02 * S.sr), lc.kd + Math.round(0.1 * S.sr))) { requestAnimationFrame(drawScope); return; }
+    const t0 = lc.kd - Math.round(0.02 * S.sr), t1 = lc.kd + Math.round(0.1 * S.sr);
+    if (!ringAvailable(t0, t1)) { requestAnimationFrame(drawScope); return; }
+    const x = readRing(t0, t1), n = x.length, X = (f) => (f - t0) / (t1 - t0) * W;
+    // band energy envelope
+    const env = new Float64Array(n); let acc = 0, K = Math.max(1, Math.round(0.0005 * S.sr));
+    for (let i = 1; i < n; i++) { const d = x[i] - x[i - 1]; const v = d * d; acc += v; if (i >= K) acc -= (x[i - K] - x[i - K - 1]) ** 2; env[i] = acc; }
+    let mx = 1e-9; for (let i = 0; i < n; i++) if (env[i] > mx) mx = env[i];
+    g.fillStyle = "rgba(226,183,20,.14)"; g.fillRect(X(lc.a), 0, X(lc.b) - X(lc.a), H);   // extracted clip
+    g.strokeStyle = "#5b7fb5"; g.lineWidth = 1 * dpr; g.beginPath();
+    for (let i = 0; i < n; i++) { const yy = H - env[i] / mx * H * 0.92; i ? g.lineTo(X(t0 + i), yy) : g.moveTo(X(t0 + i), yy); }
+    g.stroke();
+    g.strokeStyle = "#fff"; g.lineWidth = 2 * dpr; g.beginPath(); g.moveTo(X(lc.kd), 0); g.lineTo(X(lc.kd), H); g.stroke();  // keypress
+    g.strokeStyle = "#5fbf6a"; g.lineWidth = 2 * dpr; g.beginPath(); g.moveTo(X(lc.onset), 0); g.lineTo(X(lc.onset), H); g.stroke();  // onset
+    requestAnimationFrame(drawScope);
+  }
+
+  // ---- loop / ui ----------------------------------------------------------------------------------
+  function setStatus(t, bad, ok) { const s = $("status"); s.textContent = t; s.className = bad ? "bad" : ok ? "ok" : ""; }
+  setInterval(processPending, 30);
+  $("start").onclick = start; $("stop").onclick = stop;
+  $("offset").oninput = (e) => { S.offset = +e.target.value; $("offsetv").textContent = S.offset + " ms"; };
+  $("auto").onchange = (e) => { S.auto = e.target.checked; $("offset").disabled = e.target.checked; };
+  $("offset").disabled = true;
+  $("reset").onclick = () => { S.nTotal = S.nTop1 = S.nTop3 = S.nInset = 0; S.recent = []; renderCards(); renderStrip(); };
+  window.addEventListener("beforeunload", stop);
+  loadModel(); renderCards(); requestAnimationFrame(drawScope);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SneaKey - keystroke recorder</title>
+<style>
+  :root {
+    --bg: #2c2e31; --panel: #323437; --fg: #d1d0c5; --dim: #646669; --accent: #e2b714;
+    --bad: #ca4754; --bad-bg: rgba(202, 71, 84, .25); --good: #d1d0c5; --ok: #7fb069;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, sans-serif; }
+  main { max-width: 1000px; margin: 0 auto; padding: 24px 20px 60px; }
+  h1 { font-size: 20px; margin: 0 0 4px; color: var(--accent); letter-spacing: .5px; }
+  .sub { color: var(--dim); margin: 0 0 20px; font-size: 13px; }
+  .stats { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 14px; }
+  .stat .v { font-size: 28px; color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .stat .l { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--dim); }
+  .bar { height: 4px; background: var(--panel); border-radius: 2px; margin-bottom: 14px; overflow: hidden; }
+  .bar > div { height: 100%; width: 0; background: var(--accent); transition: width .08s; }
+  #typing { position: relative; background: var(--panel); border-radius: 8px; padding: 22px 24px; outline: none;
+    font: 24px/1.75 "DejaVu Sans Mono", "Fira Mono", Menlo, Consolas, monospace; min-height: 200px;
+    user-select: none; cursor: text; border: 1px solid transparent; }
+  #typing:focus { border-color: #444; }
+  #typing.idle .text, #typing.blurred .text { opacity: .35; filter: blur(1px); }
+  #overlay { position: absolute; inset: 0; display: none; align-items: center; justify-content: center;
+    font: 15px system-ui, sans-serif; color: var(--fg); text-align: center; padding: 20px; pointer-events: none; }
+  #typing.idle #overlay, #typing.blurred #overlay { display: flex; }
+  .word { display: inline-block; white-space: pre; }   /* pre keeps each word's trailing space visible */
+  .c { color: var(--dim); }
+  .c.ok { color: var(--good); }
+  .c.bad { color: var(--bad); background: var(--bad-bg); }
+  .c.cur { box-shadow: inset 2px 0 0 var(--accent); animation: blink 1s steps(1) infinite; }
+  #typing.idle .c.cur, #typing.blurred .c.cur { animation: none; box-shadow: none; }
+  @keyframes blink { 50% { box-shadow: inset 2px 0 0 transparent; } }
+  .controls { display: flex; gap: 10px; margin: 16px 0; flex-wrap: wrap; align-items: center; }
+  button { background: var(--panel); color: var(--fg); border: 1px solid #444; border-radius: 6px; padding: 8px 16px;
+    font: inherit; cursor: pointer; }
+  button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.primary { background: var(--accent); color: #222; border-color: var(--accent); font-weight: 600; }
+  #status { color: var(--dim); font-size: 13px; }
+  #status.err { color: var(--bad); }
+  #rec { display: none; width: 10px; height: 10px; border-radius: 50%; background: var(--bad); animation: pulse 1.2s infinite; }
+  #rec.on { display: inline-block; }
+  @keyframes pulse { 50% { opacity: .3; } }
+  section { background: var(--panel); border-radius: 8px; padding: 16px 20px; margin-top: 18px; }
+  section h2 { font-size: 14px; margin: 0 0 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--dim); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)); gap: 6px; }
+  .key { background: var(--bg); border-radius: 4px; padding: 4px 6px; text-align: center; position: relative; overflow: hidden; }
+  .key .ch { font: 16px "DejaVu Sans Mono", monospace; }
+  .key .n { font-size: 11px; color: var(--dim); font-variant-numeric: tabular-nums; }
+  .key .fill { position: absolute; left: 0; bottom: 0; height: 3px; background: var(--bad); }
+  .key.enough .fill { background: var(--ok); }
+  .key.enough .n { color: var(--ok); }
+  .legend { font-size: 12px; color: var(--dim); margin-top: 8px; }
+  #summary { display: none; }
+  #summary.on { display: block; }
+  .kv { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px 18px; margin-bottom: 14px; }
+  .kv div .l { font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; }
+  .kv div .v { font-size: 20px; font-variant-numeric: tabular-nums; }
+  .downloads { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+  .downloads a { background: var(--bg); border: 1px solid #444; border-radius: 6px; padding: 8px 14px; color: var(--accent); text-decoration: none; }
+  .downloads a:hover { border-color: var(--accent); }
+  .freq { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 3px 16px; font-family: "DejaVu Sans Mono", monospace; font-size: 13px; }
+  .freq div { display: flex; align-items: center; gap: 6px; }
+  .freq .b { height: 8px; background: var(--accent); border-radius: 2px; }
+  .note { font-size: 12px; color: var(--dim); margin-top: 8px; }
+  .warn { color: var(--accent); }
+  code { background: var(--bg); padding: 1px 5px; border-radius: 3px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>SneaKey recorder</h1>
+  <p class="sub">Type the paragraph. Keyboard audio and every key event are recorded locally and exported at the end. Nothing leaves this machine.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="v" id="wpm">0</div><div class="l">wpm</div></div>
+    <div class="stat"><div class="v" id="acc">100%</div><div class="l">accuracy</div></div>
+    <div class="stat"><div class="v" id="time">0.0s</div><div class="l">elapsed</div></div>
+    <div class="stat"><div class="v" id="prog">0%</div><div class="l">progress</div></div>
+  </div>
+  <div class="bar"><div id="progbar"></div></div>
+
+  <div id="typing" class="idle" tabindex="0" role="textbox" aria-label="Typing area" spellcheck="false">
+    <div class="text" id="text"></div>
+    <div id="overlay"></div>
+  </div>
+
+  <div class="controls">
+    <button id="start" class="primary">Start session</button>
+    <button id="finish" disabled>Finish now</button>
+    <button id="discard" disabled>Discard</button>
+    <button id="newpara">New paragraph</button>
+    <span id="rec" title="Recording"></span>
+    <span id="status"></span>
+  </div>
+
+  <section id="summary">
+    <h2>Session summary</h2>
+    <div class="kv" id="kv"></div>
+    <div class="downloads" id="downloads"></div>
+    <div class="note" id="syncnote"></div>
+    <h2 style="margin-top:18px">Characters in final typed text</h2>
+    <div class="freq" id="freq"></div>
+  </section>
+
+  <section>
+    <h2>Training coverage (all sessions, this browser)</h2>
+    <div class="grid" id="coverage"></div>
+    <div class="legend">Count of character keystrokes per key. Green = at least <span id="target"></span> samples. New paragraphs favour under-sampled characters.
+      <button id="resetcov" style="padding:2px 8px;font-size:12px;margin-left:8px">reset</button></div>
+  </section>
+</main>
+
+<script src="sneakey/passages.js"></script>
+<script src="sneakey/core.js"></script>
+<script>
+"use strict";
+(() => {
+  const C = SneaKeyCore;
+  const SENTENCES = SNEAKEY_SENTENCES;
+  const TARGET_PER_CHAR = 30;
+  const TAIL_MS = 400;              // keep logging after the last character so its keyup is captured
+  const SYNC_INTERVAL_MS = 250;
+  const LS_KEY = "sneakey.charCounts.v1";
+  const CAPTURE_CONSTRAINTS = {
+    channelCount: { ideal: 1 }, echoCancellation: false, noiseSuppression: false, autoGainControl: false
+  };
+  const $ = (id) => document.getElementById(id);
+  const el = { typing: $("typing"), text: $("text"), overlay: $("overlay"), status: $("status"), rec: $("rec"),
+    start: $("start"), finish: $("finish"), discard: $("discard"), newpara: $("newpara") };
+
+  // ------------------------------------------------------------ cumulative character coverage
+  function loadCounts() { try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch (e) { return {}; } }
+  function saveCounts(c) { try { localStorage.setItem(LS_KEY, JSON.stringify(c)); } catch (e) { /* storage unavailable */ } }
+  let cumulative = loadCounts();
+  const COVERAGE_CHARS = [...new Set(SENTENCES.join("") + "abcdefghijklmnopqrstuvwxyz ")].sort();
+
+  function renderCoverage() {
+    $("target").textContent = TARGET_PER_CHAR;
+    $("coverage").replaceChildren(...COVERAGE_CHARS.map((ch) => {
+      const n = cumulative[ch] || 0, d = document.createElement("div");
+      d.className = "key" + (n >= TARGET_PER_CHAR ? " enough" : "");
+      d.innerHTML = '<div class="ch"></div><div class="n"></div><div class="fill"></div>';
+      d.querySelector(".ch").textContent = ch === " " ? "␣" : ch;
+      d.querySelector(".n").textContent = n;
+      d.querySelector(".fill").style.width = Math.min(100, (n / TARGET_PER_CHAR) * 100) + "%";
+      d.title = JSON.stringify(ch) + ": " + n;
+      return d;
+    }));
+  }
+
+  // ------------------------------------------------------------ session state
+  let state = "idle";   // idle | starting | recording | finishing | done
+  let target = "", model = null, spans = [];
+  let events = [];      // raw keyboard events (nothing is filtered)
+  let focusLog = [];
+  let rec = null;       // audio/session resources
+  let firstKeyPerf = null, lastKeyPerf = null, tickTimer = null;
+
+  function setStatus(msg, err) { el.status.textContent = msg || ""; el.status.className = err ? "err" : ""; }
+  function setState(s) {
+    state = s;
+    el.typing.classList.toggle("idle", s === "idle" || s === "starting");
+    el.start.disabled = s !== "idle";
+    el.finish.disabled = s !== "recording";
+    el.discard.disabled = !(s === "recording" || s === "starting");
+    el.newpara.disabled = !(s === "idle" || s === "done");
+    el.rec.classList.toggle("on", s === "recording");
+    el.overlay.textContent = s === "idle" ? 'Press "Start session" to begin recording'
+      : s === "starting" ? "Waiting for microphone..."
+      : "Click here to continue typing";
+  }
+
+  function newParagraph() {
+    target = C.generateParagraph(SENTENCES, cumulative, Math.random, { targetPerChar: TARGET_PER_CHAR });
+    model = new C.TypingModel(target);
+    events = []; focusLog = []; firstKeyPerf = lastKeyPerf = null;
+    buildText();
+    renderCursor();
+    updateStats();
+    $("summary").classList.remove("on");
+    setStatus(C.countWords(target) + " words, " + target.length + " characters");
+    setState("idle");
+  }
+
+  function buildText() {
+    el.text.replaceChildren();
+    spans = [];
+    let word = null;
+    [...target].forEach((ch) => {
+      if (!word) { word = document.createElement("span"); word.className = "word"; el.text.appendChild(word); }
+      const s = document.createElement("span");
+      s.className = "c"; s.textContent = ch;
+      word.appendChild(s); spans.push(s);
+      if (ch === " ") word = null;
+    });
+  }
+
+  function renderCursor() {
+    const typed = model.typed;
+    spans.forEach((s, i) => {
+      s.className = "c" + (i < typed.length ? (typed[i] === target[i] ? " ok" : " bad") : "") + (i === typed.length ? " cur" : "");
+    });
+  }
+
+  function elapsedMs() {
+    if (firstKeyPerf === null) return 0;
+    return ((model.done || state === "finishing" || state === "done") ? lastKeyPerf : performance.now()) - firstKeyPerf;
+  }
+
+  function updateStats() {
+    const ms = elapsedMs();
+    const s = C.computeStats(model, ms);
+    $("wpm").textContent = ms > 1500 ? Math.round(s.wpm) : "0";
+    $("acc").textContent = Math.round(s.accuracy_keystrokes_pct) + "%";
+    $("time").textContent = (ms / 1000).toFixed(1) + "s";
+    const pct = Math.round((model.typed.length / target.length) * 100);
+    $("prog").textContent = pct + "%";
+    $("progbar").style.width = pct + "%";
+  }
+
+  // ------------------------------------------------------------ audio capture + clock sync
+  async function startRecording() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error("getUserMedia unavailable (use http://localhost:8000)");
+    // Create + resume the AudioContext synchronously, while the click's user activation is still valid;
+    // a slow microphone permission prompt could otherwise outlive it and leave the context suspended.
+    let ctx = new AudioContext();
+    ctx.resume().catch(() => {});
+    let stream;
+    try { stream = await navigator.mediaDevices.getUserMedia({ audio: CAPTURE_CONSTRAINTS }); }
+    catch (e) { try { ctx.close(); } catch (_) {} throw e; }
+    const track = stream.getAudioTracks()[0];
+    const settings = track.getSettings ? track.getSettings() : {};
+    const trackRate = typeof settings.sampleRate === "number" ? settings.sampleRate : null;
+    if (trackRate && trackRate !== ctx.sampleRate) {   // match the mic's native rate where the browser tells us
+      try { const c2 = new AudioContext({ sampleRate: trackRate }); c2.resume().catch(() => {}); ctx.close(); ctx = c2; } catch (e) { /* keep default */ }
+    }
+    const r = {
+      stream, track, ctx, settings, trackRate,
+      chunks: [], totalFrames: 0, ctxFrame0: null,
+      outPairs: [], curPairs: [], arrivalPairs: [],
+      stopped: null, missingFrames: 0
+    };
+    try {
+      await Promise.race([ctx.resume(), new Promise((_, rej) => setTimeout(() => rej(new Error("AudioContext did not start (state: " + ctx.state + "); the browser blocked audio - click Start again")), 4000))]);
+      if (ctx.state !== "running") throw new Error("AudioContext is " + ctx.state);
+      await ctx.audioWorklet.addModule("sneakey/worklet.js");
+      r.node = new AudioWorkletNode(ctx, "sneakey-recorder", {
+        numberOfInputs: 1, numberOfOutputs: 1, outputChannelCount: [1],
+        channelCount: 1, channelCountMode: "explicit", channelInterpretation: "speakers"
+      });
+      r.src = ctx.createMediaStreamSource(stream);
+      r.mute = ctx.createGain(); r.mute.gain.value = 0;   // keeps the graph pulled; nothing is played back
+      r.src.connect(r.node); r.node.connect(r.mute); r.mute.connect(ctx.destination);
+      r.node.port.onmessage = (e) => {
+        const m = e.data;
+        if (m.type === "audio") {
+          const now = performance.now();
+          if (r.ctxFrame0 === null) r.ctxFrame0 = m.ctxFrame - m.startFrame;
+          r.chunks.push(m.samples);
+          r.totalFrames = m.startFrame + m.samples.length;
+          r.arrivalPairs.push({ perf_ms: now, ctx_frame_end: m.ctxFrame + m.samples.length });
+        } else if (m.type === "stopped") {
+          r.stopped(m);
+        }
+      };
+      r.firstSyncPerf = performance.now();
+      sampleClocks(r);
+      r.syncTimer = setInterval(() => sampleClocks(r), SYNC_INTERVAL_MS);
+    } catch (e) { teardown(r); throw e; }
+    r.startPerf = performance.now();
+    r.startWallMs = performance.timeOrigin + r.startPerf;
+    return r;
+  }
+
+  // Pairs (performance.now(), AudioContext clock) used later to map event times onto sample indices.
+  function sampleClocks(r) {
+    const ctx = r.ctx;
+    const p0 = performance.now(), ct = ctx.currentTime, p1 = performance.now();
+    r.curPairs.push({ perf_ms: (p0 + p1) / 2, ctx_time_s: ct });
+    if (ctx.getOutputTimestamp) {
+      const ts = ctx.getOutputTimestamp();
+      if (ts && ts.performanceTime > 0 && ts.contextTime > 0) r.outPairs.push({ perf_ms: ts.performanceTime, ctx_time_s: ts.contextTime });
+    }
+  }
+
+  function teardown(r) {
+    try { clearInterval(r.syncTimer); } catch (e) {}
+    try { r.stream.getTracks().forEach((t) => t.stop()); } catch (e) {}
+    try { r.src && r.src.disconnect(); r.node && r.node.disconnect(); r.mute && r.mute.disconnect(); } catch (e) {}
+    try { r.ctx.close(); } catch (e) {}
+  }
+
+  async function stopRecording(r) {
+    sampleClocks(r);
+    const done = new Promise((res) => { r.stopped = res; });
+    r.node.port.postMessage({ type: "stop" });
+    const m = await Promise.race([done, new Promise((res) => setTimeout(() => res(null), 3000))]);
+    if (m) { r.missingFrames = m.missingFrames; r.workletTotalFrames = m.totalFrames; }
+    r.baseLatency = r.ctx.baseLatency; r.outputLatency = r.ctx.outputLatency;
+    r.sampleRate = r.ctx.sampleRate;
+    r.stopPerf = performance.now();
+    teardown(r);
+    return m !== null;
+  }
+
+  // ------------------------------------------------------------ keyboard capture
+  function onKey(e, type) {
+    const t = performance.now();                       // first thing: sample the clock
+    if (state !== "recording" && state !== "finishing") return;
+    const typingActive = state === "recording";
+    let res = { action: "ignored", expected: "", typed: "", correct: null, before: model.typed.length, after: model.typed.length };
+    if (type === "keydown") {
+      if (typingActive) {
+        res = model.keydown(e);
+        if (res.action === "char" && firstKeyPerf === null) firstKeyPerf = t;
+        if (res.action === "char" || res.action === "backspace") lastKeyPerf = t;
+        if (!e.ctrlKey && !e.metaKey && !e.altKey && (e.key.length === 1 || e.key === "Backspace")) e.preventDefault();
+      } else res.action = "ignored_finishing";
+    } else {
+      res.action = "";
+    }
+    events.push({
+      event_index: events.length, event_type: type, key: e.key, code: e.code, location: e.location,
+      time_ms: t, event_time_ms: e.timeStamp, repeat: e.repeat, shift: e.shiftKey, ctrl: e.ctrlKey, alt: e.altKey, meta: e.metaKey,
+      action: res.action, target_char: type === "keydown" ? res.expected : "", typed_char: res.typed, correct: res.correct,
+      cursor_before: res.before, cursor_after: model.typed.length
+    });
+    if (type === "keydown" && typingActive) {
+      renderCursor(); updateStats();
+      if (model.done) finishSession(false);
+    }
+  }
+  el.typing.addEventListener("keydown", (e) => onKey(e, "keydown"));
+  el.typing.addEventListener("keyup", (e) => onKey(e, "keyup"));
+  el.typing.addEventListener("blur", () => {
+    if (state === "recording") { focusLog.push({ type: "blur", time_ms: performance.now() }); el.typing.classList.add("blurred"); }
+  });
+  el.typing.addEventListener("focus", () => {
+    if (state === "recording") focusLog.push({ type: "focus", time_ms: performance.now() });
+    el.typing.classList.remove("blurred");
+  });
+  el.typing.addEventListener("mousedown", () => setTimeout(() => el.typing.focus(), 0));
+
+  // ------------------------------------------------------------ session lifecycle
+  async function startSession() {
+    if (state !== "idle") return;
+    setState("starting"); setStatus("Requesting microphone...");
+    try { rec = await startRecording(); }
+    catch (err) {
+      rec = null; setState("idle");
+      setStatus("Could not start recording: " + (err && err.name ? err.name + " - " : "") + (err && err.message || err), true);
+      return;
+    }
+    rec.sessionStartedIso = new Date().toISOString();
+    setState("recording");
+    setStatus("Recording - start typing");
+    el.typing.focus();
+    tickTimer = setInterval(updateStats, 100);
+  }
+
+  async function finishSession(discard) {
+    if (state !== "recording" && !(discard && state === "starting")) return;
+    const r = rec;
+    clearInterval(tickTimer);
+    if (discard) {
+      setState("idle");
+      if (r) teardown(r);
+      rec = null; newParagraph(); setStatus("Session discarded");
+      return;
+    }
+    setState("finishing"); setStatus("Finishing...");
+    if (lastKeyPerf === null) lastKeyPerf = performance.now();
+    await new Promise((res) => setTimeout(res, TAIL_MS));   // let trailing keyups land in the log
+    const finishedIso = new Date().toISOString();
+    const ok = await stopRecording(r);
+    updateStats();
+    try { exportSession(r, finishedIso, ok); }
+    catch (err) { setStatus("Export failed: " + err.message, true); console.error(err); }
+    rec = null;
+    setState("done");
+  }
+
+  function mapSamples(pairs, r, field, rate) {
+    return pairs.map((p) => ({ perf_ms: p.perf_ms, sample: (field === "frame" ? p.ctx_frame_end : p[field] * rate) - r.ctxFrame0 }));
+  }
+
+  const pad = (n, w = 2) => String(n).padStart(w, "0");
+  function localStamp(d) {
+    return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + "_" + pad(d.getHours()) + pad(d.getMinutes()) + pad(d.getSeconds());
+  }
+
+  function exportSession(r, finishedIso, cleanStop) {
+    const sr = r.sampleRate;
+    const wav = C.encodeWav(r.chunks, sr);
+    const frames = r.totalFrames;
+    let peak = 0;
+    for (const c of r.chunks) for (let i = 0; i < c.length; i++) { const a = Math.abs(c[i]); if (a > peak) peak = a; }
+
+    // Candidate mappings performance.now() -> sample index. Primary = getOutputTimestamp pairs.
+    const sets = {
+      output_timestamp: mapSamples(r.outPairs, r, "ctx_time_s", sr),
+      current_time: mapSamples(r.curPairs, r, "ctx_time_s", sr),
+      worklet_arrival: mapSamples(r.arrivalPairs, r, "frame", sr)
+    };
+    const models = {};
+    for (const k of Object.keys(sets)) models[k] = r.ctxFrame0 === null ? null : C.buildSyncModel(sets[k], sr);
+    const primaryName = models.output_timestamp ? "output_timestamp" : models.current_time ? "current_time" : "worklet_arrival";
+    const M = models[primaryName];
+    if (!M) throw new Error("no audio frames were captured");
+
+    const audioStartPerf = M.perfAt(0);
+    const outEvents = events.map((e) => Object.assign({}, e, {
+      time_ms: +e.time_ms.toFixed(3),
+      event_time_ms: +e.event_time_ms.toFixed(3),
+      t_rel_ms: +(e.time_ms - audioStartPerf).toFixed(3),
+      sample_index_est: Math.round(M.sampleAt(e.time_ms))
+    }));
+    const csv = C.buildCsv(outEvents);
+
+    const keydowns = events.filter((e) => e.event_type === "keydown");
+    const stats = C.computeStats(model, elapsedMs());
+    const folder = "session_" + localStamp(new Date(r.sessionStartedIso));
+    const typedText = model.typedText;
+    const targetFreq = C.charFrequency(target), typedFreq = C.charFrequency(typedText);
+    const codeFreq = {};
+    keydowns.forEach((e) => { codeFreq[e.code] = (codeFreq[e.code] || 0) + 1; });
+    const nonEcho = (v) => (v === false ? "disabled" : v === true ? "ENABLED (not honoured)" : "unknown");
+
+    const metadata = {
+      schema_version: 1,
+      session_id: (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2)),
+      folder,
+      files: { audio: "audio.wav", keystrokes: "keystrokes.csv", metadata: "metadata.json" },
+      target_text: target,
+      typed_text: typedText,
+      target_words: C.countWords(target),
+      target_chars: target.length,
+      session: {
+        started_iso: r.sessionStartedIso,
+        first_keystroke_iso: firstKeyPerf === null ? null : new Date(performance.timeOrigin + firstKeyPerf).toISOString(),
+        last_edit_iso: new Date(performance.timeOrigin + lastKeyPerf).toISOString(),
+        finished_iso: finishedIso,
+        timezone_offset_min: new Date().getTimezoneOffset(),
+        completed_paragraph: model.done,
+        audio_start_perf_ms_estimate: +audioStartPerf.toFixed(3),
+        audio_start_iso_estimate: new Date(performance.timeOrigin + audioStartPerf).toISOString(),
+        performance_time_origin_ms: performance.timeOrigin
+      },
+      audio: {
+        file: "audio.wav", format: "PCM", bit_depth: 16, channels: 1,
+        sample_rate_hz: sr, frames, duration_s: +(frames / sr).toFixed(4), wav_bytes: wav.length,
+        peak_amplitude_float: +peak.toFixed(6), silent: peak === 0,
+        missing_input_frames_zero_filled: r.missingFrames,
+        clean_stop: cleanStop,
+        processing: "none applied by this app (no gain, filtering, noise reduction or normalisation); float32 -> int16 conversion only"
+      },
+      capture: {
+        requested_constraints: CAPTURE_CONSTRAINTS,
+        applied_track_settings: r.settings,
+        echo_cancellation: nonEcho(r.settings.echoCancellation),
+        noise_suppression: nonEcho(r.settings.noiseSuppression),
+        auto_gain_control: nonEcho(r.settings.autoGainControl),
+        track_label: r.track.label,
+        track_reported_sample_rate_hz: r.trackRate,
+        audio_context_sample_rate_hz: sr,
+        sample_rate_note: r.trackRate === null
+          ? "Browser did not report the microphone's native rate; the AudioContext rate is used and the browser may have resampled."
+          : (r.trackRate === sr ? "AudioContext created at the microphone's reported rate." : "AudioContext rate differs from the microphone's reported rate; audio was resampled by the browser."),
+        base_latency_s: r.baseLatency, output_latency_s: r.outputLatency,
+        supported_constraints: navigator.mediaDevices.getSupportedConstraints ? navigator.mediaDevices.getSupportedConstraints() : null,
+        user_agent: navigator.userAgent, platform: navigator.platform, language: navigator.language
+      },
+      sync: {
+        primary_mapping: primaryName,
+        method: "performance.now() <-> AudioContext clock pairs sampled every " + SYNC_INTERVAL_MS +
+          " ms, converted to sample indices via the AudioWorklet's frame counter (ctx_frame_of_sample_0), then a least-squares line sample = slope*performance_ms + intercept.",
+        ctx_frame_of_sample_0: r.ctxFrame0,
+        models: Object.fromEntries(Object.entries(models).map(([k, m]) => [k, C.modelToJson(m)])),
+        model_offset_vs_primary_ms: Object.fromEntries(Object.entries(models).filter(([, m]) => m).map(([k, m]) =>
+          [k, +((m.perfAt(0) - audioStartPerf)).toFixed(3)])),
+        raw_pairs: {
+          output_timestamp: r.outPairs, current_time: r.curPairs, worklet_arrival: r.arrivalPairs.map((p) => ({ perf_ms: p.perf_ms, ctx_frame_end: p.ctx_frame_end }))
+        },
+        csv_columns: {
+          time_ms: "performance.now() read at the start of the keydown/keyup handler",
+          event_time_ms: "event.timeStamp (browser's own event time, same clock as performance.now())",
+          t_rel_ms: "time_ms minus the estimated performance.now() instant of audio sample 0",
+          sample_index_est: "estimated audio sample index (round(slope*time_ms+intercept)); NOT sample-accurate"
+        },
+        limitations: [
+          "Synchronisation is estimated, not sample-accurate. Treat sample_index_est as accurate to roughly tens of milliseconds at best.",
+          "Microphone, driver, OS and browser input buffering delay the audio relative to the keyboard event. The browser does not expose this input latency, so it is NOT corrected for: sounds appear in the WAV later than sample_index_est suggests by an unknown, roughly constant offset.",
+          "getOutputTimestamp() describes the output clock and may differ from the input clock by the output latency; the current_time and worklet_arrival fits are provided for comparison (see model_offset_vs_primary_ms).",
+          "Keyboard events are timestamped when the browser dispatches them, which can lag the physical press by a few milliseconds.",
+          "Recommended: estimate the residual offset in analysis, e.g. by cross-correlating keydown times with detected click onsets, and apply it to the raw time_ms values."
+        ]
+      },
+      events: {
+        total: events.length,
+        keydown: keydowns.length,
+        keyup: events.length - keydowns.length,
+        repeated_keydown: keydowns.filter((e) => e.repeat).length,
+        key_code_frequency_keydown: codeFreq
+      },
+      stats,
+      char_frequency: {
+        target_text: targetFreq,
+        final_typed_text: typedFreq,
+        character_keystrokes_including_corrected: model.keyCharFreq
+      },
+      focus_log: focusLog
+    };
+    const metaBytes = new TextEncoder().encode(JSON.stringify(metadata, null, 2));
+    const csvBytes = new TextEncoder().encode(csv);
+    const zip = C.buildZip([
+      { name: folder + "/audio.wav", data: wav },
+      { name: folder + "/keystrokes.csv", data: csvBytes },
+      { name: folder + "/metadata.json", data: metaBytes }
+    ]);
+
+    // cumulative coverage (after a successful export only)
+    for (const [ch, n] of Object.entries(model.keyCharFreq)) cumulative[ch] = (cumulative[ch] || 0) + n;
+    saveCounts(cumulative); renderCoverage();
+
+    showSummary(folder, metadata, { wav, csvBytes, metaBytes, zip }, peak);
+    window.sneakeyLastSession = { folder, wav, csv, metadata, zip, events: outEvents };
+  }
+
+  function showSummary(folder, md, f, peak) {
+    const s = md.stats, kv = $("kv");
+    const items = [
+      ["Characters typed (final text)", s.final_total_chars],
+      ["Correct / incorrect (final)", s.final_correct_chars + " / " + s.final_incorrect_chars],
+      ["Character keystrokes", s.char_keystrokes + " (" + s.incorrect_keystrokes + " wrong, " + s.backspace_keystrokes + " backspaces)"],
+      ["Keydown events", md.events.keydown + " (" + md.events.repeated_keydown + " repeats)"],
+      ["Keyup events", md.events.keyup],
+      ["Recording duration", md.audio.duration_s.toFixed(2) + " s"],
+      ["WPM", s.wpm], ["Accuracy", s.accuracy_keystrokes_pct + "% keystrokes / " + s.accuracy_final_text_pct + "% final"],
+      ["Audio", md.audio.sample_rate_hz + " Hz, mono, 16-bit"]
+    ];
+    kv.replaceChildren(...items.map(([l, v]) => {
+      const d = document.createElement("div");
+      d.innerHTML = '<div class="l"></div><div class="v"></div>';
+      d.children[0].textContent = l; d.children[1].textContent = v; return d;
+    }));
+
+    const dl = $("downloads");
+    dl.replaceChildren();
+    const mk = (name, bytes, type, label) => {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([bytes], { type }));
+      a.download = folder + "_" + name;
+      a.textContent = label || name;
+      dl.appendChild(a);
+    };
+    mk("audio.wav", f.wav, "audio/wav", "audio.wav");
+    mk("keystrokes.csv", f.csvBytes, "text/csv", "keystrokes.csv");
+    mk("metadata.json", f.metaBytes, "application/json", "metadata.json");
+    const z = document.createElement("a");
+    z.href = URL.createObjectURL(new Blob([f.zip], { type: "application/zip" }));
+    z.download = folder + ".zip"; z.textContent = folder + ".zip (all three, in " + folder + "/)";
+    dl.appendChild(z);
+
+    const pm = md.sync.models[md.sync.primary_mapping];
+    $("syncnote").innerHTML = "";
+    const lines = [
+      "Downloads are prefixed with <code>" + folder + "_</code> so sessions never overwrite each other; the zip unpacks to <code>" + folder + "/</code>.",
+      "Sync: " + md.sync.primary_mapping + " fit over " + pm.n + " points, residual RMS " + (pm.residual_rms_samples / md.audio.sample_rate_hz * 1000).toFixed(2) +
+        " ms. Estimated, not sample-accurate; input latency is not compensated (see metadata.json sync.limitations).",
+      md.capture.echo_cancellation !== "disabled" || md.capture.noise_suppression !== "disabled" || md.capture.auto_gain_control !== "disabled"
+        ? '<span class="warn">Warning: the browser did not confirm that all audio processing is disabled (echo: ' + md.capture.echo_cancellation +
+          ", noise: " + md.capture.noise_suppression + ", AGC: " + md.capture.auto_gain_control + ").</span>" : "",
+      peak === 0 ? '<span class="warn">Warning: the recording is digital silence - check that the microphone is not muted.</span>' : ""
+    ];
+    $("syncnote").innerHTML = lines.filter(Boolean).map((l) => "<div>" + l + "</div>").join("");
+
+    const freq = md.char_frequency.final_typed_text;
+    const entries = Object.entries(freq).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    const max = entries.length ? entries[0][1] : 1;
+    $("freq").replaceChildren(...entries.map(([ch, n]) => {
+      const d = document.createElement("div");
+      d.innerHTML = '<span style="width:2ch;display:inline-block"></span><span class="b"></span><span></span>';
+      d.children[0].textContent = ch === " " ? "␣" : ch;
+      d.children[1].style.width = Math.max(2, (n / max) * 70) + "px";
+      d.children[2].textContent = n;
+      return d;
+    }));
+    $("summary").classList.add("on");
+    setStatus("Session saved to downloads below (" + folder + ")");
+    $("summary").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  // ------------------------------------------------------------ wiring
+  el.start.addEventListener("click", startSession);
+  el.finish.addEventListener("click", () => finishSession(false));
+  el.discard.addEventListener("click", () => finishSession(true));
+  el.newpara.addEventListener("click", newParagraph);
+  $("resetcov").addEventListener("click", () => { if (confirm("Reset the cumulative character counts stored in this browser?")) { cumulative = {}; saveCounts(cumulative); renderCoverage(); } });
+  renderCoverage();
+  newParagraph();
+})();
+</script>
+</body>
+</html>
