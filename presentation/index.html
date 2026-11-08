@@ -94,7 +94,7 @@ p,h1,h2,h3,table{margin:0}
 .svmfig figcaption{font-size:22px;line-height:1.4;color:var(--body-dark2)}
 
 table.results{width:1250px;border-collapse:collapse;font-size:32px}
-table.results th,table.results td{padding:28px 28px;text-align:left}
+table.results th,table.results td{padding:22px 28px;text-align:left}
 table.results th{background:var(--ink);color:var(--keycap);font-weight:600}
 table.results th:nth-child(2),table.results td:nth-child(2){text-align:center}
 table.results tr:nth-child(odd) td{background:var(--paper)} table.results tr:nth-child(even) td{background:#E4DCCB}
@@ -273,18 +273,19 @@ The figure is an illustration, not real data.</aside>
     <h2 class="title">How well does it work?</h2>
     <table class="results anim" style="--d:.1s">
       <tr><th style="width:44%">What we measured</th><th style="width:18%;color:var(--lime)">Accuracy</th><th style="width:38%">What it means</th></tr>
-      <tr><td>Random guessing</td><td>4%</td><td>1 in 25 keys</td></tr>
-      <tr class="hit"><td>Every key press (real typing)</td><td>[49%]</td><td>About half of all keys right</td></tr>
-      <tr><td>Clean keystrokes (one key heard clearly)</td><td>[79%]</td><td>About 4 in 5 right</td></tr>
-      <tr><td>Clean keystrokes, top 3 guesses</td><td>[91%]</td><td>Right key almost always in its top 3</td></tr>
+      <tr><td>Random guessing</td><td>2%</td><td>1 in 46 keys</td></tr>
+      <tr><td>Always guess Space</td><td>16%</td><td>The most common key</td></tr>
+      <tr class="hit"><td>From the recording alone</td><td>50%</td><td>About half of all keys right</td></tr>
+      <tr><td>When the click is found correctly</td><td>56%</td><td>More than half named right</td></tr>
+      <tr><td>Right key in its top 5 guesses</td><td>82%</td><td>About 4 in 5, out of 46 keys</td></tr>
     </table>
-    <p class="body anim" style="width:1250px;--d:.3s">Tested on [9] typing sessions the model never saw, covering [25] keys. Mistakes are usually a <b>neighbouring</b> key.</p>
+    <p class="body anim" style="width:1250px;--d:.3s">Tested on a typing session the model never saw: <b>1,045</b> key presses, <b>519</b> found and named correctly.</p>
   </div>
   <svg class="mascot anim" style="left:1424px;top:330px;--d:.5s" width="400" height="385" role="img" aria-label="Agent Esc, case closed"><use href="#esc-closed"/></svg>
   <p class="stamp anim" style="left:1560px;top:680px;width:250px;--r:-12deg;--d:1s">DECODED</p>
-  <aside class="notes">“Random guessing gets 4%. On real typing we get about half. When a key is heard cleanly, 4 out of 5, and 9 out of 10 if we allow three guesses.”
-Why the gap: about half of key presses are too quiet for the laptop mic, and fast typing makes sounds overlap.
-Placeholders, today’s README values: 49.4%, 79.2%, 91.0%, 9 sessions, 25 keys. With 100+ participants these will change; use the final model’s numbers.</aside>
+  <aside class="notes">“Random guessing gets 2%, and always guessing Space gets 16%. From the recording alone we name about half of all keys. When we find the click correctly, it’s 56%, and the right key is in our top 5 guesses 82% of the time.”
+Why the gap between 50% and 56%: some presses are missed or mixed up with key releases and noise. The press filter keeps 85% real presses and finds 77% of them.
+Source: keyboard_timing_v6, one unseen test session of 1,045 presses (519 found and named correctly), 46 keys. Tested on one keyboard, mic and typist, so results will differ elsewhere.</aside>
 </section>
 
 <!-- ================= 5. TRACKS ================= -->
