@@ -364,7 +364,7 @@ function rng(seed){return()=>(seed=(seed*16807)%2147483647)/2147483647}
   const svg=document.getElementById('strip'),L='SNEAKEY',W=1728,N=L.length,seg=W/N,y=50,r=rng(11),H=[10,26,46,26,10];
   const cx=[...Array(N)].map((_,i)=>Math.round(seg*i+seg/2));let o='';
   for(let x=6;x<W;x+=12){if(cx.some(c=>Math.abs(x-c)<40))continue;const h=3+r()*7;o+=`<line x1="${x}" x2="${x}" y1="${y-h}" y2="${y+h}" stroke="#3A4256" stroke-width="4" stroke-linecap="round"/>`}
-  cx.forEach((c,i)=>{o+=`<g id="k${i}" stroke="#3A4256" stroke-width="4" stroke-linecap="round">`+H.map((h,j)=>`<line x1="${c+(j-2)*12}" x2="${c+(j-2)*12}" y1="${y-h}" y2="${y+h}"/>`).join('')+`</g><text id="t${i}" x="${c}" y="138" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="30" font-weight="700" fill="${i===N-1?'#C6FF3D':'#EDE7DA'}" opacity="0">${L[i]}</text>`});
+  cx.forEach((c,i)=>{o+=`<g id="k${i}" stroke="#3A4256" stroke-width="4" stroke-linecap="round">`+H.map((h,j)=>`<line x1="${c+(j-2)*12}" x2="${c+(j-2)*12}" y1="${y-h}" y2="${y+h}"/>`).join('')+`</g><text id="t${i}" x="${c}" y="138" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="30" font-weight="700" fill="${i>=N-3?'#C6FF3D':'#EDE7DA'}" opacity="0">${L[i]}</text>`});
   svg.innerHTML=o;let n=0;
   function step(){if(n<N){svg.querySelector('#k'+n).setAttribute('stroke','#C6FF3D');svg.querySelector('#t'+n).setAttribute('opacity','1');n++;setTimeout(step,420)}
     else setTimeout(()=>{for(let k=0;k<N;k++){svg.querySelector('#k'+k).setAttribute('stroke','#3A4256');svg.querySelector('#t'+k).setAttribute('opacity','0')}n=0;step()},2600)}
