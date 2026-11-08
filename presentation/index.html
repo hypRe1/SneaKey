@@ -223,10 +223,10 @@ If asked: the 2023 study pressed each key 25 times in a row, one at a time, whic
     <h2 class="title">How SneaKey <span class="lime">works</span></h2>
     <div class="hw">
       <div class="hw-steps">
-        <div class="hw-step anim" style="--d:.1s"><p class="n">01</p><div><h3>Find the clicks</h3><p class="cap">Slice the recording into 1&nbsp;ms pieces and flag sudden jumps in loudness, judged against the last quarter-second of background so a noisy room doesn’t fool it.</p></div></div>
-        <div class="hw-step anim" style="--d:.3s"><p class="n">02</p><div><h3>Keep real key presses <span class="tag">GBDT</span></h3><p class="cap">Keys click again on the way up, and rooms have bumps. Gradient-boosted trees score 13 traits of each click (loudness, sharpness, pitch, spacing) and keep the presses.</p></div></div>
-        <div class="hw-step svm anim" style="--d:.5s"><p class="n">03</p><div><h3>Name the key <span class="tag">SVM</span></h3><p class="cap">Each press becomes a 32&nbsp;ms sound fingerprint of 846 pitch levels, scaled so hard and soft presses match. The SVM gives a score for every one of 46 keys.</p></div></div>
-        <div class="hw-step anim" style="--d:.7s"><p class="n">04</p><div><h3>Filter with a language model <span class="tag">LM</span></h3><p class="cap">Those scores are a probability spread per click, so only a few keys stay possible. The language model picks the combination that reads most like English.</p></div></div>
+        <div class="hw-step anim" style="--d:.1s"><p class="n">01</p><div><h3>Find the clicks</h3><p class="cap">Spot sudden jumps in loudness.</p></div></div>
+        <div class="hw-step anim" style="--d:.3s"><p class="n">02</p><div><h3>Keep real presses <span class="tag">GBDT</span></h3><p class="cap">Throw out key releases and background noise.</p></div></div>
+        <div class="hw-step svm anim" style="--d:.5s"><p class="n">03</p><div><h3>Name the key <span class="tag">SVM</span></h3><p class="cap">Match each press’s sound fingerprint to a key, with a score for every key.</p></div></div>
+        <div class="hw-step anim" style="--d:.7s"><p class="n">04</p><div><h3>Filter to real words <span class="tag">LM</span></h3><p class="cap">Keep only the likely letters, then pick the most English-looking text.</p></div></div>
       </div>
       <figure class="svmfig anim" style="--d:.9s">
         <p class="lbl lime">INSIDE STEP 03 · THE SVM</p>
@@ -254,7 +254,7 @@ If asked: the 2023 study pressed each key 25 times in a row, one at a time, whic
           <text x="254" y="282" font-family="Inter, Arial, sans-serif" font-size="20" fill="#D6D1C4">new click → T side</text>
           <text x="440" y="320" font-family="Inter, Arial, sans-serif" font-size="18" fill="#8A93A6">boundary + margin (dashed)</text>
         </svg>
-        <figcaption>Flattened to 2D for illustration; the real model works in 846. Each dot is one training click. The SVM draws the boundary with the widest gap to the nearest examples (ringed: the “support vectors”). A new click is named by the side it lands on, and all 46 keys are handled by comparing every pair.</figcaption>
+        <figcaption>Each dot is a training click. A new click gets the key on its side of the boundary.</figcaption>
       </figure>
     </div>
   </div>
