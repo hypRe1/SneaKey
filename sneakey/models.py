@@ -7,7 +7,8 @@ Every classifier has the same interface:
     id, name, kind, version, trained_on, validation_sessions, manifest
 
 Trained models live in data/models/<id>/ (manifest.json + model.pt or model.joblib), next to the recordings
-they were trained on. data/active_model.json names the model the pipeline uses; the default is the shipped CNN.
+they were trained on. Models committed to the repo live in models/trained/<id>/ in the same layout: they are
+listed and loadable like the others but can't be deleted from the app. data/active_model.json names the model the pipeline uses; the default is the shipped CNN.
 """
 import hashlib
 import json
@@ -22,6 +23,7 @@ from .features import band_mel_features, mel_patch
 
 ORIGINAL_ID = "original-cnn"
 MODELS_DIR = config.DATA_DIR / "models"
+SHIPPED_DIR = config.MODELS_DIR / "trained"      # trained models committed to the repo
 ACTIVE_FILE = config.DATA_DIR / "active_model.json"
 
 
@@ -79,11 +81,14 @@ def original_manifest():
 
 def list_models():
     """Manifests of every available model, the shipped one first."""
-    out = [original_manifest()]
-    if MODELS_DIR.exists():
-        for folder in sorted(MODELS_DIR.iterdir(), reverse=True):
-            if (folder / "manifest.json").exists():
-                out.append(json.loads((folder / "manifest.json").read_text()))
+    out, seen = [original_manifest()], {ORIGINAL_ID}
+    for directory, shipped in ((MODELS_DIR, False), (SHIPPED_DIR, True)):
+        if not directory.exists():
+            continue
+        for folder in sorted(directory.iterdir(), reverse=True):
+            if (folder / "manifest.json").exists() and folder.name not in seen:
+                seen.add(folder.name)
+                out.append({**json.loads((folder / "manifest.json").read_text()), "shipped": shipped})
     return out
 
 
@@ -129,6 +134,8 @@ def save(manifest, kind, network=None, key_names=None, estimator=None, detector=
 def delete(model_id):
     if model_id == ORIGINAL_ID:
         raise ValueError("The shipped model can't be deleted.")
+    if _folder(model_id).parent == SHIPPED_DIR:
+        raise ValueError("This model is committed to the repo (models/trained/) and can't be deleted from the app.")
     if model_id == active_id():
         raise ValueError("Activate another model before deleting this one.")
     shutil.rmtree(_folder(model_id))
@@ -137,8 +144,13 @@ def delete(model_id):
 def active_id():
     if ACTIVE_FILE.exists():
         model_id = json.loads(ACTIVE_FILE.read_text()).get("id")
-        if model_id == ORIGINAL_ID or (model_id and (MODELS_DIR / model_id / "manifest.json").exists()):
+        if model_id == ORIGINAL_ID:
             return model_id
+        try:
+            _folder(model_id or "")
+            return model_id
+        except KeyError:
+            pass
     return ORIGINAL_ID
 
 
@@ -153,6 +165,9 @@ def _folder(model_id, must_exist=True):
     if not model_id.replace("-", "").replace("_", "").isalnum():
         raise KeyError(model_id)
     folder = MODELS_DIR / model_id
-    if must_exist and not (folder / "manifest.json").exists():
-        raise KeyError(model_id)
-    return folder
+    if not must_exist:
+        return folder
+    for folder in (MODELS_DIR / model_id, SHIPPED_DIR / model_id):
+        if (folder / "manifest.json").exists():
+            return folder
+    raise KeyError(model_id)

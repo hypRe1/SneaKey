@@ -183,6 +183,7 @@ class Api(unittest.TestCase):
         session_id = self.call("sessions", "POST", json.dumps({"metadata": {}, "events": []}).encode(), {"Content-Type": "application/json"})["id"]
         self.assertEqual(self.status(f"sessions/{session_id}/audio", "PUT", b"\0" * 1000), 400)   # under half a second
         self.assertEqual(self.status("sentences?mode=bogus"), 400)
+        self.assertEqual(self.status("sentences?source=bogus"), 400)
         test = self.call("sentences?chars=200&seed=3")
         self.assertEqual(test["seed"], 3)
         self.assertGreaterEqual(len(test["text"]), 200)
