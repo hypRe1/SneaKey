@@ -1,5 +1,7 @@
 # SneaKey
 
+<img src="images/image.png">
+
 A local research prototype that asks: **can individual keyboard keys be identified from the sound of typing,
 recorded by a laptop microphone?** It records consented typing tests, shows how each keystroke looks and sounds
 through the processing pipeline, and evaluates an audio-only prediction pipeline against what was actually typed.
