@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SneaKey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Brand tokens ===== */
+:root{
+  --ink:#0B0D12; --graphite:#1A1E27; --keycap:#EDE7DA; --paper:#F7F3EA; --tab:#D9D0BC;
+  --steel:#8A93A6; --dim:#4A5266; --lime:#C6FF3D; --stamp:#E0401F;
+  --body-dark:#D6D1C4; --body-dark2:#B9BFCC; --body-paper:#3F3A2F; --label-paper:#5E584B;
+  --display:'Space Grotesk', Arial, sans-serif; --text:Inter, Arial, sans-serif; --mono:'JetBrains Mono', Consolas, monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#000;overflow:hidden}
+p,h1,h2,h3,table{margin:0}
+
+/* ===== Stage: fixed 1920x1080 canvas, scaled to fit the window ===== */
+#stage{position:fixed;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--s,0.5));transform-origin:center}
+.slide{position:absolute;inset:0;overflow:hidden;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s;font-family:var(--text)}
+.slide.active{opacity:1;visibility:visible}
+.ink{background-color:var(--ink);background-image:radial-gradient(rgba(237,231,218,.07) 1.5px,transparent 1.5px);background-size:36px 36px;color:var(--keycap)}
+.paper{background:var(--keycap);color:var(--ink)}
+.content{position:absolute;inset:0;padding:140px 96px 120px;display:flex;flex-direction:column;gap:40px}
+
+/* ===== Type ===== */
+.hdr{position:absolute;top:56px;left:96px;right:96px;display:flex;justify-content:space-between;font:500 24px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--steel)}
+.paper .hdr{color:var(--label-paper)}
+.foot{position:absolute;left:96px;right:96px;bottom:48px;font:500 24px/1.4 var(--mono);letter-spacing:.06em;color:var(--steel)}
+.paper .foot{color:var(--label-paper)}
+.title{font:700 84px/1 var(--display);letter-spacing:-.045em}
+.lbl{font:700 24px/1.4 var(--mono);letter-spacing:.12em}
+.lime{color:var(--lime)}
+.hl{background:var(--lime);color:var(--ink);border-radius:8px;padding:0 12px}
+.body{font-size:28px;line-height:1.4}
+.ink .body{color:var(--body-dark)} .paper .body{color:var(--body-paper)}
+
+/* ===== Motifs ===== */
+.stamp{position:absolute;border:5px solid var(--stamp);border-radius:9px;padding:6px 18px;font:700 36px/1.3 var(--mono);letter-spacing:.12em;color:var(--stamp);text-align:center;transform:rotate(var(--r,-8deg))}
+.ink .stamp{background:var(--ink)} .paper .stamp{background:var(--keycap)}
+.cursor{display:inline-block;background:var(--lime);animation:blink 1.1s steps(1) infinite}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+.mascot{position:absolute;animation:bob 3.2s ease-in-out infinite}
+@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -10px}}
+
+/* ===== Build-in animations: play each time a slide becomes active =====
+   Add class="anim" and optional style="--d:.4s" (delay) / "--a:fade" (type). */
+.anim{opacity:0}
+.active .anim{animation:var(--a,rise) .7s cubic-bezier(.2,.8,.2,1) var(--d,0s) both}
+.active .mascot.anim{animation:var(--a,rise) .7s cubic-bezier(.2,.8,.2,1) var(--d,0s) both,bob 3.2s ease-in-out calc(var(--d,0s) + .7s) infinite}
+.active .stamp.anim{animation:stamp .55s cubic-bezier(.3,1.4,.5,1) var(--d,0s) both}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes stamp{0%{opacity:0;transform:rotate(var(--r,-8deg)) scale(2.4)}100%{opacity:1;transform:rotate(var(--r,-8deg)) scale(1)}}
+
+/* ===== Slide-specific ===== */
+.cases{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.case{display:flex;flex-direction:column}
+.case .tab{align-self:flex-start;background:var(--tab);border-radius:15px 15px 0 0;padding:9px 24px}
+.case .file{flex:1;display:flex;flex-direction:column;gap:20px;background:var(--paper);border:3px solid var(--ink);border-radius:0 15px 15px 15px;padding:32px}
+.case .big{font:700 46px/1.05 var(--display);letter-spacing:-.03em}
+.case .body{font-size:28px}
+.case.us .tab{background:var(--lime)} .case.us .file{background:var(--ink)} .case.us .big{color:var(--lime)} .case.us .body{color:var(--body-dark)}
+.bar{background:var(--ink);color:var(--keycap);border-radius:24px;padding:32px 48px}
+.bar .body{font-size:32px}
+
+.pipe{display:flex;align-items:center;gap:10px;margin-top:20px}
+.step{flex:1;height:440px;display:flex;flex-direction:column;gap:14px;background:var(--graphite);border-radius:24px;padding:24px}
+.step.last{border:3px solid var(--lime)}
+.step h3{font:700 40px/1.1 var(--display);letter-spacing:-.03em}
+.step .cap{font-size:26px;line-height:1.4;color:var(--body-dark2)}
+.arrow{width:30px;flex:none}
+.guess{height:132px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.guess div{display:flex;align-items:center;gap:12px}
+.key{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:7px;background:var(--keycap);color:var(--ink);font:700 24px var(--mono)}
+.train{display:flex;align-items:center;gap:48px;background:var(--keycap);color:var(--ink);border-radius:24px;padding:32px 40px}
+.train .stat{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.train .num{font:700 64px/1 var(--display);letter-spacing:-.04em}
+.train small{font-size:24px;color:var(--body-paper)}
+
+.hw{display:grid;grid-template-columns:900px 1fr;gap:44px;align-items:start}
+.hw-steps{display:flex;flex-direction:column;gap:16px}
+.hw-step{display:grid;grid-template-columns:64px 1fr;gap:16px;background:var(--graphite);border-radius:20px;padding:20px 28px}
+.hw-step{cursor:pointer;border:3px solid transparent;transition:border-color .25s,background .25s}
+.hw-step:hover{border-color:#3A4256}
+.hw-step.on{border-color:var(--lime)}
+
+.hw-panel{grid-area:1/1;display:flex;flex-direction:column;gap:18px;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+.hw-panel.on{opacity:1;visibility:visible}
+.hw-step .n{font:700 40px/1.1 var(--display);color:var(--lime)}
+.hw-step h3{font:700 34px/1.15 var(--display);letter-spacing:-.02em;margin-bottom:8px}
+.hw-step .cap{font-size:23px;line-height:1.38;color:var(--body-dark2)}
+.tag{display:inline-block;margin-left:10px;padding:2px 10px;border-radius:6px;background:var(--lime);color:var(--ink);font:700 18px/1.4 var(--mono);letter-spacing:.08em;vertical-align:4px}
+.svmfig{margin:0;display:grid;background:var(--graphite);border-radius:24px;padding:28px 30px}
+.svmfig figcaption,.hw-panel figcaption{font-size:22px;line-height:1.4;color:var(--body-dark2)}
+
+table.results{width:1250px;border-collapse:collapse;font-size:32px}
+table.results th,table.results td{padding:18px 28px;text-align:left}
+table.results th{background:var(--ink);color:var(--keycap);font-weight:600}
+table.results th:nth-child(2),table.results td:nth-child(2){text-align:center}
+table.results tr:nth-child(odd) td{background:var(--paper)} table.results tr:nth-child(even) td{background:#E4DCCB}
+table.results tr.hit td{background:var(--lime);font-weight:700}
+
+.steps{width:780px;display:flex;flex-direction:column;gap:52px}
+.steps .body{font-size:30px}
+.frame{position:absolute;left:960px;top:260px;width:864px;height:620px;background:var(--graphite);border-radius:24px}
+#transcript{position:absolute;left:60px;top:60px;width:744px;font-family:var(--mono);color:var(--keycap)}
+#transcript .line{font-size:52px;font-weight:700;letter-spacing:4px;height:72px;white-space:pre}
+#transcript .bars{display:flex;gap:8px;align-items:flex-end;height:120px;margin-top:40px}
+#transcript .bars div{width:36px;border-radius:4px}
+
+.grid4{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:20px}
+.tip{display:flex;flex-direction:column;gap:18px;background:var(--paper);border:3px solid var(--ink);border-radius:24px;padding:44px;min-height:330px}
+.tip h3{font:700 52px/1.1 var(--display);letter-spacing:-.03em}
+.tip .body{font-size:32px}
+.tip.dark{background:var(--ink);color:var(--keycap)} .tip.dark .body{color:var(--body-dark)}
+.grid2{grid-template-columns:1fr 1fr}
+.ink .tip{background:var(--graphite);border-color:var(--graphite);color:var(--keycap)} .ink .tip .body{color:var(--body-dark)}
+.tip .chal{font:600 34px/1.3 var(--text);color:var(--lime);min-height:2.6em}
+
+.limits{width:1200px;display:flex;flex-direction:column;gap:30px}
+.limits div{display:flex;gap:28px;align-items:baseline}
+.limits .n{width:56px;font:700 26px var(--mono);color:var(--lime)}
+.limits .t{flex:1;font-size:34px;line-height:1.35;color:var(--body-dark)}
+
+/* ===== Chrome: progress bar, counter, notes ===== */
+#progress{position:fixed;left:0;bottom:0;height:4px;background:var(--lime);transition:width .4s}
+#counter{position:fixed;right:16px;bottom:12px;font:500 14px var(--mono);color:#8A93A6;opacity:.6}
+#notes{position:fixed;left:0;right:0;bottom:0;max-height:40vh;overflow:auto;background:rgba(11,13,18,.95);color:#EDE7DA;font:16px/1.5 Inter, Arial, sans-serif;padding:16px 24px 24px;border-top:2px solid #C6FF3D;white-space:pre-wrap;display:none}
+#notes.show{display:block}
+aside.notes{display:none}
+</style>
+</head>
+<body>
+
+<!-- Mascot drawings (Agent Esc). Each slide reuses one with <use href="#esc-..."> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="esc-body">
+      <path d="M58 82 H194 Q212 82 214 100 L220 206 Q221 226 201 226 H51 Q31 226 32 206 L38 100 Q40 82 58 82 Z" fill="#BDB3A0"/>
+      <rect x="54" y="78" width="144" height="122" rx="22" fill="#EDE7DA"/>
+      <rect x="66" y="92" width="120" height="96" rx="16" fill="#F7F3EA"/>
+      <text x="126" y="217" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="3" fill="#6E6656">ESC</text>
+      <path d="M56 114 Q38 106 22 96 Q28 114 42 122 Q28 128 20 142 Q40 136 56 130 Z" fill="#0B0D12"/>
+      <rect x="50" y="108" width="152" height="32" rx="16" fill="#0B0D12"/>
+    </g>
+    <g id="esc-hat">
+      <g transform="rotate(-7 126 76)">
+        <path d="M72 78 Q70 34 98 26 Q126 38 154 26 Q182 34 180 78 Z" fill="#2E3444"/>
+        <rect x="71" y="58" width="110" height="12" fill="#C6FF3D"/>
+        <ellipse cx="126" cy="79" rx="106" ry="13" fill="#3A4256"/>
+        <ellipse cx="126" cy="76" rx="96" ry="7" fill="#2E3444"/>
+      </g>
+    </g>
+    <symbol id="esc-listen" viewBox="0 0 260 250">
+      <ellipse cx="126" cy="236" rx="86" ry="9" fill="#000" opacity="0.5"/>
+      <path d="M226 112 Q236 130 226 148" fill="none" stroke="#C6FF3D" stroke-width="5" stroke-linecap="round"/>
+      <path d="M240 98 Q256 130 240 162" fill="none" stroke="#C6FF3D" stroke-width="5" stroke-linecap="round" opacity="0.55"/>
+      <use href="#esc-body"/>
+      <circle cx="104" cy="124" r="10" fill="#C6FF3D"/><circle cx="150" cy="124" r="10" fill="#C6FF3D"/>
+      <circle cx="108.5" cy="124" r="4.5" fill="#0B0D12"/><circle cx="154.5" cy="124" r="4.5" fill="#0B0D12"/>
+      <path d="M110 162 Q128 171 145 157" fill="none" stroke="#0B0D12" stroke-width="4.5" stroke-linecap="round"/>
+      <use href="#esc-hat"/>
+    </symbol>
+    <symbol id="esc-decode" viewBox="0 0 260 250">
+      <ellipse cx="126" cy="236" rx="86" ry="9" fill="#000" opacity="0.5"/>
+      <use href="#esc-body"/>
+      <rect x="90" y="119" width="28" height="9" rx="4.5" fill="#C6FF3D"/><rect x="136" y="119" width="28" height="9" rx="4.5" fill="#C6FF3D"/>
+      <path d="M114 162 H142" fill="none" stroke="#0B0D12" stroke-width="4.5" stroke-linecap="round"/>
+      <use href="#esc-hat"/>
+    </symbol>
+    <symbol id="esc-closed" viewBox="0 0 260 250">
+      <ellipse cx="126" cy="236" rx="86" ry="9" fill="#000" opacity="0.3"/>
+      <use href="#esc-body"/>
+      <path d="M93 129 Q104 114 115 129" fill="none" stroke="#C6FF3D" stroke-width="6" stroke-linecap="round"/>
+      <path d="M139 129 Q150 114 161 129" fill="none" stroke="#C6FF3D" stroke-width="6" stroke-linecap="round"/>
+      <path d="M106 156 Q127 178 148 156 Z" fill="#0B0D12"/>
+      <use href="#esc-hat"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div id="stage">
+
+<!-- ================= 1. TITLE ================= -->
+<section class="slide ink">
+  <div class="hdr"><span>SneaKey</span><span>HackTheBurgh XIII</span></div>
+  <div class="anim" style="position:absolute;left:96px;top:220px;width:1120px;display:flex;flex-direction:column;gap:36px;--a:fade">
+    <p class="lbl lime" style="font-weight:500;letter-spacing:.14em">ACOUSTIC KEYSTROKE RECOVERY</p>
+    <h1 style="font:700 240px/.9 var(--display);letter-spacing:-.05em;display:flex;align-items:flex-end">Snea<span class="lime">Key</span><span class="cursor" style="width:78px;height:24px;margin:0 0 22px 18px"></span></h1>
+    <p style="font:500 48px/1.2 var(--display);letter-spacing:-.02em">Decoding what you type from the sound of your keyboard</p>
+    <p style="font:500 24px var(--mono);letter-spacing:.06em;color:var(--steel)">SmashTheBurgh: Hugo, James, Will & Alex</p>
+  </div>
+  <svg class="mascot anim" style="left:1290px;top:200px;--d:.3s" width="540" height="519" role="img" aria-label="Agent Esc, the SneaKey mascot, listening"><use href="#esc-listen"/></svg>
+  <svg id="strip" style="position:absolute;left:96px;top:880px" width="1728" height="150" viewBox="0 0 1728 150" role="img" aria-label="Waveform: each keystroke spike decodes a letter of SNEAKEY"></svg>
+  <aside class="notes">Leave this slide up during the skit (about 1 minute). The strip at the bottom animates on its own.
+Timing for a 4-minute slot: skit 1:00, then about 30 seconds per slide.
+Opening line after the skit: “That was acted, but the attack is real. Every key on your keyboard sounds slightly different, and a computer can learn to tell them apart.”</aside>
+</section>
+
+<!-- ================= 2. RESEARCH ================= -->
+<section class="slide paper">
+  <div class="hdr"><span>SneaKey</span><span>HackTheBurgh XIII</span></div>
+  <div class="content">
+    <h2 class="title">Past research</h2>
+    <div class="cases" style="margin-top:24px">
+      <div class="case anim" style="--d:.1s"><p class="tab lbl">2004</p><div class="file"><p class="big">One key at a time</p><p class="body">Only tests single keys, real typing never tested.</p></div></div>
+      <div class="case anim" style="--d:.25s"><p class="tab lbl">2005</p><div class="file"><p class="big">Relies on dictionaries</p><p class="body">Accuracy relies on English spell-check. Passwords slip through.</p></div></div>
+      <div class="case anim" style="--d:.4s"><p class="tab lbl">2023</p><div class="file"><p class="big">Updated, but still single key</p><p class="body">Each key tapped 25× in a row. Drops on natural typing.</p></div></div>
+      <div class="case us anim" style="--d:.55s"><p class="tab lbl">2026</p><div class="file"><p class="big">Various forms of text</p><p class="body">Trained on continuous, natural typing via the laptop’s own microphone.</p></div></div>
+    </div>
+    <div class="bar anim" style="--d:.7s"><p class="body" style="color:var(--keycap);display:flex;gap:.3em"><b class="lime" style="flex:none">Why it matters:</b><span>video calls, apps with microphone access and even phones on the desk can pose an acoustic security risk.</span></p></div>
+  </div>
+  <p class="stamp anim" style="left:1610px;top:270px;width:250px;--r:10deg;--d:.85s;background:transparent">SNEAKEY</p>
+  <p class="foot">SOURCES: IEEE S&amp;P 2004 · ACM CCS 2005 · IEEE EuroS&amp;P Workshops 2023 (arXiv 2308.01074)</p>
+  <aside class="notes">“Researchers have warned about this for 20 years, but every study made it easy for itself. Keys pressed one at a time, spelling correction doing the heavy lifting, or each key tapped 25 times in a row. Nobody types like that. We trained on people typing full sentences, which is what an attacker would actually hear.”
+If asked: past work recognised keys in isolation under controlled recording. Asonov’s typist pressed one key at a time; the 2023 study pressed each key 25 times in a row on a MacBook Pro, and its accuracy fell to roughly 40–64% with touch-typing. Zhuang’s raw result was about 60%; the 96% comes after English language constraints.
+How we differ: (1) continuous, natural typing, where keystrokes overlap, so finding each press is part of the problem; (2) the victim laptop’s own mic, with no phone, external mic or Zoom stream. That is the most realistic attack (any app with mic permission) and the hardest audio: centimetres from the keys, with chassis vibration and fan noise.
+Caveat: these accuracies use different tasks and setups, so they aren’t directly comparable with ours.</aside>
+</section>
+
+<!-- ================= 3. HOW IT WORKS ================= -->
+<section class="slide ink">
+  <div class="hdr"><span>SneaKey</span><span>HackTheBurgh XIII</span></div>
+  <svg class="mascot anim" style="left:1574px;top:826px;--a:fade;--d:1.6s" width="250" height="240" role="img" aria-label="Agent Esc decoding"><use href="#esc-decode"/></svg>
+  <div class="content" style="gap:28px">
+    <h2 class="title">How SneaKey <span class="lime">works</span></h2>
+    <div class="hw">
+      <div class="hw-steps">
+        <div class="hw-step on anim" style="--d:.1s" data-step="1"><p class="n">01</p><div><h3>Find the clicks</h3><p class="cap">Spot sudden jumps in loudness.</p></div></div>
+        <div class="hw-step anim" style="--d:.3s" data-step="2"><p class="n">02</p><div><h3>Keep real presses <span class="tag">GBDT</span></h3><p class="cap">Throw out key releases and background noise.</p></div></div>
+        <div class="hw-step anim" style="--d:.5s" data-step="3"><p class="n">03</p><div><h3>Name the key <span class="tag">SVM</span></h3><p class="cap">Match each press’s sound fingerprint to a key, with a score for every key.</p></div></div>
+        <div class="hw-step anim" style="--d:.7s" data-step="4"><p class="n">04</p><div><h3>Filter to real words <span class="tag">LM</span></h3><p class="cap">Keep only the likely letters, then pick the most English-looking text.</p></div></div>
+      </div>
+      <figure class="svmfig anim" style="--d:.9s">
+        <div class="hw-panel on" data-step="1">
+          <p class="lbl lime">INSIDE STEP 01 · FINDING CLICKS</p>
+        <svg viewBox="0 0 720 330" width="100%" role="img" aria-label="Spectral flux over time with a dashed threshold; peaks above it are marked as clicks">
+          <line x1="30" y1="270" x2="700" y2="270" stroke="#3A4256" stroke-width="2"/>
+          <polyline points="30,208 40,208 50,209 60,210 70,211 80,211 90,212 100,212 110,213 120,213 130,213 140,213 150,213 160,213 170,213 180,212 190,212 200,211 210,211 220,210 230,209 240,209 250,208 260,207 270,206 280,205 290,204 300,203 310,203 320,202 330,201 340,200 350,200 360,199 370,198 380,198 390,198 400,197 410,197 420,197 430,197 440,197 450,197 460,198 470,198 480,198 490,199 500,200 510,200 520,201 530,202 540,203 550,204 560,205 570,205 580,206 590,207 600,208 610,209 620,210 630,210 640,211 650,211 660,212 670,212 680,213 690,213 700,213" fill="none" stroke="#8A93A6" stroke-width="2.5" stroke-dasharray="8 7"/>
+          <polyline points="30,257 33,259 36,254 39,258 42,259 45,254 48,247 51,249 54,249 57,257 60,252 63,256 66,258 69,259 72,257 75,247 78,248 81,240 84,209 87,162 90,106 93,163 96,208 99,242 102,259 105,247 108,248 111,252 114,256 117,247 120,252 123,248 126,248 129,253 132,254 135,252 138,254 141,252 144,240 147,220 150,198 153,221 156,239 159,253 162,251 165,256 168,255 171,250 174,256 177,252 180,247 183,259 186,259 189,257 192,249 195,251 198,257 201,255 204,258 207,254 210,259 213,250 216,247 219,247 222,250 225,247 228,213 231,167 234,105 237,128 240,184 243,228 246,247 249,260 252,259 255,258 258,249 261,255 264,256 267,259 270,246 273,254 276,257 279,259 282,259 285,258 288,251 291,249 294,228 297,200 300,162 303,196 306,228 309,250 312,254 315,257 318,248 321,248 324,253 327,260 330,256 333,257 336,257 339,257 342,248 345,258 348,259 351,247 354,252 357,246 360,254 363,247 366,251 369,249 372,250 375,253 378,259 381,239 384,204 387,156 390,97 393,157 396,204 399,239 402,247 405,259 408,246 411,247 414,251 417,259 420,247 423,258 426,246 429,251 432,259 435,258 438,251 441,252 444,250 447,247 450,257 453,260 456,247 459,256 462,250 465,240 468,227 471,223 474,236 477,248 480,253 483,260 486,252 489,253 492,248 495,251 498,258 501,255 504,249 507,253 510,260 513,248 516,248 519,259 522,252 525,255 528,249 531,256 534,255 537,228 540,179 543,120 546,96 549,163 552,214 555,246 558,254 561,249 564,258 567,248 570,258 573,258 576,253 579,255 582,252 585,247 588,250 591,260 594,256 597,252 600,253 603,250 606,253 609,257 612,238 615,205 618,168 621,154 624,195 627,229 630,248 633,251 636,254 639,258 642,249 645,255 648,251 651,258 654,259 657,258 660,249 663,258 666,247 669,255 672,252 675,255 678,251 681,259 684,254 687,247 690,257 693,251 696,255 699,256" fill="none" stroke="#EDE7DA" stroke-width="2.5" stroke-linejoin="round"/>
+          <g fill="#C6FF3D"><circle cx="90" cy="102" r="8"/><circle cx="235" cy="77" r="8"/><circle cx="300" cy="157" r="8"/><circle cx="390" cy="92" r="8"/><circle cx="545" cy="67" r="8"/><circle cx="620" cy="132" r="8"/></g>
+          <g fill="#C6FF3D" font-family="JetBrains Mono, monospace" font-size="16" font-weight="700" text-anchor="middle"><text x="90" y="298">▲</text><text x="235" y="298">▲</text><text x="300" y="298">▲</text><text x="390" y="298">▲</text><text x="545" y="298">▲</text><text x="620" y="298">▲</text></g>
+          <text x="20" y="28" font-family="JetBrains Mono, monospace" font-size="22" font-weight="700" fill="#EDE7DA">spectral flux</text>
+          <text x="700" y="28" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="22" font-weight="700" fill="#C6FF3D">▲ click found</text>
+          <text x="700" y="190" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="18" fill="#8A93A6">1.5× running median</text>
+          <text x="30" y="322" font-family="Inter, Arial, sans-serif" font-size="18" fill="#8A93A6">time → (8 ms slices, every 1 ms)</text>
+        </svg>
+          <figcaption>Each peak is a sudden burst of new sound. Peaks that clear the dashed line become clicks.</figcaption>
+        </div>
+        <div class="hw-panel" data-step="2">
+          <p class="lbl lime">INSIDE STEP 02 · THE GBDT FILTER</p>
+        <svg viewBox="0 0 720 330" width="100%" role="img" aria-label="Bar chart of press scores per click; bars above the 0.35 threshold are kept">
+          <line x1="30" y1="270" x2="700" y2="270" stroke="#3A4256" stroke-width="2"/>
+          <rect x="40" y="68" width="30" height="202" rx="4" fill="#C6FF3D"/><text x="55" y="296" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="#C6FF3D">P</text><rect x="88" y="230" width="30" height="40" rx="4" fill="#3A4256"/><text x="103" y="296" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="#8A93A6">R</text><rect x="137" y="92" width="30" height="178" rx="4" fill="#C6FF3D"/><text x="152" y="296" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="#C6FF3D">P</text><rect x="185" y="222" width="30" height="48" rx="4" fill="#3A4256"/><text x="200" y="296" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="#8A93A6">R</text><rect x="234" y="252" width="30" height="18" rx="4" fill="#3A4256"/><text x="249" y="296" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="#8A93A6">N</text><rect x="282" y="107" width="30" height="163" rx="4" fill="#C6FF3D"/><text x="297" y="296" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="#C6FF3D">P</text><rect x="331" y="180" width="30" height="90" rx="4" fill="#C6FF3D"/><text x="346" y="296" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="#C6FF3D">R</text><rect x="379" y="76" width="30" height="194" rx="4" fill="#C6FF3D"/><text x="394" y="296" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="#C6FF3D">P</text><rect x="428" y="244" width="30" height="26" rx="4" fill="#3A4256"/><text x="443" y="296" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="#8A93A6">R</text><rect x="476" y="237" width="30" height="33" rx="4" fill="#3A4256"/><text x="491" y="296" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="#8A93A6">N</text><rect x="525" y="118" width="30" height="152" rx="4" fill="#C6FF3D"/><text x="540" y="296" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="#C6FF3D">P</text><rect x="573" y="215" width="30" height="55" rx="4" fill="#3A4256"/><text x="588" y="296" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="#8A93A6">R</text><rect x="622" y="61" width="30" height="209" rx="4" fill="#C6FF3D"/><text x="637" y="296" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="#C6FF3D">P</text><rect x="670" y="226" width="30" height="44" rx="4" fill="#3A4256"/><text x="685" y="296" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="#8A93A6">R</text>
+          <line x1="30" y1="193" x2="700" y2="193" stroke="#EDE7DA" stroke-width="2.5" stroke-dasharray="8 7"/>
+          <text x="700" y="183" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="18" fill="#EDE7DA">keep if score ≥ 0.35</text>
+          <text x="20" y="28" font-family="JetBrains Mono, monospace" font-size="22" font-weight="700" fill="#C6FF3D">press score</text>
+          <text x="700" y="28" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="22" font-weight="700" fill="#8A93A6">257 bumps → 50 kept</text>
+          <text x="30" y="322" font-family="Inter, Arial, sans-serif" font-size="18" fill="#8A93A6">P = press · R = key release · N = noise</text>
+        </svg>
+          <figcaption>A tree model scores 13 traits per click. Presses score high; releases and noise are dropped.</figcaption>
+        </div>
+        <div class="hw-panel" data-step="3">
+          <p class="lbl lime">INSIDE STEP 03 · THE SVM</p>
+        <svg viewBox="0 0 720 330" width="100%" role="img" aria-label="Illustration of an SVM boundary separating sound fingerprints of the T key from the H key">
+          <path d="M300,40 C360,110 300,190 390,300" fill="none" stroke="#EDE7DA" stroke-width="3"/>
+          <path d="M262,40 C322,110 262,190 352,300" fill="none" stroke="#8A93A6" stroke-width="2" stroke-dasharray="6 6"/>
+          <path d="M338,40 C398,110 338,190 428,300" fill="none" stroke="#8A93A6" stroke-width="2" stroke-dasharray="6 6"/>
+          <g fill="#C6FF3D">
+            <circle cx="120" cy="100" r="9"/><circle cx="160" cy="155" r="9"/><circle cx="90" cy="190" r="9"/>
+            <circle cx="200" cy="110" r="9"/><circle cx="140" cy="235" r="9"/><circle cx="210" cy="210" r="9"/>
+            <circle cx="70" cy="135" r="9"/><circle cx="276" cy="145" r="9"/>
+          </g>
+          <g fill="#E0401F">
+            <circle cx="520" cy="110" r="9"/><circle cx="580" cy="165" r="9"/><circle cx="470" cy="210" r="9"/>
+            <circle cx="620" cy="100" r="9"/><circle cx="560" cy="245" r="9"/><circle cx="640" cy="210" r="9"/>
+            <circle cx="404" cy="200" r="9"/><circle cx="354" cy="88" r="9"/>
+          </g>
+          <g fill="none" stroke="#EDE7DA" stroke-width="2.5">
+            <circle cx="276" cy="145" r="17"/><circle cx="354" cy="88" r="17"/><circle cx="404" cy="200" r="17"/>
+          </g>
+          <circle cx="232" cy="275" r="12" fill="#0B0D12" stroke="#EDE7DA" stroke-width="3"/>
+          <text x="232" y="282" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="18" font-weight="700" fill="#EDE7DA">?</text>
+          <text x="20" y="28" font-family="JetBrains Mono, monospace" font-size="22" font-weight="700" fill="#C6FF3D">clicks of T</text>
+          <text x="700" y="28" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="22" font-weight="700" fill="#E0401F">clicks of H</text>
+          <text x="254" y="282" font-family="Inter, Arial, sans-serif" font-size="20" fill="#D6D1C4">new click → T side</text>
+          <text x="440" y="320" font-family="Inter, Arial, sans-serif" font-size="18" fill="#8A93A6">boundary + margin (dashed)</text>
+        </svg>
+          <figcaption>Each dot is a training click. A new click gets the key on its side of the boundary.</figcaption>
+        </div>
+        <div class="hw-panel" data-step="4">
+          <p class="lbl lime">INSIDE STEP 04 · THE LANGUAGE MODEL</p>
+        <svg viewBox="0 0 720 330" width="100%" role="img" aria-label="Top guesses per click, with the language model choosing the path that spells HELLO">
+          <text x="20" y="28" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#8A93A6">top guesses per click ↓</text>
+          <polyline points="110,135 235,70 360,135 485,70 610,70" fill="none" stroke="#C6FF3D" stroke-width="4" stroke-linejoin="round"/><rect x="84" y="44" width="52" height="52" rx="10" fill="#0B0D12" stroke="#3A4256" stroke-width="2.5"/><text x="110" y="79" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="700" fill="#EDE7DA">G</text><rect x="84" y="109" width="52" height="52" rx="10" fill="#C6FF3D" stroke="#C6FF3D" stroke-width="2.5"/><text x="110" y="144" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="700" fill="#0B0D12">H</text><rect x="84" y="174" width="52" height="52" rx="10" fill="#0B0D12" stroke="#3A4256" stroke-width="2.5"/><text x="110" y="209" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="700" fill="#8A93A6">J</text><rect x="209" y="44" width="52" height="52" rx="10" fill="#C6FF3D" stroke="#C6FF3D" stroke-width="2.5"/><text x="235" y="79" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="700" fill="#0B0D12">E</text><rect x="209" y="109" width="52" height="52" rx="10" fill="#0B0D12" stroke="#3A4256" stroke-width="2.5"/><text x="235" y="144" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="700" fill="#8A93A6">R</text><rect x="209" y="174" width="52" height="52" rx="10" fill="#0B0D12" stroke="#3A4256" stroke-width="2.5"/><text x="235" y="209" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="700" fill="#8A93A6">W</text><rect x="334" y="44" width="52" height="52" rx="10" fill="#0B0D12" stroke="#3A4256" stroke-width="2.5"/><text x="360" y="79" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="700" fill="#EDE7DA">K</text><rect x="334" y="109" width="52" height="52" rx="10" fill="#C6FF3D" stroke="#C6FF3D" stroke-width="2.5"/><text x="360" y="144" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="700" fill="#0B0D12">L</text><rect x="334" y="174" width="52" height="52" rx="10" fill="#0B0D12" stroke="#3A4256" stroke-width="2.5"/><text x="360" y="209" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="700" fill="#8A93A6">O</text><rect x="459" y="44" width="52" height="52" rx="10" fill="#C6FF3D" stroke="#C6FF3D" stroke-width="2.5"/><text x="485" y="79" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="700" fill="#0B0D12">L</text><rect x="459" y="109" width="52" height="52" rx="10" fill="#0B0D12" stroke="#3A4256" stroke-width="2.5"/><text x="485" y="144" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="700" fill="#8A93A6">K</text><rect x="459" y="174" width="52" height="52" rx="10" fill="#0B0D12" stroke="#3A4256" stroke-width="2.5"/><text x="485" y="209" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="700" fill="#8A93A6">P</text><rect x="584" y="44" width="52" height="52" rx="10" fill="#C6FF3D" stroke="#C6FF3D" stroke-width="2.5"/><text x="610" y="79" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="700" fill="#0B0D12">O</text><rect x="584" y="109" width="52" height="52" rx="10" fill="#0B0D12" stroke="#3A4256" stroke-width="2.5"/><text x="610" y="144" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="700" fill="#8A93A6">I</text><rect x="584" y="174" width="52" height="52" rx="10" fill="#0B0D12" stroke="#3A4256" stroke-width="2.5"/><text x="610" y="209" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="26" font-weight="700" fill="#8A93A6">P</text>
+          <text x="30" y="275" font-family="JetBrains Mono, monospace" font-size="22" font-weight="700" fill="#8A93A6">best sound only: GEKLO</text>
+          <text x="30" y="315" font-family="JetBrains Mono, monospace" font-size="22" font-weight="700" fill="#C6FF3D">with language model: HELLO</text>
+        </svg>
+          <figcaption>Each click keeps its top few keys. The language model picks the path that reads most like English.</figcaption>
+        </div>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">One sentence per step:
+1. “First we find the clicks: moments where the sound suddenly jumps compared with the room’s background.”
+2. “Not every click is a key press. Keys click on release too, so a gradient-boosted tree model checks 13 traits of each click and keeps the real presses.”
+3. “For each press we take a 32 ms fingerprint of its pitches, and an SVM, which learned where each key’s fingerprints fall, scores every key.” Point at the figure: “Here it’s squashed to 2D. T’s clicks on one side, H’s on the other; a new click is named by which side it lands on.”
+4. “That gives us a probability for each key, so only a few letters are possible per click. A language model then picks the combination that looks most like English.”
+Click any step box to show its diagram on the right (03 is shown by default). Clicks on the boxes don’t change slide.
+The figures are illustrations, not real data, apart from the sample-clip counts (257 bumps → 50 kept).</aside>
+</section>
+
+<!-- ================= 4. RESULTS ================= -->
+<section class="slide paper">
+  <div class="hdr"><span>SneaKey</span><span>HackTheBurgh XIII</span></div>
+  <div class="content">
+    <h2 class="title">How well does it work?</h2>
+    <p class="body anim" style="font-size:32px;margin-top:-12px;--d:.05s">Data below for <span class="hl" style="padding:0 6px 0 10px"><b>single keys</b></span>, prior to LM correction.</p>
+    <table class="results anim" style="--d:.1s">
+      <tr><th style="width:44%">What we measured</th><th style="width:18%;color:var(--lime)">Accuracy</th><th style="width:38%">What it means</th></tr>
+      <tr><td>Random guessing</td><td>2%</td><td>1 in 46 keys</td></tr>
+      <tr><td>Always guess Space</td><td>16%</td><td>The most common key</td></tr>
+      <tr class="hit"><td>From the recording alone</td><td>50%</td><td>About half of all keys right</td></tr>
+      <tr><td>When the click is found correctly</td><td>66%</td><td>More than half named right</td></tr>
+      <tr><td>Right key in its top 5 guesses</td><td>82%</td><td>About 4 in 5, out of 46 keys</td></tr>
+    </table>
+    <p class="body anim" style="width:1250px;--d:.3s">Tested key by key on a typing session the model never saw: <b>1,045</b> presses, <b>519</b> found and named correctly.</p>
+  </div>
+  <svg class="mascot anim" style="left:1424px;top:330px;--d:.5s" width="400" height="385" role="img" aria-label="Agent Esc, case closed"><use href="#esc-closed"/></svg>
+  <p class="stamp anim" style="left:1560px;top:680px;width:250px;--r:-12deg;--d:1s">DECODED</p>
+  <aside class="notes">“Every number here is per keycap: does a single press get named as the right key, with no spelling or word help? Random guessing gets 2%, and always guessing Space gets 16%. From the recording alone we name about half of all keys. When we find the click correctly, it’s 66%, and the right key is in our top 5 guesses 82% of the time.”
+Why the gap between 50% and 56%: some presses are missed or mixed up with key releases and noise. The press filter keeps 85% real presses and finds 77% of them.
+Source: keyboard_timing_v6, one unseen test session of 1,045 presses (519 found and named correctly), 46 keys. Tested on one keyboard, mic and typist, so results will differ elsewhere.</aside>
+</section>
+
+
+</div>
+
+<div id="progress"></div>
+<div id="counter"></div>
+<div id="notes"></div>
+
+<script>
+/* ===== Navigation: ←/→, Space, PageUp/PageDown, Home/End, click. F = fullscreen, N = speaker notes ===== */
+const slides=[...document.querySelectorAll('.slide')], stage=document.getElementById('stage');
+let cur=0;
+function fit(){stage.style.setProperty('--s',Math.min(innerWidth/1920,innerHeight/1080))}
+function show(i){
+  cur=Math.max(0,Math.min(slides.length-1,i));
+  slides.forEach((s,k)=>s.classList.toggle('active',k===cur));
+  document.getElementById('progress').style.width=((cur+1)/slides.length*100)+'%';
+  document.getElementById('counter').textContent=(cur+1)+' / '+slides.length;
+  const n=slides[cur].querySelector('aside.notes');document.getElementById('notes').textContent=n?n.textContent.trim():'';
+  history.replaceState(null,'','#'+(cur+1));
+}
+addEventListener('resize',fit);
+addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();show(cur+1)}
+  else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();show(cur-1)}
+  else if(e.key==='Home')show(0); else if(e.key==='End')show(slides.length-1);
+  else if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+  else if(e.key==='n'||e.key==='N'){document.getElementById('notes').classList.toggle('show')}
+});
+addEventListener('click',e=>{if(e.target.closest('#notes,video,a,.hw-step'))return;show(e.clientX>innerWidth/2?cur+1:cur-1)});
+fit();show((parseInt(location.hash.slice(1))||1)-1);
+
+/* ===== How it works: click a step to highlight it and show its diagram ===== */
+document.querySelectorAll('.hw-step').forEach(st=>st.addEventListener('click',()=>{
+  const n=st.dataset.step,hw=st.closest('.hw');
+  hw.querySelectorAll('.hw-step,.hw-panel').forEach(el=>el.classList.toggle('on',el.dataset.step===n));
+}));
+
+/* ===== Seeded random so the illustrations look the same every time ===== */
+function rng(seed){return()=>(seed=(seed*16807)%2147483647)/2147483647}
+
+/* ===== Cover strip: spikes light up and decode S-N-E-A-K-E-Y ===== */
+(function(){
+  const svg=document.getElementById('strip'),L='SNEAKEY',W=1728,N=L.length,seg=W/N,y=50,r=rng(11),H=[10,26,46,26,10];
+  const cx=[...Array(N)].map((_,i)=>Math.round(seg*i+seg/2));let o='';
+  for(let x=6;x<W;x+=12){if(cx.some(c=>Math.abs(x-c)<40))continue;const h=3+r()*7;o+=`<line x1="${x}" x2="${x}" y1="${y-h}" y2="${y+h}" stroke="#3A4256" stroke-width="4" stroke-linecap="round"/>`}
+  cx.forEach((c,i)=>{o+=`<g id="k${i}" stroke="#3A4256" stroke-width="4" stroke-linecap="round">`+H.map((h,j)=>`<line x1="${c+(j-2)*12}" x2="${c+(j-2)*12}" y1="${y-h}" y2="${y+h}"/>`).join('')+`</g><text id="t${i}" x="${c}" y="138" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="30" font-weight="700" fill="${i>=N-3?'#C6FF3D':'#EDE7DA'}" opacity="0">${L[i]}</text>`});
+  svg.innerHTML=o;let n=0;
+  function step(){if(n<N){svg.querySelector('#k'+n).setAttribute('stroke','#C6FF3D');svg.querySelector('#t'+n).setAttribute('opacity','1');n++;setTimeout(step,420)}
+    else setTimeout(()=>{for(let k=0;k<N;k++){svg.querySelector('#k'+k).setAttribute('stroke','#3A4256');svg.querySelector('#t'+k).setAttribute('opacity','0')}n=0;step()},2600)}
+  setTimeout(step,700);
+})();
+
+/* ===== Pipeline illustrations (not real data) ===== */
+document.querySelectorAll('svg.wave').forEach(svg=>{
+  const kind=svg.dataset.kind,r=rng(7),y=60,C=[36,96,156,212];let noise='',spikes='',o='';
+  if(kind==='raw'||kind==='marks'){
+    for(let x=4;x<240;x+=6){const d=Math.min(...C.map(c=>Math.abs(x-c)));
+      if(d<=12){const h=[44,30,16][Math.floor(d/6)]||8;spikes+=`M${x} ${y-h}V${y+h} `}else{const h=2+r()*4;noise+=`M${x} ${(y-h).toFixed(0)}V${(y+h).toFixed(0)} `}}
+    o=`<path d="${noise}" stroke="#4A5266" stroke-width="3" stroke-linecap="round" ${kind==='marks'?'stroke-opacity=".6"':''}/><path d="${spikes}" stroke="#C6FF3D" stroke-width="3" stroke-linecap="round"/>`;
+    if(kind==='marks')C.forEach(c=>o+=`<path d="M${c} 6V114" stroke="#EDE7DA" stroke-width="2" stroke-dasharray="5 4"/><circle cx="${c}" cy="6" r="5" fill="#EDE7DA"/>`);
+  }else if(kind==='clip'){
+    o='<rect x="30" y="2" width="206" height="116" rx="6" fill="#C6FF3D" fill-opacity=".1" stroke="#C6FF3D" stroke-width="2" stroke-dasharray="6 4"/>';
+    for(let x=6,i=0;x<240;x+=8,i++){const t=(x-40)/200,h=x<40?3:Math.max(3,52*Math.exp(-t*4.5)*(.75+.25*Math.abs(Math.sin(i*1.7))));spikes+=`M${x} ${(y-h).toFixed(0)}V${(y+h).toFixed(0)} `}
+    o+=`<path d="${spikes}" stroke="#C6FF3D" stroke-width="4" stroke-linecap="round"/>`;
+  }else if(kind==='spec'){
+    for(let c=0;c<12;c++)for(let w=0;w<8;w++){const t=c/12,f=w/8;let v=Math.exp(-t*3)*(.5+.5*Math.sin(f*9+1.3))*(t>.05?1:.15)+r()*.1;v=Math.min(1,Math.max(.05,v));
+      o+=`<rect x="${c*20+1}" y="${w*15+1}" width="18" height="13" rx="2" fill="#C6FF3D" fill-opacity="${v.toFixed(2)}"/>`}
+  }
+  svg.innerHTML=o;
+});
+
+/* ===== Demo placeholder: live transcript with per-key confidence (made-up values) ===== */
+(function(){
+  const box=document.getElementById('transcript');if(!box)return;
+  const line=box.querySelector('.line'),bars=box.querySelector('.bars'),P=['hello world','sneakey','meet at 9'];let p=0,i=0,blink=true;
+  const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  function render(){line.innerHTML='&gt; '+esc(P[p].slice(0,i))+'<span style="color:#C6FF3D">'+(blink?'_':' ')+'</span>'}
+  function bar(ch){const d=document.createElement('div');if(ch===' '){d.style.height='6px';d.style.background='#2B3140'}else{const c=.35+Math.random()*.65;d.style.height=Math.round(c*110)+'px';d.style.background=c>.7?'#C6FF3D':c>.5?'#8A93A6':'#4A5266'}bars.appendChild(d)}
+  function tick(){if(i<P[p].length){bar(P[p][i]);i++;render();setTimeout(tick,260+Math.random()*180)}else setTimeout(()=>{p=(p+1)%P.length;i=0;bars.innerHTML='';render();tick()},2200)}
+  setInterval(()=>{blink=!blink;render()},530);render();setTimeout(tick,800);
+})();
+</script>
+</body>
+</html>
