@@ -9,7 +9,7 @@ const KEYS_SHOWN = "abcdefghijklmnopqrstuvwxyz".split("").map((c) => `Key${c.toU
 const ENOUGH_PRESSES = 400;
 const FIELDS = ["participant", "keyboard", "microphone", "environment"];
 
-let test = null;           // {text, sentences, seed, mode, version, repeated_trigrams}
+let test = null;           // {source, text, sentences, seed, mode, version, repeated_trigrams}
 let target = "";
 let typed = [];
 let session = null;        // set while recording
@@ -35,6 +35,8 @@ function init() {
   }
   $("newText").addEventListener("click", newText);
   $("length").addEventListener("change", newText);
+  $("source").value = localStorage.getItem("sneakey-source") || "sentences";
+  $("source").addEventListener("change", () => { localStorage.setItem("sneakey-source", $("source").value); newText(); });
   $("mode").addEventListener("change", newText);
   $("start").addEventListener("click", start);
   $("finish").addEventListener("click", finish);
@@ -52,7 +54,7 @@ function init() {
 
 async function newText() {
   try {
-    test = await api(`api/sentences?chars=${$("length").value}&mode=${$("mode").value}`);
+    test = await api(`api/sentences?chars=${$("length").value}&mode=${$("mode").value}&source=${$("source").value}`);
   } catch (error) {
     showError(`Couldn't generate a test: ${error.message}`);
     return;
@@ -61,7 +63,9 @@ async function newText() {
   typed = [];
   $("seed").textContent = test.seed;
   $("repeats").textContent = test.repeated_trigrams;
-  $("frames").replaceChildren(...test.sentences.map((s) => el("span", { title: s.text }, s.frame.replaceAll("_", " "))));
+  $("frames").replaceChildren(...test.sentences.map((s) => el("span", { title: s.text }, s.author || s.frame.replaceAll("_", " "))));
+  $("aboutSentences").classList.toggle("hidden", test.source === "quotes");
+  $("aboutQuotes").classList.toggle("hidden", test.source !== "quotes");
   drawText();
   updateStats();
 }
@@ -314,7 +318,7 @@ function baseMetadata(recorded) {
     name: $("participant").value.trim(),
     participant: { id: $("participant").value.trim(), consent_confirmed: true },
     conditions: { keyboard: $("keyboard").value.trim(), microphone: $("microphone").value.trim(), environment: $("environment").value.trim() },
-    generator: { version: recorded.test.version, seed: recorded.test.seed, mode: recorded.test.mode,
+    generator: { source: recorded.test.source, version: recorded.test.version, seed: recorded.test.seed, mode: recorded.test.mode,
       repeated_trigrams: recorded.test.repeated_trigrams, sentences: recorded.test.sentences },
     target_text: target,
     typed_text: typedText,
@@ -365,7 +369,7 @@ async function save(recorded) {
     name: $("participant").value.trim(),
     participant: { id: $("participant").value.trim(), consent_confirmed: true },
     conditions: { keyboard: $("keyboard").value.trim(), microphone: $("microphone").value.trim(), environment: $("environment").value.trim() },
-    generator: { version: recorded.test.version, seed: recorded.test.seed, mode: recorded.test.mode,
+    generator: { source: recorded.test.source, version: recorded.test.version, seed: recorded.test.seed, mode: recorded.test.mode,
       repeated_trigrams: recorded.test.repeated_trigrams, sentences: recorded.test.sentences },
     target_text: target,
     typed_text: typedText,

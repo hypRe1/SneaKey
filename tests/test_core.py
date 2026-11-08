@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parent.parent
 os.environ.setdefault("SNEAKEY_DATA", tempfile.mkdtemp(prefix="sneakey-test-"))
 sys.path.insert(0, str(ROOT))
 
-from sneakey import detection, evaluation, groundtruth, sentences  # noqa: E402
+from sneakey import detection, evaluation, groundtruth, quotes, sentences  # noqa: E402
 from sneakey.audio import read_wav, wav_bytes  # noqa: E402
 from sneakey.pipeline import Pipeline, render_text  # noqa: E402
 
@@ -200,6 +200,27 @@ class Sentences(unittest.TestCase):
             text = " ".join(sentences.generate_test(3000, seed=s, mode=mode, key_counts=counts)["text"] for s in range(5)).lower()
             return text.count("z") / len(re.sub(r"[^a-z]", "", text))
         self.assertGreater(z_rate("coverage"), 1.3 * z_rate("natural"))
+
+
+class Quotes(unittest.TestCase):
+    QUOTES = [{"id": i, "text": f"Quote number {i} is about the {word} and nothing else.", "author": f"Author {i}"}
+              for i, word in enumerate(["sea", "sky", "fox", "jazz", "quiz", "moon", "tree", "road", "wind", "rain",
+                                        "lamp", "door", "fire", "snow", "hill", "lake", "bird", "song", "book", "star"])]
+
+    def test_normalises_and_filters(self):
+        self.assertEqual(quotes.normalise("\u201cIt\u2019s  fine\u201d \u2014 ok\u2026"), '"It\'s fine" - ok...')
+        self.assertTrue(quotes.usable("Be like a flower that gives its fragrance even to the hand that crushed it."))
+        self.assertFalse(quotes.usable("I Have Held Many Things In My Hands, And I Have Lost Them All."))
+        self.assertFalse(quotes.usable("Success is 99% perspiration, and that is all there is to it."))
+
+    def test_deterministic_and_avoids_previous(self):
+        a = quotes.generate_test(150, seed=4, quotes=self.QUOTES)
+        self.assertEqual(a["text"], quotes.generate_test(150, seed=4, quotes=self.QUOTES)["text"])
+        self.assertGreaterEqual(len(a["text"]), 150)
+        self.assertEqual(a["source"], "quotes")
+        self.assertTrue(all(s["author"] and s["frame"] == "quote" for s in a["sentences"]))
+        b = quotes.generate_test(150, seed=4, quotes=self.QUOTES, previous_texts=[a["text"]])
+        self.assertFalse({s["id"] for s in a["sentences"]} & {s["id"] for s in b["sentences"]})
 
 
 if __name__ == "__main__":

@@ -76,6 +76,8 @@
             <div class="toolbar">
               <label class="field">Length
                 <select id="length"><option value="180">Short (~180 chars)</option><option value="350" selected>Medium (~350)</option><option value="600">Long (~600)</option></select></label>
+              <label class="field">Text
+                <select id="source"><option value="sentences" selected>Random sentences</option><option value="quotes">Famous quotes</option></select></label>
               <label class="field">Words
                 <select id="mode"><option value="natural" selected>Natural</option><option value="coverage">Favour under-recorded keys</option></select></label>
               <button id="newText" class="small">New text</button>
@@ -102,7 +104,8 @@
           </div>
           <details style="margin-top:12px">
             <summary>How this text was generated</summary>
-            <p class="small muted">Sentences are composed by a random grammar: twelve sentence frames (statements, questions, commands, compound, subordinate and relative clauses…) with independently optional modifiers, varied tense and person. Each sentence is the best of several candidates, penalising word sequences that appeared in earlier recordings and frames already used in this test. Seed and frames are saved with the session.</p>
+            <p id="aboutQuotes" class="small muted hidden">Famous quotes from dummyjson.com. The list is downloaded once (a plain request: nothing about the recordings is sent), stored in data/quotes.json and used offline from then on. Quotes already typed in earlier recordings are avoided while unused ones remain. Seed and quotes are saved with the session.</p>
+            <p id="aboutSentences" class="small muted">Sentences are composed by a random grammar: twelve sentence frames (statements, questions, commands, compound, subordinate and relative clauses…) with independently optional modifiers, varied tense and person. Each sentence is the best of several candidates, penalising word sequences that appeared in earlier recordings and frames already used in this test. Seed and frames are saved with the session.</p>
             <div class="small muted">Seed <span id="seed" class="mono"></span> · word trigrams repeated from earlier recordings: <span id="repeats" class="mono"></span></div>
             <div id="frames" class="frames"></div>
           </details>

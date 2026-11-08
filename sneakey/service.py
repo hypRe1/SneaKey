@@ -15,6 +15,7 @@ from .audio import read_wav
 from .evaluation import evaluate
 from .groundtruth import true_presses
 from .pipeline import Pipeline
+from . import quotes
 from .sentences import generate_test
 
 
@@ -125,10 +126,12 @@ def key_counts(session_ids=None):
     return dict(counts)
 
 
-def new_test(target_chars=350, mode="natural", seed=None):
+def new_test(target_chars=350, mode="natural", seed=None, source="sentences"):
     previous = [sessions.load_session(s["id"])["target_text"] for s in sessions.list_sessions()]
-    return generate_test(target_chars, seed=seed, mode=mode, previous_texts=previous,
-                         key_counts=key_counts() if mode == "coverage" else None)
+    generate = quotes.generate_test if source == "quotes" else generate_test
+    test = generate(target_chars, seed=seed, mode=mode, previous_texts=previous,
+                    key_counts=key_counts() if mode == "coverage" else None)
+    return {"source": source, **test}
 
 
 # ---- analysis ----

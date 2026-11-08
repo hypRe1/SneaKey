@@ -1,7 +1,9 @@
 """HTTP API and static file server. Bound to 127.0.0.1 by run.py: nothing leaves the machine.
 
   GET    /api/health                              model version and settings
-  GET    /api/sentences?chars=350&mode=natural    a new random typing test (mode: natural | coverage)
+  GET    /api/sentences?chars=350&mode=natural    a new random typing test (mode: natural | coverage,
+                                                  source: sentences | quotes; quotes are downloaded once from
+                                                  dummyjson.com, then served from data/quotes.json)
   GET    /api/key-counts                          recorded presses per key
   GET    /api/sessions                            sessions with their evaluation role
   POST   /api/sessions                            create a session: {metadata, events} -> {id}
@@ -30,13 +32,13 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 
-from . import analysis, config, llm_decoder, phone, service, sessions
+from . import analysis, config, llm_decoder, phone, quotes, service, sessions
 from .audio import AudioFormatError, wav_bytes
 
 WEB_DIR = config.ROOT / "web"
 # Bump whenever the API changes; the page checks it so a server started before an update says "restart me"
 # instead of failing with 404/405 errors. Must match API_VERSION in web/js/app.js.
-API_VERSION = 5
+API_VERSION = 6
 MAX_AUDIO_BYTES = 400 * 1024 * 1024   # ~70 minutes at 48 kHz
 
 app = FastAPI(title="SneaKey", docs_url=None, redoc_url=None)
@@ -98,10 +100,15 @@ async def health():
 
 
 @app.get("/api/sentences")
-async def sentences(chars: int = 350, mode: str = "natural", seed: int | None = None):
+async def sentences(chars: int = 350, mode: str = "natural", seed: int | None = None, source: str = "sentences"):
     if mode not in ("natural", "coverage"):
         raise HTTPException(400, "mode must be natural or coverage")
-    return await asyncio.to_thread(service.new_test, max(60, min(chars, 3000)), mode, seed)
+    if source not in ("sentences", "quotes"):
+        raise HTTPException(400, "source must be sentences or quotes")
+    try:
+        return await asyncio.to_thread(service.new_test, max(60, min(chars, 3000)), mode, seed, source)
+    except quotes.Unavailable as error:
+        raise HTTPException(502, str(error))
 
 
 @app.get("/api/key-counts")
