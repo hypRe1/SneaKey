@@ -42,6 +42,47 @@ and text metrics, a character diff of typed vs predicted text, and every word wi
 Clicking a word shows the per-key probability distribution of each press. There's also a timeline of typed vs
 predicted keys, per-key recall, a confusion matrix, and pooled results across recordings.
 
+## Recording with a phone (the judge demo)
+
+The keyboard is logged on the laptop, but the audio comes **only from a phone** on the same Wi-Fi, so a correct
+prediction can't come from the keystroke log.
+
+```bash
+.venv/bin/python run.py --phone       # app on http://127.0.0.1:8000, phone page on https://<laptop IP>:8443
+```
+
+1. On the laptop's **Record** page, set *Record with* to **A phone** and press **Pair a phone**. A link appears,
+   e.g. `https://10.126.29.211:8443/p/Y2CVCJCS`.
+2. Open the link on the phone. Accept the certificate warning once: the certificate is self-signed, made locally
+   by `openssl` in `data/tls/`. Then tap **Start microphone**, put the phone in its usual spot and leave it.
+3. The judge types the generated text on **this laptop's keyboard**. The models only know the keyboard they were
+   trained on, so the judge can't use their own. Press **Start recording** on the laptop; the phone records until
+   **Finish and save**.
+4. Open the recording in **Predict**: the prediction uses only the phone's audio.
+
+Before a demo, record and train on phone recordings, with the phone in the same position:
+
+1. Record several phone sessions; more data means more accuracy.
+2. Train on them on the **Train** page. *Microphone: Phone* is preselected and *Retrain the press detector* is
+   switched on.
+3. Activate the model.
+
+A model trained on laptop audio doesn't work on phone audio, and Predict warns when they don't match. On simulated
+phone audio, the laptop detector found only 12% of presses; a detector retrained on 4 phone recordings found 60%.
+
+**Network and security.** The phone port serves only the phone page and its endpoints, behind a random pairing
+code; the rest of the app, including all recordings, stays on localhost. Nothing goes to the internet. If the
+venue Wi-Fi isolates devices from each other, connect the laptop to the phone's hotspot instead.
+
+**Timing across two devices** (`sneakey/phone.py`). Both pages repeatedly ping the server's clock, and the fastest
+round trip in each 5 s window gives each device's clock offset; the phone also logs its page clock against its
+audio frames. Chaining these maps each key event to a sample in the phone audio: in simulation, within 1–5 ms
+despite 5–80 ms Wi-Fi delays. The phone's microphone delay (often 100–300 ms) and audio-clock drift are then
+measured from the audio itself (`groundtruth.py`, wide mode): a −400…+1000 ms delay search plus a drift line
+through 15 s windows. On a real recording made into a simulated phone recording, this put 85–88% of presses within
+2 ms of their true position, against 94.5% with perfect timing. Laptop recordings use the original method,
+unchanged.
+
 ## How prediction works
 
 ```
@@ -204,8 +245,9 @@ and are not retrained by these scripts.
 ## Tests
 
 ```bash
-.venv/bin/python -m unittest discover -s tests -v   # pipeline, ground truth, metrics, generator, API
+.venv/bin/python -m unittest discover -s tests -v   # pipeline, ground truth, metrics, generator, API, phone timing
 .venv/bin/python tests/browser_check.py             # headless Firefox: record → analyse → predict
+.venv/bin/python tests/phone_check.py               # two headless Firefox: phone page + laptop recording over --phone
 ```
 
 `tests/test_core.py` includes parity tests that compare against the original project (in `../SneaKey`, or set

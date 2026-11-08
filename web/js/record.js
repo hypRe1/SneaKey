@@ -3,6 +3,7 @@
 import { $, api, el, keyLabel, roleBadge, showError } from "./common.js";
 import { CONSTRAINTS, SAMPLE_RATE, openMicrophone } from "./microphone.js";
 import { refreshSessions } from "./app.js";
+import * as phoneLink from "./phone-link.js";
 
 const KEYS_SHOWN = "abcdefghijklmnopqrstuvwxyz".split("").map((c) => `Key${c.toUpperCase()}`).concat(["Space", "Comma", "Period", "Backspace"]);
 const ENOUGH_PRESSES = 400;
@@ -17,11 +18,13 @@ window.__recordState = () => ({ events: session ? session.events.length : null, 
 
 export function enter() {
   if (!initialised) init();
+  phoneLink.resume();
   refreshSessions().then(showCoverage);
 }
 
 export function leave() {
   if (session) discard();     // never keep recording off-screen
+  phoneLink.leave();
 }
 
 function init() {
@@ -41,6 +44,7 @@ function init() {
   typing.addEventListener("keyup", onKeyUp);
   typing.addEventListener("click", () => typing.focus());
   window.addEventListener("beforeunload", (event) => { if (session) event.preventDefault(); });
+  phoneLink.init();
   newText();
 }
 
@@ -123,6 +127,7 @@ async function start() {
     keystrokes: { chars: 0, correct: 0 }, test,
   };
   setButtons(true);
+  if (phoneLink.phoneSelected()) return startWithPhone();
   $("recState").textContent = "Starting microphone…";
   try {
     session.microphone = await openMicrophone(onAudio);
@@ -153,6 +158,26 @@ async function start() {
   session.statsTimer = setInterval(updateStats, 200);
   sampleClocks();
   $("recState").textContent = "Recording";
+  $("recState").classList.add("on");
+  $("typing").classList.remove("idle");
+  $("typingHint").classList.add("hidden");
+  drawText();
+  $("typing").focus();
+}
+
+// Recording with a paired phone as the microphone: the laptop only logs the keyboard.
+async function startWithPhone() {
+  $("recState").textContent = "Starting the phone's microphone…";
+  try {
+    session.phone = await phoneLink.start();
+  } catch (error) {
+    session = null;
+    setButtons(false);
+    $("recState").textContent = "Not recording";
+    return showError(error.message);
+  }
+  session.statsTimer = setInterval(updateStats, 200);
+  $("recState").textContent = "Recording on the phone";
   $("recState").classList.add("on");
   $("typing").classList.remove("idle");
   $("typingHint").classList.add("hidden");
@@ -224,10 +249,19 @@ async function stopRecording() {
   await new Promise((resolve) => setTimeout(resolve, 500));
   clearInterval(session.clockTimer);
   clearInterval(session.statsTimer);
-  sampleClocks();
+  if (!session.phone) sampleClocks();
   const recorded = session;
   session = null;
-  await recorded.microphone.stop();
+  if (recorded.phone) {
+    $("recState").textContent = "Waiting for the phone's audio…";
+    try {
+      await phoneLink.stop(recorded.phone.recordingId);
+    } catch (error) {
+      recorded.phoneError = error.message;
+    }
+  } else {
+    await recorded.microphone.stop();
+  }
   $("recState").textContent = "Not recording";
   $("recState").classList.remove("on");
   $("level").style.width = "0";
@@ -261,7 +295,7 @@ async function finish() {
 
 function showSaved(id, recorded) {
   const presses = recorded.events.filter((e) => e.event_type === "keydown").length;
-  const seconds = recorded.batches.reduce((sum, b) => sum + b.length, 0) / SAMPLE_RATE;
+  const seconds = recorded.phone ? recorded.phoneSeconds ?? 0 : recorded.batches.reduce((sum, b) => sum + b.length, 0) / SAMPLE_RATE;
   $("saved").replaceChildren(
     el("div", { class: "panel-head" }, el("h2", {}, "Session saved"),
       el("div", { class: "toolbar" }, el("a", { href: `#analyse/${id}` }, "Analyse →"), el("a", { href: `#predict/${id}` }, "Predict →"))),
@@ -269,7 +303,49 @@ function showSaved(id, recorded) {
   $("saved").classList.remove("hidden");
 }
 
+// Fields shared by laptop and phone recordings.
+function baseMetadata(recorded) {
+  const typedText = typed.join("");
+  const correctChars = [...typedText].filter((c, i) => c === target[i]).length;
+  const minutes = recorded.firstKeyTime ? (Date.now() - recorded.firstKeyTime) / 60000 : 0;
+  return {
+    schema_version: 2,
+    session_id: crypto.randomUUID(),
+    name: $("participant").value.trim(),
+    participant: { id: $("participant").value.trim(), consent_confirmed: true },
+    conditions: { keyboard: $("keyboard").value.trim(), microphone: $("microphone").value.trim(), environment: $("environment").value.trim() },
+    generator: { version: recorded.test.version, seed: recorded.test.seed, mode: recorded.test.mode,
+      repeated_trigrams: recorded.test.repeated_trigrams, sentences: recorded.test.sentences },
+    target_text: target,
+    typed_text: typedText,
+    target_words: target.split(" ").length,
+    target_chars: target.length,
+    session: {
+      started_iso: recorded.startedAt.toISOString(),
+      first_keystroke_iso: recorded.firstKeyTime?.toISOString() ?? null,
+      finished_iso: new Date().toISOString(),
+      completed_paragraph: typedText === target,
+    },
+    stats: {
+      wpm: minutes > 0 ? +(correctChars / 5 / minutes).toFixed(2) : null,
+      accuracy_keystrokes_pct: recorded.keystrokes.chars ? +((100 * recorded.keystrokes.correct) / recorded.keystrokes.chars).toFixed(2) : null,
+    },
+  };
+}
+
+// The phone's audio and the laptop's key log are combined on the server, which maps the key times onto the
+// phone audio (sneakey/phone.py).
+async function savePhone(recorded) {
+  if (recorded.phoneError) throw new Error(recorded.phoneError);
+  const metadata = { ...baseMetadata(recorded), capture: { device: "phone", laptop_user_agent: navigator.userAgent } };
+  const events = recorded.events.map(({ event_time, ...row }) => ({ ...row, event_time }));
+  const { id, seconds } = await phoneLink.save(recorded.phone.recordingId, metadata, events, recorded.phone.startedPerf);
+  recorded.phoneSeconds = seconds;
+  return id;
+}
+
 async function save(recorded) {
+  if (recorded.phone) return savePhone(recorded);
   const audio = joinBatches(recorded.batches);
   if (audio.length < SAMPLE_RATE / 2) throw new Error("the recording has less than half a second of audio");
   const clock = fitClock(recorded.clockPairs, recorded.firstFrame);
@@ -353,5 +429,5 @@ function setButtons(recording) {
   $("start").disabled = recording;
   $("finish").disabled = !recording;
   $("discard").disabled = !recording;
-  for (const id of ["newText", "length", "mode", ...FIELDS, "consent"]) $(id).disabled = recording;
+  for (const id of ["newText", "length", "mode", ...FIELDS, "consent", "micSource", "pairPhone"]) $(id).disabled = recording;
 }

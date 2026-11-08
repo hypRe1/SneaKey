@@ -9,7 +9,7 @@ from functools import lru_cache
 
 import numpy as np
 
-from . import analysis, config, llm_decoder, models, sessions, training
+from . import analysis, config, llm_decoder, models, phone, sessions, training
 from .evaluation import text_error_rates, words_correct
 from .audio import read_wav
 from .evaluation import evaluate
@@ -258,6 +258,29 @@ def _with_word_counts(out):
                               [("llm", out["text"]), ("dictionary", out["dictionary"]["text"]), ("raw", out["raw"]["text"])]}
         out["typed_words"] = len(out["typed"].split())
     return out
+
+
+def create_phone_session(body):
+    """A session from a finished phone recording and the laptop's key log. body: {recording_id, metadata,
+    events (rows with event_time, the laptop page time), laptop_pings}."""
+    rec, phone_info = phone.take_finished(body["recording_id"])
+    events = body["events"]
+    times = [float(e["event_time"]) for e in events]
+    audio, samples, sync = phone.assemble(rec, body["laptop_pings"], times)
+    rows = [{**{k: v for k, v in e.items() if k != "event_time"}, "event_time_ms": round(t),
+             "t_rel_ms": f"{s / config.SAMPLES_PER_MS:.3f}", "sample_index_est": int(s)}
+            for e, t, s in zip(events, times, samples)]
+    metadata = dict(body["metadata"])
+    metadata["capture"] = {**metadata.get("capture", {}), "device": "phone", "phone": phone_info}
+    metadata["sync"] = sync
+    metadata["audio"] = {"sample_rate_hz": config.SAMPLE_RATE, "processing": "phone audio; resampled to 48 kHz if recorded at another rate"}
+    session_id = sessions.create_session(metadata, rows)
+    sessions.save_audio(session_id, audio.astype("<i2").tobytes(), config.SAMPLE_RATE)
+    return {"id": session_id, "sync": sync, "seconds": round(len(audio) / config.SAMPLE_RATE, 1)}
+
+
+def phone_links(code):
+    return [f"https://{address}:{config.PHONE_PORT}/p/{code}" for address in config.PHONE_ADDRESSES]
 
 
 def summary():

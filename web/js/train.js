@@ -14,13 +14,20 @@ let use = {};             // session id -> "train" | "validation" | "none"
 let poller = null;
 let initialised = false;
 let lastShownResult = null;
+let micChosen = false;
+
+const shown = (s) => $("trainMic").value === "all" || s.microphone === $("trainMic").value;
 
 export async function enter() {
   if (!initialised) init();
   const usable = state.sessions.filter((s) => s.has_audio);
   document.querySelector('[data-empty="train"]').classList.toggle("hidden", usable.length > 0);
   document.querySelector('[data-content="train"]').classList.toggle("hidden", usable.length === 0);
-  for (const s of usable) if (!(s.id in use)) use[s.id] = selectable(s) ? "train" : "none";
+  if (!micChosen) {        // default: phone recordings if there are any, since those are what the demo uses
+    $("trainMic").value = usable.some((s) => s.microphone === "phone") ? "phone" : "all";
+    micChosen = true;
+  }
+  for (const s of usable) if (!(s.id in use)) use[s.id] = selectable(s) && shown(s) ? "train" : "none";
   if (!Object.values(use).includes("validation")) autoSplit(false);
   renderSessions();
   renderModels();
@@ -34,6 +41,7 @@ function init() {
   for (const button of $("kind").children) button.addEventListener("click", () => setKind(button.dataset.kind));
   $("autoSplit").addEventListener("click", () => autoSplit(true));
   $("minPresses").addEventListener("change", renderSummary);
+  $("trainMic").addEventListener("change", () => { autoSplit(true); });
   $("startTraining").addEventListener("click", start);
   $("cancelTraining").addEventListener("click", () => api("api/training/cancel", { method: "POST" }).catch((e) => showError(e.message)));
   setKind("svm");
@@ -50,19 +58,20 @@ function setKind(value) {
 
 // Newest ~20% of usable recordings (at least one, if there are two or more) for validation; the rest for training.
 function autoSplit(render = true) {
-  const usable = state.sessions.filter((s) => s.has_audio && selectable(s)).sort((a, b) => a.id.localeCompare(b.id));
+  for (const s of state.sessions) if (!shown(s)) use[s.id] = "none";
+  const usable = state.sessions.filter((s) => s.has_audio && selectable(s) && shown(s)).sort((a, b) => a.id.localeCompare(b.id));
   const nValidation = usable.length >= 2 ? Math.max(1, Math.round(usable.length * 0.2)) : 0;
   usable.forEach((s, i) => { use[s.id] = i >= usable.length - nValidation ? "validation" : "train"; });
   if (render) renderSessions();
 }
 
 function renderSessions() {
-  const usable = state.sessions.filter((s) => s.has_audio);
+  const usable = state.sessions.filter((s) => s.has_audio && shown(s));
   $("trainSessions").replaceChildren(...usable.map((s) => {
     const select = el("select", { disabled: !selectable(s), onchange: (e) => { use[s.id] = e.target.value; renderSummary(); } },
       ...["train", "validation", "none"].map((v) => new Option({ train: "Training", validation: "Validation", none: "Not used" }[v], v, false, use[s.id] === v)));
     return el("tr", {}, el("td", { class: "mono" }, s.id.replace("session_", ""), " ", roleBadge(s.role)),
-      el("td", {}, s.participant || "—"), el("td", {}, s.keydowns ?? ""), el("td", {}, selectable(s) ? select : el("span", { class: "muted" }, "excluded")));
+      el("td", {}, s.microphone || "laptop"), el("td", {}, s.participant || "—"), el("td", {}, s.keydowns ?? ""), el("td", {}, selectable(s) ? select : el("span", { class: "muted" }, "excluded")));
   }));
   renderSummary();
 }
@@ -77,6 +86,8 @@ async function renderSummary() {
     el("b", {}, `${validation.length} validation`), ` (~${presses(validation)} presses)`,
     validation.length ? "" : el("span", { class: "muted" }, " · without validation recordings there is nothing to compare on"));
   $("startTraining").disabled = train.length === 0;
+  // A detector trained on the laptop microphone doesn't transfer: retrain it whenever phone recordings are used.
+  $("retrainDetector").checked = train.some((s) => s.microphone === "phone");
   const token = ++coverageToken;
   let counts = {};
   try { counts = train.length ? await api(`api/key-counts?sessions=${train.map((s) => s.id).join(",")}`) : {}; } catch { return; }
@@ -100,7 +111,7 @@ async function start() {
   try {
     await api("api/training", { method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ kind, params, train: ids("train"), validation: ids("validation"), name: $("modelName").value,
-        end_to_end: $("endToEnd").checked, min_presses: +$("minPresses").value }) });
+        end_to_end: $("endToEnd").checked, min_presses: +$("minPresses").value, retrain_detector: $("retrainDetector").checked }) });
   } catch (error) {
     return showError(`Couldn't start training: ${error.message}`);
   }
@@ -165,7 +176,13 @@ function showResult({ model, evaluation }) {
         row("Key accuracy (true press times)", (x) => x.accuracy),
         row("Balanced accuracy", (x) => x.balanced),
         row("Top-3", (x) => x.top3),
-        ...(e2e(c) ? [row("Key accuracy, detected presses (end to end)", (x) => e2e(x).key_accuracy_matched),
+        ...(evaluation.detection ? [
+          el("tr", {}, el("td", {}, "Press detection F1 (detector only)"),
+            el("td", { class: "num", style: evaluation.detection.new.f1 > evaluation.detection.active.f1 ? "color:var(--ok);font-weight:600" : "" }, pct(evaluation.detection.new.f1)),
+            el("td", { class: "num", style: evaluation.detection.active.f1 > evaluation.detection.new.f1 ? "color:var(--ok);font-weight:600" : "" }, pct(evaluation.detection.active.f1)))] : []),
+        ...(e2e(c) ? [row("Presses detected, recall (end to end)", (x) => e2e(x).recall),
+          row("Detected presses that are real, precision (end to end)", (x) => e2e(x).precision),
+          row("Key accuracy, detected presses (end to end)", (x) => e2e(x).key_accuracy_matched),
           row("Character error, keys only", (x) => e2e(x).raw_cer, "lower"),
           row("Character error, with dictionary", (x) => e2e(x).dictionary_cer, "lower")] : []))),
     el("div", { class: "toolbar", style: "margin-top:12px" },
@@ -184,7 +201,7 @@ async function renderModels() {
   try { list = await api("api/models"); } catch (error) { return showError(error.message); }
   $("modelRows").replaceChildren(...list.map((m) => el("tr", {},
     el("td", {}, m.name, m.active ? el("span", { class: "badge unseen", style: "margin-left:8px" }, "active") : ""),
-    el("td", { class: "mono" }, m.kind),
+    el("td", { class: "mono" }, m.kind), el("td", {}, m.microphone || (m.id === "original-cnn" ? "laptop" : "–")),
     el("td", {}, `${(m.trained_on || []).length} recordings${m.training_presses ? ` · ${m.training_presses} presses` : ""}`),
     el("td", { class: "num" }, m.validation ? pct(m.validation.accuracy) : m.id === "original-cnn" ? "77.4% (original test session)" : "–"),
     el("td", { class: "small muted" }, m.compared_with ? `${m.compared_with.model.name}: ${pct(m.compared_with.accuracy)}` : ""),

@@ -17,6 +17,10 @@ SAMPLE_RATE = 48000                      # every model was trained on 48 kHz mon
 SAMPLES_PER_MS = SAMPLE_RATE // 1000
 MATCH_TOLERANCE_MS = 20                  # a detected press matches a typed press within this distance (v6's rule)
 
+# Phone recording (run.py --phone): the HTTPS port the phone page is served on, and this laptop's LAN addresses.
+PHONE_PORT = int(os.environ.get("SNEAKEY_PHONE_PORT") or 0)
+PHONE_ADDRESSES = [a for a in os.environ.get("SNEAKEY_PHONE_ADDRESSES", "").split(",") if a]
+
 
 def load_splits():
     """User-assigned evaluation roles for sessions. Sessions not listed are ordinary data."""

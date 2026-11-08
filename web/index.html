@@ -53,6 +53,19 @@
             <label>Microphone <input type="text" id="microphone" placeholder="e.g. laptop built-in"></label>
             <label>Environment <input type="text" id="environment" placeholder="e.g. quiet room, desk"></label>
           </div>
+          <div class="toolbar" style="margin-top:12px">
+            <label class="field">Record with
+              <select id="micSource"><option value="laptop">This laptop's microphone</option><option value="phone">A phone (paired over Wi-Fi)</option></select></label>
+          </div>
+          <div id="phonePanel" class="phone-panel hidden">
+            <div class="toolbar"><button id="pairPhone" class="small">Pair a phone</button><span id="phoneStatus" class="small"></span></div>
+            <div class="phone-pair">
+              <div id="phoneLinks"></div>
+              <div id="phoneQrWrap" class="phone-qr hidden"><canvas id="phoneQr"></canvas><div class="small faint">Scan with the phone camera</div></div>
+            </div>
+            <div class="toolbar small muted"><span>Phone microphone level</span><div class="meter"><div id="phoneLevel"></div></div></div>
+            <div class="small faint">The laptop logs the keys; the audio comes only from the phone. Phone and laptop must be on the same Wi-Fi. Train models on phone recordings before predicting phone recordings.</div>
+          </div>
           <label class="consent" style="margin-top:12px"><input type="checkbox" id="consent">
             <span>The participant has agreed to have their typing audio and keystrokes recorded and stored on this laptop for this research.</span></label>
         </div>
@@ -197,10 +210,12 @@
         <div class="panel">
           <div class="panel-head">
             <h2>Recordings</h2>
-            <div class="toolbar"><button id="autoSplit" class="small" title="Newest ~20% of recordings for validation, the rest for training">Auto split</button></div>
+            <div class="toolbar">
+              <label class="field">Microphone <select id="trainMic"><option value="all">All</option><option value="laptop">Laptop</option><option value="phone">Phone</option></select></label>
+              <button id="autoSplit" class="small" title="Newest ~20% of the shown recordings for validation, the rest for training">Auto split</button></div>
           </div>
           <div class="small muted" style="margin-bottom:8px">Training recordings teach the model. Validation recordings are held out and used only to compare models, so keep them out of training. Test and locked recordings (data/splits.json) can't be used here.</div>
-          <div class="scroll"><table class="data"><thead><tr><th>Recording</th><th>Participant</th><th>Presses</th><th>Use for</th></tr></thead><tbody id="trainSessions"></tbody></table></div>
+          <div class="scroll"><table class="data"><thead><tr><th>Recording</th><th>Mic</th><th>Participant</th><th>Presses</th><th>Use for</th></tr></thead><tbody id="trainSessions"></tbody></table></div>
           <div id="trainSummary" class="small" style="margin-top:10px"></div>
           <h3 style="margin:14px 0 8px">Training-set coverage</h3>
           <div id="trainCoverage" class="coverage"></div>
@@ -221,7 +236,8 @@
               <label>Min. presses per key <input type="number" id="minPresses" min="1" max="200" value="5"></label>
               <label>Name (optional) <input type="text" id="modelName" maxlength="60" placeholder="e.g. SVM, 6 sessions"></label>
             </div>
-            <label class="field" style="margin-top:10px"><input type="checkbox" id="endToEnd" checked> Also score end to end (detector + classifier + dictionary) on the validation recordings</label>
+            <label class="field" style="margin-top:10px"><input type="checkbox" id="retrainDetector"> Also retrain the press detector (needed for a new microphone, e.g. a phone)</label>
+            <label class="field" style="margin-top:6px"><input type="checkbox" id="endToEnd" checked> Also score end to end (detector + classifier + dictionary) on the validation recordings</label>
             <div class="toolbar" style="margin-top:12px">
               <button id="startTraining" class="primary">Start training</button>
               <button id="cancelTraining" class="danger" disabled>Cancel</button>
@@ -241,7 +257,7 @@
 
       <div class="panel">
         <div class="panel-head"><h2>Models</h2><span class="panel-sub">The active model is used by Analyse and Predict</span></div>
-        <div class="scroll"><table class="data"><thead><tr><th>Model</th><th>Kind</th><th>Trained on</th><th>Validation key acc.</th><th>Compared with</th><th>Created</th><th></th></tr></thead><tbody id="modelRows"></tbody></table></div>
+        <div class="scroll"><table class="data"><thead><tr><th>Model</th><th>Kind</th><th>Mic</th><th>Trained on</th><th>Validation key acc.</th><th>Compared with</th><th>Created</th><th></th></tr></thead><tbody id="modelRows"></tbody></table></div>
       </div>
     </div>
   </section>
@@ -260,6 +276,7 @@
 
     <div data-content="predict" class="hidden">
       <div id="roleNotice" class="notice hidden" style="margin-bottom:14px"></div>
+      <div id="micNotice" class="notice hidden" style="margin-bottom:14px"></div>
       <div id="predictStatus" class="empty">Choose a recording and run the prediction.</div>
 
       <div id="predictResults" class="hidden">

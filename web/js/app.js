@@ -69,7 +69,7 @@ export function sessionInfo(id) {
 
 // The page and server are updated together; a server left running from before an update lacks newer endpoints
 // (e.g. training), which shows up as confusing 404/405 errors. Say so plainly instead.
-const API_VERSION = 4;    // must match API_VERSION in sneakey/api.py
+const API_VERSION = 5;    // must match API_VERSION in sneakey/api.py
 api("api/health").then((health) => {
   if (health.api_version !== API_VERSION) {
     setStickyError("The server is out of date: it was started before the latest update. Stop it (Ctrl+C) and start it again with `python run.py`, then reload this page.");

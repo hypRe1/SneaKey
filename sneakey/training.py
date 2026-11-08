@@ -158,6 +158,102 @@ def train_cnn(slices, codes, params, report, check):
     return Trained(), network, keys
 
 
+# ---- press detector (for a new microphone) ----
+# v6's recipe (train_events.py): every detector candidate is labelled keydown, keyup or background by one-to-one
+# matching (20 ms) to the ground-truth positions of the logged key events, and a gradient-boosting classifier learns
+# keydown vs the rest from the 13 loudness/shape/spectrum/spacing features. Its absolute-loudness features are why a
+# detector trained on the laptop microphone doesn't transfer to a phone.
+
+DETECTOR_LEAVES = (7, 15, 31)
+DETECTOR_THRESHOLDS = (0.2, 0.35, 0.5, 0.65, 0.8)
+
+
+def detector_session_data(session_id):
+    """(features, labels, candidate ms, true keydown ms) for one session, cached per audio file."""
+    from .detection import event_features, find_candidates, match
+    from .groundtruth import is_phone_session, label_events
+    audio_path = sessions.audio_path(session_id)
+    cache = config.CACHE_DIR / "detector" / f"{session_id}.{audio_path.stat().st_mtime_ns}.v{CACHE_VERSION}.npz"
+    if cache.exists():
+        d = np.load(cache)
+        return d["features"], d["labels"], d["candidates_ms"], d["down_ms"]
+    audio = read_wav(audio_path)
+    session = sessions.load_session(session_id)
+    labels = label_events(audio, session["events"], wide=is_phone_session(session))
+    centers = find_candidates(audio, 1.5)
+    features = event_features(audio, centers)
+    typed = [(c / config.SAMPLES_PER_MS, e["type"]) for c, e in zip(labels["centers"], session["events"])
+             if c is not None and e["type"] in ("keydown", "keyup")]
+    candidates_ms = centers / config.SAMPLES_PER_MS
+    y = np.array(["background"] * len(centers), dtype=object)
+    if typed:
+        assigned = match(np.array([t for t, _ in typed]), candidates_ms)
+        for (_, kind), j in zip(typed, assigned):
+            if j >= 0:
+                y[j] = kind
+    down_ms = np.array(sorted(t for t, kind in typed if kind == "keydown"))
+    cache.parent.mkdir(parents=True, exist_ok=True)
+    np.savez(cache, features=features, labels=y.astype(str), candidates_ms=candidates_ms, down_ms=down_ms)
+    return features, y.astype(str), candidates_ms, down_ms
+
+
+def detection_scores(per_session, probabilities, threshold):
+    """Pooled keydown detection precision/recall/F1 for candidates kept at `threshold`."""
+    from .detection import match
+    matched = predicted = true = 0
+    for (_, _, candidates_ms, down_ms), p in zip(per_session, probabilities):
+        kept = candidates_ms[p >= threshold]
+        m = match(down_ms, kept) if len(down_ms) else np.zeros(0, int)
+        matched += int((m >= 0).sum())
+        predicted += len(kept)
+        true += len(down_ms)
+    precision, recall = matched / max(predicted, 1), matched / max(true, 1)
+    return {"precision": precision, "recall": recall, "f1": 2 * precision * recall / max(precision + recall, 1e-12)}
+
+
+def train_detector(train_ids, validation_ids, report, check):
+    from sklearn.ensemble import HistGradientBoostingClassifier
+    data = []
+    for i, session_id in enumerate(train_ids):
+        check()
+        data.append(detector_session_data(session_id))
+        report(f"detector data: {session_id}", 0.4 * (i + 1) / len(train_ids))
+    X = np.concatenate([d[0] for d in data])
+    Y = np.concatenate([d[1] for d in data])
+    if (Y == "keydown").sum() < 20:
+        raise ValueError("Too few labelled key presses to train a press detector.")
+    validation = [detector_session_data(s) for s in validation_ids]
+    make = lambda leaves: HistGradientBoostingClassifier(max_iter=120, max_leaf_nodes=leaves, l2_regularization=1,
+                                                          early_stopping=False, random_state=42)
+    choice = {"max_leaf_nodes": 7, "press_threshold": 0.35, "chosen_by": "v6 defaults (no validation recordings)"}
+    if validation:
+        best = None
+        for n, leaves in enumerate(DETECTOR_LEAVES):
+            check()
+            model = make(leaves).fit(X, Y)
+            column = list(model.classes_).index("keydown")
+            probabilities = [model.predict_proba(d[0])[:, column] for d in validation]
+            for threshold in DETECTOR_THRESHOLDS:
+                score = detection_scores(validation, probabilities, threshold)
+                if best is None or score["f1"] > best[0]["f1"]:
+                    best = (score, leaves, threshold)
+            report(f"detector: {leaves} leaves tried; best F1 so far {best[0]['f1']:.3f}", 0.4 + 0.5 * (n + 1) / len(DETECTOR_LEAVES))
+        choice = {"max_leaf_nodes": best[1], "press_threshold": best[2], "chosen_by": "detection F1 on the validation recordings"}
+    model = make(choice["max_leaf_nodes"]).fit(X, Y)
+    settings = {"flux_threshold": 1.5, **choice, "trained_on": list(train_ids)}
+    return model, settings, validation
+
+
+def compare_detectors(validation, new_model, new_threshold, active_detector):
+    """Validation detection scores of the new and the active detector on the same candidates."""
+    new_column = list(new_model.classes_).index("keydown")
+    active_column = list(active_detector.classifier.classes_).index("keydown")
+    new = detection_scores(validation, [new_model.predict_proba(d[0])[:, new_column] for d in validation], new_threshold)
+    active = detection_scores(validation, [active_detector.classifier.predict_proba(d[0])[:, active_column] for d in validation],
+                              active_detector.press_threshold)
+    return new, active
+
+
 # ---- evaluation ----
 
 def logged_timing(classify_slices, key_names, slices, codes):
@@ -206,6 +302,7 @@ def end_to_end(classifier, session_ids, report, check):
             dict_err += text_error_rates(session["typed_text"], prediction["words"]["text"])["cer"] * n
         report(f"end to end: {session_id}", None)
     return {"key_accuracy_matched": correct / max(matched, 1), "recall": matched / max(typed, 1),
+            "precision": matched / max(detected, 1),
             "raw_cer": raw_err / typed_chars if typed_chars else None,
             "dictionary_cer": dict_err / typed_chars if typed_chars else None}
 
@@ -263,6 +360,7 @@ def start(request, active_classifier):
                "train": list(dict.fromkeys(request.get("train") or [])),
                "validation": list(dict.fromkeys(request.get("validation") or [])),
                "end_to_end": bool(request.get("end_to_end", True)),
+               "retrain_detector": bool(request.get("retrain_detector", False)),
                "min_presses": max(1, int(request.get("min_presses", 5)))}
     if kind == "svm" and not 0.01 <= float(request["params"]["C"]) <= 1000:
         raise ValueError("C must be between 0.01 and 1000.")
@@ -317,9 +415,21 @@ def _run(job, active):
         fit_seconds = time.time() - fit_started
         job.report(f"trained in {fit_seconds:.0f} s", None)
 
-        evaluation = {"candidate": None, "active": None, "presses": 0}
+        detector = detector_settings = detection = None
+        if r["retrain_detector"]:
+            from .detection import PressDetector
+            report = _stage(job, "Training the press detector", 0.75, 0.82)
+            detector, detector_settings, det_validation = train_detector(r["train"], r["validation"], report, job.check)
+            model.detector = PressDetector(classifier=detector, settings=detector_settings)
+            if det_validation:
+                new, old = compare_detectors(det_validation, detector, detector_settings["press_threshold"],
+                                             getattr(active, "detector", None) or PressDetector())
+                detection = {"new": new, "active": old}
+                job.report(f"press detection F1 on validation: new {new['f1']:.3f}, active {old['f1']:.3f}", None)
+
+        evaluation = {"candidate": None, "active": None, "presses": 0, "detection": detection}
         if r["validation"]:
-            report = _stage(job, "Scoring on validation sessions", 0.75, 0.85)
+            report = _stage(job, "Scoring on validation sessions", 0.82, 0.88)
             v_slices, v_codes = dataset(r["validation"], report, job.check)
             evaluation["presses"] = int(len(v_codes))
             evaluation["candidate"] = logged_timing(classify_slices, model.key_names, v_slices, v_codes)
@@ -332,7 +442,7 @@ def _run(job, active):
             job.report(f"validation key accuracy: new {evaluation['candidate']['accuracy']:.1%}, "
                        f"active {evaluation['active']['accuracy']:.1%}", None)
             if r["end_to_end"]:
-                report = _stage(job, "Scoring end to end (detector + classifier + dictionary)", 0.85, 0.99)
+                report = _stage(job, "Scoring end to end (detector + classifier + dictionary)", 0.88, 0.99)
                 candidate_view = model
                 candidate_view.version = f"candidate-{job.id}"
                 evaluation["candidate"]["end_to_end"] = end_to_end(candidate_view, r["validation"], report, job.check)
@@ -347,10 +457,12 @@ def _run(job, active):
             "trained_on": r["train"], "validation_sessions": r["validation"],
             "params": r["params"], "training_presses": int(len(codes)), "keys": sorted(set(codes.tolist())),
             "left_out_keys": dropped, "fit_seconds": round(fit_seconds, 1),
+            "microphone": microphone_of(r["train"]), "detector": detector_settings,
+            "detection_validation": detection,
             "validation": _summary(evaluation["candidate"]),
             "compared_with": {"model": evaluation["active"]["model"], **_summary(evaluation["active"])} if evaluation["active"] else None,
         }
-        models.save(manifest, r["kind"], network=network, key_names=keys, estimator=estimator)
+        models.save(manifest, r["kind"], network=network, key_names=keys, estimator=estimator, detector=detector)
         job.result = {"model": manifest, "evaluation": evaluation}
         job.state, job.stage, job.progress = "done", "Finished", 1.0
         job.report(f"saved model {model_id}")
@@ -362,6 +474,11 @@ def _run(job, active):
         job.report("failed: " + "".join(traceback.format_exception_only(error)).strip())
     finally:
         job.finished = time.time()
+
+
+def microphone_of(session_ids):
+    kinds = {sessions.load_session(s)["microphone"] for s in session_ids}
+    return kinds.pop() if len(kinds) == 1 else "mixed"
 
 
 def _summary(evaluation):

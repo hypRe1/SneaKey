@@ -56,6 +56,7 @@ def list_sessions():
             "keydowns": metadata.get("events", {}).get("keydown"),
             "has_audio": (folder / "audio.wav").exists(),
             "wpm": metadata.get("stats", {}).get("wpm"),
+            "microphone": metadata.get("capture", {}).get("device", "laptop"),
         })
     return sessions
 
@@ -96,6 +97,7 @@ def load_session(session_id):
         "participant": metadata.get("participant", {}),
         "conditions": metadata.get("conditions", {}),
         "generator": metadata.get("generator", {}),
+        "microphone": metadata.get("capture", {}).get("device", "laptop"),
         "started": metadata.get("session", {}).get("started_iso"),
         "events": events,
     }

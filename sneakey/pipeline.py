@@ -33,8 +33,9 @@ def render_text(codes):
 class Pipeline:
     def __init__(self, classifier=None):
         """classifier: a models.load() result; default the active model (data/active_model.json)."""
-        self.detector = PressDetector()
         self.classifier = classifier or models.load(models.active_id())
+        # A model trained for another microphone may carry its own press detector (training.train_detector).
+        self.detector = getattr(self.classifier, "detector", None) or PressDetector()
         self.key_names = self.classifier.key_names
         self.decoder = WordDecoder(self.key_names, load_tuned_settings())
 

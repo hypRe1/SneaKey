@@ -30,16 +30,32 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 
-from . import analysis, config, llm_decoder, service, sessions
+from . import analysis, config, llm_decoder, phone, service, sessions
 from .audio import AudioFormatError, wav_bytes
 
 WEB_DIR = config.ROOT / "web"
 # Bump whenever the API changes; the page checks it so a server started before an update says "restart me"
 # instead of failing with 404/405 errors. Must match API_VERSION in web/js/app.js.
-API_VERSION = 4
+API_VERSION = 5
 MAX_AUDIO_BYTES = 400 * 1024 * 1024   # ~70 minutes at 48 kHz
 
 app = FastAPI(title="SneaKey", docs_url=None, redoc_url=None)
+
+
+# The phone port (run.py --phone) is reachable from the local network, so it serves only the phone page and the
+# phone's own endpoints (which need the pairing code). Everything else stays on the localhost-only port.
+PHONE_PORT_PATHS = ("/p/", "/api/phone/d/", "/img/")
+PHONE_PORT_FILES = {"/phone.html", "/js/phone.js", "/js/capture-worklet.js", "/css/app.css"}
+
+
+@app.middleware("http")
+async def phone_port_only_serves_the_phone(request: Request, call_next):
+    server = request.scope.get("server") or (None, None)
+    if config.PHONE_PORT and server[1] == config.PHONE_PORT:
+        path = request.url.path
+        if not (path.startswith(PHONE_PORT_PATHS) or path in PHONE_PORT_FILES):
+            return Response("Not found", status_code=404)
+    return await call_next(request)
 
 
 @app.middleware("http")
@@ -215,6 +231,96 @@ async def start_training(request: Request):
 async def cancel_training():
     service.training.cancel()
     return {"ok": True}
+
+
+# ---- phone recording ----
+
+def _phone_errors(function):
+    try:
+        return function()
+    except phone.NotPaired as error:
+        raise HTTPException(409, str(error))
+    except ValueError as error:
+        raise HTTPException(400, str(error))
+
+
+@app.get("/api/clock")
+def clock():
+    """The server's clock, for the laptop page's round-trip timing pings."""
+    return {"server": phone.server_ms()}
+
+
+@app.post("/api/phone/pair")
+def phone_pair():
+    if not config.PHONE_PORT:
+        raise HTTPException(409, "Phone recording is off. Restart the server with:  python run.py --phone")
+    pairing = phone.new_pairing()
+    return {"code": pairing.code, "links": service.phone_links(pairing.code)}
+
+
+@app.get("/api/phone/status")
+def phone_status():
+    status = phone.status()
+    if status.get("paired"):
+        status["links"] = service.phone_links(status["code"])
+    status["enabled"] = bool(config.PHONE_PORT)
+    return status
+
+
+@app.post("/api/phone/start")
+def phone_start():
+    return _phone_errors(phone.start)
+
+
+@app.post("/api/phone/stop")
+def phone_stop():
+    return _phone_errors(phone.stop)
+
+
+@app.post("/api/sessions/phone")
+async def create_phone_session(request: Request):
+    body = await request.json()
+    if not all(k in body for k in ("recording_id", "metadata", "events", "laptop_pings")):
+        raise HTTPException(400, "Expected {recording_id, metadata, events, laptop_pings}.")
+    return await asyncio.to_thread(_phone_errors, lambda: service.create_phone_session(body))
+
+
+# The phone's own endpoints: reachable on the phone port, all need the pairing code.
+
+@app.get("/p/{code}")
+def phone_page(code: str):
+    return FileResponse(WEB_DIR / "phone.html", media_type="text/html")
+
+
+@app.get("/api/phone/d/{code}/clock")
+def phone_clock(code: str):
+    _phone_errors(lambda: phone._pairing_for(code))
+    return {"server": phone.server_ms()}
+
+
+@app.post("/api/phone/d/{code}/hello")
+async def phone_hello(code: str, request: Request):
+    info = await request.json()
+    return _phone_errors(lambda: phone.phone_hello(code, info))
+
+
+@app.get("/api/phone/d/{code}/poll")
+def phone_poll(code: str, level: float | None = None):
+    return _phone_errors(lambda: phone.phone_poll(code, level))
+
+
+@app.post("/api/phone/d/{code}/audio")
+async def phone_audio(code: str, recording_id: str, start_frame: int, request: Request):
+    pcm = await request.body()
+    if len(pcm) % 2 or len(pcm) > 4 * 1024 * 1024:
+        raise HTTPException(400, "Audio chunks must be whole 16-bit samples, at most 4 MB.")
+    return _phone_errors(lambda: phone.phone_audio(code, recording_id, start_frame, pcm))
+
+
+@app.post("/api/phone/d/{code}/finish")
+async def phone_finish(code: str, recording_id: str, request: Request):
+    sync = await request.json()
+    return _phone_errors(lambda: phone.phone_finish(code, recording_id, sync))
 
 
 # The single-page interface. Mounted last so the API routes take priority.

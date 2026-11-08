@@ -87,6 +87,16 @@ def list_models():
     return out
 
 
+def _attach_detector(model, folder, manifest):
+    """Models trained with "retrain the press detector" carry their own (for a different microphone)."""
+    path = folder / "event_classifier.joblib"
+    if path.exists():
+        from .detection import PressDetector
+        model.detector = PressDetector(classifier=joblib.load(path), settings=manifest["detector"])
+        model.version = f"{model.version}-det{_file_hash(path)}"
+    return model
+
+
 def load(model_id):
     if model_id == ORIGINAL_ID:
         model = KeyCNN()
@@ -95,14 +105,14 @@ def load(model_id):
     manifest = json.loads((folder / "manifest.json").read_text())
     if manifest["kind"] == "cnn":
         model = KeyCNN(folder / "model.pt")
-        return _attach(model, manifest, f"cnn-{model.version}")
+        return _attach_detector(_attach(model, manifest, f"cnn-{model.version}"), folder, manifest)
     path = folder / "model.joblib"
     model = FeatureModel(joblib.load(path))      # our own file, written by save() below
-    return _attach(model, manifest, f"{manifest['kind']}-{_file_hash(path)}")
+    return _attach_detector(_attach(model, manifest, f"{manifest['kind']}-{_file_hash(path)}"), folder, manifest)
 
 
-def save(manifest, kind, network=None, key_names=None, estimator=None):
-    """Store a newly trained model; returns its folder."""
+def save(manifest, kind, network=None, key_names=None, estimator=None, detector=None):
+    """Store a newly trained model (and, optionally, its own press detector classifier); returns its folder."""
     import torch
     folder = _folder(manifest["id"], must_exist=False)
     folder.mkdir(parents=True)
@@ -110,6 +120,8 @@ def save(manifest, kind, network=None, key_names=None, estimator=None):
         torch.save({"keys": [str(k) for k in key_names], "state": network.state_dict()}, folder / "model.pt")
     else:
         joblib.dump(estimator, folder / "model.joblib", compress=3)
+    if detector is not None:
+        joblib.dump(detector, folder / "event_classifier.joblib", compress=3)
     (folder / "manifest.json").write_text(json.dumps(manifest, indent=1))
     return folder
 

@@ -26,7 +26,19 @@ export async function enter(id) {
   audio = null;
   $("predictResults").classList.add("hidden");
   showRole(sessionInfo(id));
-  api("api/models").then((list) => { $("activeModelName").textContent = list.find((m) => m.active)?.name ?? "active model"; }).catch(() => {});
+  api("api/models").then((list) => {
+    const active = list.find((m) => m.active);
+    $("activeModelName").textContent = active?.name ?? "active model";
+    // A model only works for the microphone it was trained on.
+    const modelMic = active?.microphone || (active?.id === "original-cnn" ? "laptop" : null);
+    const sessionMic = info?.microphone || "laptop";
+    if (id === currentId && modelMic && modelMic !== "mixed" && modelMic !== sessionMic) {
+      $("micNotice").textContent = `This is a ${sessionMic} recording, but the active model (${active.name}) was trained on ${modelMic} recordings, so expect poor results. ` +
+        `Train a model on ${sessionMic} recordings (with the press detector retrained) on the Train page, then activate it.`;
+      $("micNotice").classList.remove("hidden");
+    }
+  }).catch(() => {});
+  $("micNotice").classList.add("hidden");
   const info = sessionInfo(id);
   if (info?.has_prediction) return run(false);
   $("predictStatus").replaceChildren("Not evaluated yet. Press ", el("b", {}, "Run prediction"), ". It takes ~10–20 s for a 90 s recording; results are cached.");

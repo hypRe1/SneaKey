@@ -2,7 +2,7 @@
 import json, os, shutil, socket, subprocess, tempfile, time
 
 class Firefox:
-    def __init__(self, port=2828, extra_prefs=None):
+    def __init__(self, port=2828, extra_prefs=None, capabilities=None):
         self.profile = tempfile.mkdtemp(prefix="sneakey-ff-")
         prefs = {
             "media.navigator.streams.fake": True,
@@ -29,7 +29,7 @@ class Firefox:
         if not self.sock: raise RuntimeError("could not connect to Marionette")
         self.buf = b""; self.id = 0
         self._read()  # hello
-        self.cmd("WebDriver:NewSession", {"capabilities": {}})
+        self.cmd("WebDriver:NewSession", {"capabilities": capabilities or {}})
         self.cmd("WebDriver:SetTimeouts", {"script": 600000})
 
     def _read(self):

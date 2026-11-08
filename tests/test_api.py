@@ -128,7 +128,8 @@ class Api(unittest.TestCase):
                                      {"Content-Type": "application/json"}), 400)    # CNN training disabled for now
         self.assertEqual(self.status("training", "POST", json.dumps({"kind": "lda", "train": [validation_id], "validation": [validation_id]}).encode(),
                                      {"Content-Type": "application/json"}), 400)    # same session in both sets
-        body = {"kind": "lda", "train": train_ids, "validation": [validation_id], "name": "api test", "end_to_end": True, "min_presses": 1}
+        body = {"kind": "lda", "train": train_ids, "validation": [validation_id], "name": "api test", "end_to_end": True,
+                "min_presses": 1, "retrain_detector": True}
         self.call("training", "POST", json.dumps(body).encode(), {"Content-Type": "application/json"})
         for _ in range(300):
             status = self.call("training")
@@ -140,6 +141,10 @@ class Api(unittest.TestCase):
         self.assertEqual(evaluation["presses"], 22)
         self.assertIn("end_to_end", evaluation["candidate"])
         model_id = status["result"]["model"]["id"]
+        self.assertEqual(status["result"]["model"]["microphone"], "laptop")
+        detector = status["result"]["model"]["detector"]
+        self.assertIn(detector["max_leaf_nodes"], (7, 15, 31))
+        self.assertIsNotNone(evaluation["detection"])                        # new vs active detector compared
 
         listed = {m["id"]: m for m in self.call("models")}
         self.assertTrue(listed["original-cnn"]["active"])

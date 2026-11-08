@@ -112,9 +112,11 @@ def _load_event_classifier(path):
 
 
 class PressDetector:
-    def __init__(self, models_dir=MODELS_DIR):
-        self.settings = json.loads((models_dir / "detector.json").read_text())
-        self.classifier = _load_event_classifier(models_dir / "event_classifier.joblib")
+    """The shipped v6 detector by default; a retrained one (training.train_detector) when given its classifier."""
+
+    def __init__(self, models_dir=MODELS_DIR, classifier=None, settings=None):
+        self.settings = settings or json.loads((models_dir / "detector.json").read_text())
+        self.classifier = classifier if classifier is not None else _load_event_classifier(models_dir / "event_classifier.joblib")
         self.press_column = list(self.classifier.classes_).index("keydown")
         self.flux_threshold = self.settings["flux_threshold"]
         self.press_threshold = self.settings["press_threshold"]
