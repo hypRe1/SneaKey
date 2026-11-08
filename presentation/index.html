@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SneaKey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Brand tokens ===== */
+:root{
+  --ink:#0B0D12; --graphite:#1A1E27; --keycap:#EDE7DA; --paper:#F7F3EA; --tab:#D9D0BC;
+  --steel:#8A93A6; --dim:#4A5266; --lime:#C6FF3D; --stamp:#E0401F;
+  --body-dark:#D6D1C4; --body-dark2:#B9BFCC; --body-paper:#3F3A2F; --label-paper:#5E584B;
+  --display:'Space Grotesk', Arial, sans-serif; --text:Inter, Arial, sans-serif; --mono:'JetBrains Mono', Consolas, monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#000;overflow:hidden}
+p,h1,h2,h3,table{margin:0}
+
+/* ===== Stage: fixed 1920x1080 canvas, scaled to fit the window ===== */
+#stage{position:fixed;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--s,0.5));transform-origin:center}
+.slide{position:absolute;inset:0;overflow:hidden;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s;font-family:var(--text)}
+.slide.active{opacity:1;visibility:visible}
+.ink{background-color:var(--ink);background-image:radial-gradient(rgba(237,231,218,.07) 1.5px,transparent 1.5px);background-size:36px 36px;color:var(--keycap)}
+.paper{background:var(--keycap);color:var(--ink)}
+.content{position:absolute;inset:0;padding:140px 96px 120px;display:flex;flex-direction:column;gap:40px}
+
+/* ===== Type ===== */
+.hdr{position:absolute;top:56px;left:96px;right:96px;display:flex;justify-content:space-between;font:500 24px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--steel)}
+.paper .hdr{color:var(--label-paper)}
+.foot{position:absolute;left:96px;right:96px;bottom:48px;font:500 24px/1.4 var(--mono);letter-spacing:.06em;color:var(--steel)}
+.paper .foot{color:var(--label-paper)}
+.title{font:700 84px/1 var(--display);letter-spacing:-.045em}
+.lbl{font:700 24px/1.4 var(--mono);letter-spacing:.12em}
+.lime{color:var(--lime)}
+.hl{background:var(--lime);color:var(--ink);border-radius:8px;padding:0 12px}
+.body{font-size:28px;line-height:1.4}
+.ink .body{color:var(--body-dark)} .paper .body{color:var(--body-paper)}
+
+/* ===== Motifs ===== */
+.stamp{position:absolute;border:5px solid var(--stamp);border-radius:9px;padding:6px 18px;font:700 36px/1.3 var(--mono);letter-spacing:.12em;color:var(--stamp);text-align:center;transform:rotate(var(--r,-8deg))}
+.ink .stamp{background:var(--ink)} .paper .stamp{background:var(--keycap)}
+.cursor{display:inline-block;background:var(--lime);animation:blink 1.1s steps(1) infinite}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+.mascot{position:absolute;animation:bob 3.2s ease-in-out infinite}
+@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -10px}}
+
+/* ===== Build-in animations: play each time a slide becomes active =====
+   Add class="anim" and optional style="--d:.4s" (delay) / "--a:fade" (type). */
+.anim{opacity:0}
+.active .anim{animation:var(--a,rise) .7s cubic-bezier(.2,.8,.2,1) var(--d,0s) both}
+.active .mascot.anim{animation:var(--a,rise) .7s cubic-bezier(.2,.8,.2,1) var(--d,0s) both,bob 3.2s ease-in-out calc(var(--d,0s) + .7s) infinite}
+.active .stamp.anim{animation:stamp .55s cubic-bezier(.3,1.4,.5,1) var(--d,0s) both}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes stamp{0%{opacity:0;transform:rotate(var(--r,-8deg)) scale(2.4)}100%{opacity:1;transform:rotate(var(--r,-8deg)) scale(1)}}
+
+/* ===== Slide-specific ===== */
+.cases{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.case{display:flex;flex-direction:column}
+.case .tab{align-self:flex-start;background:var(--tab);border-radius:15px 15px 0 0;padding:9px 24px}
+.case .file{flex:1;display:flex;flex-direction:column;gap:12px;background:var(--paper);border:3px solid var(--ink);border-radius:0 15px 15px 15px;padding:28px}
+.case .who{font:500 24px/1.4 var(--mono);color:var(--label-paper)}
+.case .big{font:700 72px/1 var(--display);letter-spacing:-.04em}
+.case.us .tab{background:var(--lime)} .case.us .file{background:var(--ink)} .case.us .who{color:var(--steel)} .case.us .big{color:var(--lime);font-size:56px} .case.us .body{color:var(--body-dark)}
+.bar{background:var(--ink);color:var(--keycap);border-radius:24px;padding:32px 40px}
+
+.pipe{display:flex;align-items:center;gap:10px;margin-top:20px}
+.step{flex:1;height:440px;display:flex;flex-direction:column;gap:14px;background:var(--graphite);border-radius:24px;padding:24px}
+.step.last{border:3px solid var(--lime)}
+.step h3{font:700 40px/1.1 var(--display);letter-spacing:-.03em}
+.step .cap{font-size:26px;line-height:1.4;color:var(--body-dark2)}
+.arrow{width:30px;flex:none}
+.guess{height:132px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.guess div{display:flex;align-items:center;gap:12px}
+.key{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:7px;background:var(--keycap);color:var(--ink);font:700 24px var(--mono)}
+.train{display:flex;align-items:center;gap:48px;background:var(--keycap);color:var(--ink);border-radius:24px;padding:32px 40px}
+.train .stat{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.train .num{font:700 64px/1 var(--display);letter-spacing:-.04em}
+.train small{font-size:24px;color:var(--body-paper)}
+
+table.results{width:1250px;border-collapse:collapse;font-size:28px}
+table.results th,table.results td{padding:18px 24px;text-align:left}
+table.results th{background:var(--ink);color:var(--keycap);font-weight:600}
+table.results th:nth-child(2),table.results td:nth-child(2){text-align:center}
+table.results tr:nth-child(odd) td{background:var(--paper)} table.results tr:nth-child(even) td{background:#E4DCCB}
+table.results tr.hit td{background:var(--lime);font-weight:700}
+
+.steps{width:780px;display:flex;flex-direction:column;gap:32px}
+.frame{position:absolute;left:960px;top:260px;width:864px;height:620px;background:var(--graphite);border-radius:24px}
+#transcript{position:absolute;left:60px;top:60px;width:744px;font-family:var(--mono);color:var(--keycap)}
+#transcript .line{font-size:52px;font-weight:700;letter-spacing:4px;height:72px;white-space:pre}
+#transcript .bars{display:flex;gap:8px;align-items:flex-end;height:120px;margin-top:40px}
+#transcript .bars div{width:36px;border-radius:4px}
+
+.grid4{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:20px}
+.tip{display:flex;flex-direction:column;gap:14px;background:var(--paper);border:3px solid var(--ink);border-radius:24px;padding:36px;min-height:270px}
+.tip h3{font:700 44px/1.1 var(--display);letter-spacing:-.03em}
+.tip.dark{background:var(--ink);color:var(--keycap)} .tip.dark .body{color:var(--body-dark)}
+
+.limits{width:1150px;display:flex;flex-direction:column;gap:22px}
+.limits div{display:flex;gap:28px;align-items:baseline}
+.limits .n{width:56px;font:700 24px var(--mono);color:var(--lime)}
+.limits .t{flex:1;font-size:30px;line-height:1.35;color:var(--body-dark)}
+
+/* ===== Chrome: progress bar, counter, notes ===== */
+#progress{position:fixed;left:0;bottom:0;height:4px;background:var(--lime);transition:width .4s}
+#counter{position:fixed;right:16px;bottom:12px;font:500 14px var(--mono);color:#8A93A6;opacity:.6}
+#notes{position:fixed;left:0;right:0;bottom:0;max-height:40vh;overflow:auto;background:rgba(11,13,18,.95);color:#EDE7DA;font:16px/1.5 Inter, Arial, sans-serif;padding:16px 24px 24px;border-top:2px solid #C6FF3D;white-space:pre-wrap;display:none}
+#notes.show{display:block}
+aside.notes{display:none}
+</style>
+</head>
+<body>
+
+<!-- Mascot drawings (Agent Esc). Each slide reuses one with <use href="#esc-..."> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="esc-body">
+      <path d="M58 82 H194 Q212 82 214 100 L220 206 Q221 226 201 226 H51 Q31 226 32 206 L38 100 Q40 82 58 82 Z" fill="#BDB3A0"/>
+      <rect x="54" y="78" width="144" height="122" rx="22" fill="#EDE7DA"/>
+      <rect x="66" y="92" width="120" height="96" rx="16" fill="#F7F3EA"/>
+      <text x="126" y="217" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="3" fill="#6E6656">ESC</text>
+      <path d="M56 114 Q38 106 22 96 Q28 114 42 122 Q28 128 20 142 Q40 136 56 130 Z" fill="#0B0D12"/>
+      <rect x="50" y="108" width="152" height="32" rx="16" fill="#0B0D12"/>
+    </g>
+    <g id="esc-hat">
+      <g transform="rotate(-7 126 76)">
+        <path d="M72 78 Q70 34 98 26 Q126 38 154 26 Q182 34 180 78 Z" fill="#2E3444"/>
+        <rect x="71" y="58" width="110" height="12" fill="#C6FF3D"/>
+        <ellipse cx="126" cy="79" rx="106" ry="13" fill="#3A4256"/>
+        <ellipse cx="126" cy="76" rx="96" ry="7" fill="#2E3444"/>
+      </g>
+    </g>
+    <symbol id="esc-listen" viewBox="0 0 260 250">
+      <ellipse cx="126" cy="236" rx="86" ry="9" fill="#000" opacity="0.5"/>
+      <path d="M226 112 Q236 130 226 148" fill="none" stroke="#C6FF3D" stroke-width="5" stroke-linecap="round"/>
+      <path d="M240 98 Q256 130 240 162" fill="none" stroke="#C6FF3D" stroke-width="5" stroke-linecap="round" opacity="0.55"/>
+      <use href="#esc-body"/>
+      <circle cx="104" cy="124" r="10" fill="#C6FF3D"/><circle cx="150" cy="124" r="10" fill="#C6FF3D"/>
+      <circle cx="108.5" cy="124" r="4.5" fill="#0B0D12"/><circle cx="154.5" cy="124" r="4.5" fill="#0B0D12"/>
+      <path d="M110 162 Q128 171 145 157" fill="none" stroke="#0B0D12" stroke-width="4.5" stroke-linecap="round"/>
+      <use href="#esc-hat"/>
+    </symbol>
+    <symbol id="esc-decode" viewBox="0 0 260 250">
+      <ellipse cx="126" cy="236" rx="86" ry="9" fill="#000" opacity="0.5"/>
+      <use href="#esc-body"/>
+      <rect x="90" y="119" width="28" height="9" rx="4.5" fill="#C6FF3D"/><rect x="136" y="119" width="28" height="9" rx="4.5" fill="#C6FF3D"/>
+      <path d="M114 162 H142" fill="none" stroke="#0B0D12" stroke-width="4.5" stroke-linecap="round"/>
+      <use href="#esc-hat"/>
+    </symbol>
+    <symbol id="esc-closed" viewBox="0 0 260 250">
+      <ellipse cx="126" cy="236" rx="86" ry="9" fill="#000" opacity="0.3"/>
+      <use href="#esc-body"/>
+      <path d="M93 129 Q104 114 115 129" fill="none" stroke="#C6FF3D" stroke-width="6" stroke-linecap="round"/>
+      <path d="M139 129 Q150 114 161 129" fill="none" stroke="#C6FF3D" stroke-width="6" stroke-linecap="round"/>
+      <path d="M106 156 Q127 178 148 156 Z" fill="#0B0D12"/>
+      <use href="#esc-hat"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div id="stage">
+
+<!-- ================= 1. TITLE ================= -->
+<section class="slide ink">
+  <div class="hdr"><span>SNK-001 // Briefing</span><span><span class="lime">● Rec</span>&nbsp;&nbsp; [Hackathon name] 2026</span></div>
+  <div class="anim" style="position:absolute;left:96px;top:220px;width:1120px;display:flex;flex-direction:column;gap:36px;--a:fade">
+    <p class="lbl lime" style="font-weight:500;letter-spacing:.14em">ACOUSTIC KEYSTROKE RECOVERY</p>
+    <h1 style="font:700 240px/.9 var(--display);letter-spacing:-.05em;display:flex;align-items:flex-end">Snea<span class="lime">Key</span><span class="cursor" style="width:78px;height:24px;margin:0 0 22px 18px"></span></h1>
+    <p style="font:500 48px/1.2 var(--display);letter-spacing:-.02em">Figuring out what you type from the sound of your keyboard</p>
+    <p style="font:500 24px var(--mono);letter-spacing:.06em;color:var(--steel)">AGENTS: [Team member names]</p>
+  </div>
+  <svg class="mascot anim" style="left:1290px;top:200px;--d:.3s" width="540" height="519" role="img" aria-label="Agent Esc, the SneaKey mascot, listening"><use href="#esc-listen"/></svg>
+  <svg id="strip" style="position:absolute;left:96px;top:880px" width="1728" height="150" viewBox="0 0 1728 150" role="img" aria-label="Waveform: each keystroke spike decodes a letter of SNEAKEY"></svg>
+  <aside class="notes">Leave this slide up during the skit (about 1 minute). The strip at the bottom animates on its own.
+Timing for a 4-minute slot: skit 1:00, then about 30 seconds per slide.
+Opening line after the skit: “That was acted, but the attack is real. Every key on your keyboard sounds slightly different, and a computer can learn to tell them apart.”</aside>
+</section>
+
+<!-- ================= 2. RESEARCH ================= -->
+<section class="slide paper">
+  <div class="hdr"><span>SNK-002 // Prior cases</span><span>Eyes only</span></div>
+  <div class="content">
+    <h2 class="title">This is real: 20 years of research</h2>
+    <div class="cases">
+      <div class="case anim" style="--d:.1s"><p class="tab lbl">CASE 2004</p><div class="file"><p class="who">Asonov &amp; Agrawal</p><p class="big">~80%</p><p class="body">of keys identified. The first published attack.</p></div></div>
+      <div class="case anim" style="--d:.25s"><p class="tab lbl">CASE 2005</p><div class="file"><p class="who">Zhuang, Zhou &amp; Tygar</p><p class="big">96%</p><p class="body">of characters, using English spelling correction.</p></div></div>
+      <div class="case anim" style="--d:.4s"><p class="tab lbl">CASE 2023</p><div class="file"><p class="who">Harrison, Toreini &amp; Mehrnezhad</p><p class="big">93%</p><p class="body">over a Zoom call (95% from a nearby phone).</p></div></div>
+      <div class="case us anim" style="--d:.55s"><p class="tab lbl">CASE 2026</p><div class="file"><p class="who">SneaKey (us)</p><p class="big">Real typing</p><p class="body">Built from a browser tab and a laptop mic, tested on nonstop typing.</p></div></div>
+    </div>
+    <div class="bar anim" style="--d:.7s"><p class="body" style="color:var(--keycap)"><b class="lime">Why it matters:</b> video calls, Discord, recorded meetings and phones on the table can all hear you type.</p></div>
+  </div>
+  <p class="stamp anim" style="left:1540px;top:228px;width:280px;--r:8deg;--d:1s">CONFIRMED</p>
+  <p class="foot">SOURCES: IEEE S&amp;P 2004 · ACM CCS 2005 · IEEE EuroS&amp;P Workshops 2023 (arXiv 2308.01074)</p>
+  <aside class="notes">“Researchers have warned about this for 20 years. In 2023 it worked over a Zoom call with 93% accuracy. We wanted to see if we could build it ourselves in a weekend.”
+If asked: the 2023 study pressed each key 25 times in a row, one at a time, which is easier than real typing. We tested real, continuous typing.
+Check the 2004 figure against the original paper before presenting.</aside>
+</section>
+
+<!-- ================= 3. HOW IT WORKS ================= -->
+<section class="slide ink">
+  <div class="hdr"><span>SNK-003 // How it works</span><span></span></div>
+  <svg class="mascot anim" style="left:1614px;top:50px;--a:fade;--d:1.6s" width="210" height="202" role="img" aria-label="Agent Esc decoding"><use href="#esc-decode"/></svg>
+  <div class="content" style="gap:28px">
+    <h2 class="title">How it <span class="lime">works</span></h2>
+    <div class="pipe">
+      <div class="step anim" style="--d:.1s"><p class="lbl lime">01 · RECORD</p><svg class="wave" data-kind="raw" width="264" height="132" viewBox="0 0 240 120" aria-label="Waveform with four keystroke spikes"></svg><h3>Record</h3><p class="cap">The laptop mic records someone typing</p></div>
+      <svg class="arrow anim" style="--d:.25s;--a:fade" viewBox="0 0 30 20"><path d="M2 10H24M18 4L26 10L18 16" fill="none" stroke="#C6FF3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="step anim" style="--d:.35s"><p class="lbl lime">02 · DETECT</p><svg class="wave" data-kind="marks" width="264" height="132" viewBox="0 0 240 120" aria-label="Start of each keystroke marked"></svg><h3>Find clicks</h3><p class="cap">Spot where each key’s sound starts</p></div>
+      <svg class="arrow anim" style="--d:.5s;--a:fade" viewBox="0 0 30 20"><path d="M2 10H24M18 4L26 10L18 16" fill="none" stroke="#C6FF3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="step anim" style="--d:.6s"><p class="lbl lime">03 · ISOLATE</p><svg class="wave" data-kind="clip" width="264" height="132" viewBox="0 0 240 120" aria-label="One keystroke inside a 30 ms window"></svg><h3>Cut 30 ms</h3><p class="cap">Keep one key’s sound, alone</p></div>
+      <svg class="arrow anim" style="--d:.75s;--a:fade" viewBox="0 0 30 20"><path d="M2 10H24M18 4L26 10L18 16" fill="none" stroke="#C6FF3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="step anim" style="--d:.85s"><p class="lbl lime">04 · ANALYSE</p><svg class="wave" data-kind="spec" width="264" height="132" viewBox="0 0 240 120" aria-label="Spectrogram fingerprint"></svg><h3>Fingerprint</h3><p class="cap">Turn the sound into a pattern of pitches</p></div>
+      <svg class="arrow anim" style="--d:1s;--a:fade" viewBox="0 0 30 20"><path d="M2 10H24M18 4L26 10L18 16" fill="none" stroke="#C6FF3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="step last anim" style="--d:1.1s"><p class="lbl lime">05 · DECODE</p>
+        <div class="guess">
+          <div><span class="key" style="background:var(--lime)">E</span><span style="width:180px;height:22px;background:var(--lime);border-radius:4px"></span></div>
+          <div><span class="key">R</span><span style="width:64px;height:22px;background:var(--steel);border-radius:4px"></span></div>
+          <div><span class="key">W</span><span style="width:34px;height:22px;background:var(--dim);border-radius:4px"></span></div>
+        </div>
+        <h3>Guess</h3><p class="cap">Pick the key it matches best</p></div>
+    </div>
+    <div class="train anim" style="--d:1.3s">
+      <p class="lbl" style="width:220px">HOW WE TRAIN IT</p>
+      <div class="stat" style="width:240px"><p class="num hl">[100+]</p><small>participants</small></div>
+      <div class="stat" style="width:300px"><p class="num hl">[__]</p><small>labelled keystrokes</small></div>
+      <p style="flex:1;font-size:26px;line-height:1.4;color:var(--body-paper)">While people type, the browser logs every real key, so each sound is labelled automatically. Always tested on [people] it never trained on.</p>
+    </div>
+  </div>
+  <aside class="notes">One sentence per box:
+1. “We record the laptop mic while someone types.”
+2. “We find the instant each key makes its sound.”
+3. “We cut out 30 milliseconds, shorter than a blink, so we get one key alone.”
+4. “We turn that sound into a fingerprint: which pitches are loud, and when.”
+5. “The model picks the key whose fingerprint matches best.”
+Then: “To teach it, [100+] people typed for us. The browser records which key they really pressed, so every sound gets labelled automatically. We test it on [people] it has never heard.”
+The diagrams are illustrations, not real data.</aside>
+</section>
+
+<!-- ================= 4. RESULTS ================= -->
+<section class="slide paper">
+  <div class="hdr"><span>SNK-004 // Results</span><span>Eyes only</span></div>
+  <div class="content">
+    <h2 class="title">How well does it actually work?</h2>
+    <table class="results anim" style="--d:.1s">
+      <tr><th style="width:44%">What we measured</th><th style="width:18%;color:var(--lime)">Accuracy</th><th style="width:38%">What it means</th></tr>
+      <tr><td>Random guessing</td><td>4%</td><td>1 in 25 keys</td></tr>
+      <tr class="hit"><td>Every key press (real typing)</td><td>[49%]</td><td>About half of all keys right</td></tr>
+      <tr><td>Clean keystrokes (one key heard clearly)</td><td>[79%]</td><td>About 4 in 5 right</td></tr>
+      <tr><td>Clean keystrokes, top 3 guesses</td><td>[91%]</td><td>Right key almost always in its top 3</td></tr>
+    </table>
+    <p class="body anim" style="width:1250px;--d:.3s">Tested on [9] typing sessions the model never saw, covering [25] keys. Mistakes are usually a <b>neighbouring</b> key.</p>
+  </div>
+  <svg class="mascot anim" style="left:1424px;top:330px;--d:.5s" width="400" height="385" role="img" aria-label="Agent Esc, case closed"><use href="#esc-closed"/></svg>
+  <p class="stamp anim" style="left:1560px;top:680px;width:250px;--r:-12deg;--d:1s">DECODED</p>
+  <aside class="notes">“Random guessing gets 4%. On real typing we get about half. When a key is heard cleanly, 4 out of 5, and 9 out of 10 if we allow three guesses.”
+Why the gap: about half of key presses are too quiet for the laptop mic, and fast typing makes sounds overlap.
+Placeholders, today’s README values: 49.4%, 79.2%, 91.0%, 9 sessions, 25 keys. With 100+ participants these will change; use the final model’s numbers.</aside>
+</section>
+
+<!-- ================= 5. DEMO ================= -->
+<section class="slide ink">
+  <div class="hdr"><span>SNK-005 // Live evidence</span><span class="lime">● Rec</span></div>
+  <div class="content" style="gap:48px">
+    <h2 class="title">Demo: how to <span class="lime">use it</span></h2>
+    <div class="steps">
+      <div class="anim" style="--d:.1s"><p class="lbl lime">01 · RECORD</p><p class="body">Type a passage in the browser recorder; it saves the audio and every keystroke</p></div>
+      <div class="anim" style="--d:.25s"><p class="lbl lime">02 · PROCESS</p><p class="body">Line up each sound with its key and cut the clips</p></div>
+      <div class="anim" style="--d:.4s"><p class="lbl lime">03 · TRAIN</p><p class="body">Fit the model on those clips</p></div>
+      <div class="anim" style="--d:.55s"><p class="lbl lime">04 · PREDICT</p><p class="body">Type on the live page and it guesses each key from sound alone</p></div>
+    </div>
+  </div>
+  <div class="frame anim" style="--d:.3s;--a:fade">
+    <svg style="position:absolute;inset:0" width="864" height="620" aria-hidden="true"><g fill="none" stroke="#C6FF3D" stroke-width="5" stroke-linecap="square"><path d="M24 70V24H70"/><path d="M840 70V24H794"/><path d="M24 550V596H70"/><path d="M840 550V596H794"/></g></svg>
+    <!-- Replace this placeholder animation with your demo video, e.g.:
+         <video src="demo.mp4" controls style="position:absolute;inset:24px;width:816px;height:572px;object-fit:contain"></video> -->
+    <div id="transcript"><div class="line"></div><div class="bars"></div><p style="margin-top:18px;font-size:24px;letter-spacing:3px;color:var(--steel)">CONFIDENCE PER KEY</p></div>
+    <p class="lbl" style="position:absolute;left:60px;top:500px">TARGET: [DEMO VIDEO]</p>
+    <p style="position:absolute;left:60px;top:540px;font:500 24px var(--mono);letter-spacing:.06em;color:var(--steel)">Recorded on this laptop, [date]</p>
+  </div>
+  <aside class="notes">Say before playing: “This was recorded earlier on this laptop, in one take.”
+The animated transcript is a placeholder with made-up confidence bars. Replace it with the real demo video before presenting (see the comment in the HTML).
+If a judge wants to try it live: same laptop, Firefox, quiet room, type one short word slowly. If it misses, point out the guess is usually a neighbouring key.</aside>
+</section>
+
+<!-- ================= 6. DEFENCES ================= -->
+<section class="slide paper">
+  <div class="hdr"><span>SNK-006 // Countermeasures</span><span>Eyes only</span></div>
+  <div class="content" style="gap:20px">
+    <h2 class="title">How to stay unheard</h2>
+    <div class="grid4">
+      <div class="tip anim" style="--d:.1s"><p class="lbl">01 · MUTE</p><h3>Mute while you type</h3><p class="body">On calls, especially passwords and private notes.</p></div>
+      <div class="tip anim" style="--d:.25s"><p class="lbl">02 · FILTER</p><h3>Turn on noise suppression</h3><p class="body">Zoom, Teams and Discord can filter out keyboard sounds.</p></div>
+      <div class="tip anim" style="--d:.4s"><p class="lbl">03 · AUTOFILL</p><h3>Use a password manager</h3><p class="body">Passwords get filled in, not typed.</p></div>
+      <div class="tip dark anim" style="--d:.55s"><p class="lbl lime">04 · LOOK AROUND</p><h3>Watch for microphones nearby</h3><p class="body">A phone on the table can listen too.</p></div>
+    </div>
+  </div>
+  <aside class="notes">Keep it short. Judges like projects that also explain how to defend against them.</aside>
+</section>
+
+<!-- ================= 7. LIMITATIONS ================= -->
+<section class="slide ink">
+  <div class="hdr"><span>SNK-007 // Known limits</span><span></span></div>
+  <div class="content" style="gap:44px">
+    <h2 class="title">Limitations</h2>
+    <div class="limits">
+      <div class="anim" style="--d:.05s"><span class="n">01</span><span class="t">Only works on the keyboard and laptop it was trained on</span></div>
+      <div class="anim" style="--d:.15s"><span class="n">02</span><span class="t">[100+] participants, but recorded on [__] laptop(s) and microphone(s)</span></div>
+      <div class="anim" style="--d:.25s"><span class="n">03</span><span class="t">Recognises [25] keys; rare keys and numbers aren’t covered yet</span></div>
+      <div class="anim" style="--d:.35s"><span class="n">04</span><span class="t">About half of key presses are too quiet to detect</span></div>
+      <div class="anim" style="--d:.45s"><span class="n">05</span><span class="t">Can’t reliably steal passwords: one wrong key ruins a password</span></div>
+      <div class="anim" style="--d:.55s"><span class="n">06</span><span class="t">Every participant consented; recordings aren’t published</span></div>
+    </div>
+    <p class="anim" style="font:700 72px/.95 var(--display);letter-spacing:-.045em;display:flex;align-items:flex-end;--d:.8s">Questions<span class="lime">?</span><span class="cursor" style="width:40px;height:12px;margin:0 0 8px 14px"></span></p>
+  </div>
+  <svg class="mascot anim" style="left:1364px;top:300px;--d:.6s" width="460" height="442" role="img" aria-label="Agent Esc, case closed"><use href="#esc-closed"/></svg>
+  <p class="stamp anim" style="left:1500px;top:720px;width:320px;--r:-10deg;--d:1.1s">CASE CLOSED</p>
+  <p class="foot">SNEAKEY · [Team member names] · [Repo link]</p>
+  <aside class="notes">Say this confidently, not as an apology: admitting limits makes the numbers believable.
+The password point ties back to the skit: passwords need every character right, but notes and messages don’t.</aside>
+</section>
+
+</div>
+
+<div id="progress"></div>
+<div id="counter"></div>
+<div id="notes"></div>
+
+<script>
+/* ===== Navigation: ←/→, Space, PageUp/PageDown, Home/End, click. F = fullscreen, N = speaker notes ===== */
+const slides=[...document.querySelectorAll('.slide')], stage=document.getElementById('stage');
+let cur=0;
+function fit(){stage.style.setProperty('--s',Math.min(innerWidth/1920,innerHeight/1080))}
+function show(i){
+  cur=Math.max(0,Math.min(slides.length-1,i));
+  slides.forEach((s,k)=>s.classList.toggle('active',k===cur));
+  document.getElementById('progress').style.width=((cur+1)/slides.length*100)+'%';
+  document.getElementById('counter').textContent=(cur+1)+' / '+slides.length;
+  const n=slides[cur].querySelector('aside.notes');document.getElementById('notes').textContent=n?n.textContent.trim():'';
+  history.replaceState(null,'','#'+(cur+1));
+}
+addEventListener('resize',fit);
+addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();show(cur+1)}
+  else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();show(cur-1)}
+  else if(e.key==='Home')show(0); else if(e.key==='End')show(slides.length-1);
+  else if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+  else if(e.key==='n'||e.key==='N'){document.getElementById('notes').classList.toggle('show')}
+});
+addEventListener('click',e=>{if(e.target.closest('#notes,video,a'))return;show(e.clientX>innerWidth/2?cur+1:cur-1)});
+fit();show((parseInt(location.hash.slice(1))||1)-1);
+
+/* ===== Seeded random so the illustrations look the same every time ===== */
+function rng(seed){return()=>(seed=(seed*16807)%2147483647)/2147483647}
+
+/* ===== Cover strip: spikes light up and decode S-N-E-A-K-E-Y ===== */
+(function(){
+  const svg=document.getElementById('strip'),L='SNEAKEY',W=1728,N=L.length,seg=W/N,y=50,r=rng(11),H=[10,26,46,26,10];
+  const cx=[...Array(N)].map((_,i)=>Math.round(seg*i+seg/2));let o='';
+  for(let x=6;x<W;x+=12){if(cx.some(c=>Math.abs(x-c)<40))continue;const h=3+r()*7;o+=`<line x1="${x}" x2="${x}" y1="${y-h}" y2="${y+h}" stroke="#3A4256" stroke-width="4" stroke-linecap="round"/>`}
+  cx.forEach((c,i)=>{o+=`<g id="k${i}" stroke="#3A4256" stroke-width="4" stroke-linecap="round">`+H.map((h,j)=>`<line x1="${c+(j-2)*12}" x2="${c+(j-2)*12}" y1="${y-h}" y2="${y+h}"/>`).join('')+`</g><text id="t${i}" x="${c}" y="138" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="30" font-weight="700" fill="${i===N-1?'#C6FF3D':'#EDE7DA'}" opacity="0">${L[i]}</text>`});
+  svg.innerHTML=o;let n=0;
+  function step(){if(n<N){svg.querySelector('#k'+n).setAttribute('stroke','#C6FF3D');svg.querySelector('#t'+n).setAttribute('opacity','1');n++;setTimeout(step,420)}
+    else setTimeout(()=>{for(let k=0;k<N;k++){svg.querySelector('#k'+k).setAttribute('stroke','#3A4256');svg.querySelector('#t'+k).setAttribute('opacity','0')}n=0;step()},2600)}
+  setTimeout(step,700);
+})();
+
+/* ===== Pipeline illustrations (not real data) ===== */
+document.querySelectorAll('svg.wave').forEach(svg=>{
+  const kind=svg.dataset.kind,r=rng(7),y=60,C=[36,96,156,212];let noise='',spikes='',o='';
+  if(kind==='raw'||kind==='marks'){
+    for(let x=4;x<240;x+=6){const d=Math.min(...C.map(c=>Math.abs(x-c)));
+      if(d<=12){const h=[44,30,16][Math.floor(d/6)]||8;spikes+=`M${x} ${y-h}V${y+h} `}else{const h=2+r()*4;noise+=`M${x} ${(y-h).toFixed(0)}V${(y+h).toFixed(0)} `}}
+    o=`<path d="${noise}" stroke="#4A5266" stroke-width="3" stroke-linecap="round" ${kind==='marks'?'stroke-opacity=".6"':''}/><path d="${spikes}" stroke="#C6FF3D" stroke-width="3" stroke-linecap="round"/>`;
+    if(kind==='marks')C.forEach(c=>o+=`<path d="M${c} 6V114" stroke="#EDE7DA" stroke-width="2" stroke-dasharray="5 4"/><circle cx="${c}" cy="6" r="5" fill="#EDE7DA"/>`);
+  }else if(kind==='clip'){
+    o='<rect x="30" y="2" width="206" height="116" rx="6" fill="#C6FF3D" fill-opacity=".1" stroke="#C6FF3D" stroke-width="2" stroke-dasharray="6 4"/>';
+    for(let x=6,i=0;x<240;x+=8,i++){const t=(x-40)/200,h=x<40?3:Math.max(3,52*Math.exp(-t*4.5)*(.75+.25*Math.abs(Math.sin(i*1.7))));spikes+=`M${x} ${(y-h).toFixed(0)}V${(y+h).toFixed(0)} `}
+    o+=`<path d="${spikes}" stroke="#C6FF3D" stroke-width="4" stroke-linecap="round"/>`;
+  }else if(kind==='spec'){
+    for(let c=0;c<12;c++)for(let w=0;w<8;w++){const t=c/12,f=w/8;let v=Math.exp(-t*3)*(.5+.5*Math.sin(f*9+1.3))*(t>.05?1:.15)+r()*.1;v=Math.min(1,Math.max(.05,v));
+      o+=`<rect x="${c*20+1}" y="${w*15+1}" width="18" height="13" rx="2" fill="#C6FF3D" fill-opacity="${v.toFixed(2)}"/>`}
+  }
+  svg.innerHTML=o;
+});
+
+/* ===== Demo placeholder: live transcript with per-key confidence (made-up values) ===== */
+(function(){
+  const box=document.getElementById('transcript');if(!box)return;
+  const line=box.querySelector('.line'),bars=box.querySelector('.bars'),P=['hello world','sneakey','meet at 9'];let p=0,i=0,blink=true;
+  const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  function render(){line.innerHTML='&gt; '+esc(P[p].slice(0,i))+'<span style="color:#C6FF3D">'+(blink?'_':' ')+'</span>'}
+  function bar(ch){const d=document.createElement('div');if(ch===' '){d.style.height='6px';d.style.background='#2B3140'}else{const c=.35+Math.random()*.65;d.style.height=Math.round(c*110)+'px';d.style.background=c>.7?'#C6FF3D':c>.5?'#8A93A6':'#4A5266'}bars.appendChild(d)}
+  function tick(){if(i<P[p].length){bar(P[p][i]);i++;render();setTimeout(tick,260+Math.random()*180)}else setTimeout(()=>{p=(p+1)%P.length;i=0;bars.innerHTML='';render();tick()},2200)}
+  setInterval(()=>{blink=!blink;render()},530);render();setTimeout(tick,800);
+})();
+</script>
+</body>
+</html>
