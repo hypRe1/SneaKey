@@ -32,7 +32,7 @@ def make_session(d, name, *, dur=120.0, lag_down=0.038, lag_up=0.041, drift_ppm=
         for on, amp in ((on_d, 0.0 if is_miss else rng.uniform(0.25, 0.6)), (on_u, rng.uniform(0.08, 0.2))):
             i0 = int(on * SR); c = click(rng, amp); x[i0:i0 + len(c)] += c[: len(x) - i0]
         for typ, tt in (("keydown", T), ("keyup", T + hold)):
-            rows.append(dict(event_index=idx, event_type=typ, key=key, code="Key" + key.upper(), location=0,
+            rows.append(dict(event_index=idx, event_type=typ, key=key, code="Space" if key == " " else "Key" + key.upper(), location=0,
                              time_ms=100000 + tt * 1000, event_time_ms=100000 + tt * 1000, t_rel_ms=tt * 1000,
                              sample_index_est=int(round(tt * SR)), repeat=0, shift=0, ctrl=0, alt=0, meta=0,
                              action="char" if typ == "keydown" else "", target_char=key, typed_char=key if typ == "keydown" else "", correct=1,

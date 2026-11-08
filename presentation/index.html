@@ -60,11 +60,13 @@ p,h1,h2,h3,table{margin:0}
 .cases{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
 .case{display:flex;flex-direction:column}
 .case .tab{align-self:flex-start;background:var(--tab);border-radius:15px 15px 0 0;padding:9px 24px}
-.case .file{flex:1;display:flex;flex-direction:column;gap:12px;background:var(--paper);border:3px solid var(--ink);border-radius:0 15px 15px 15px;padding:28px}
+.case .file{flex:1;display:flex;flex-direction:column;gap:16px;background:var(--paper);border:3px solid var(--ink);border-radius:0 15px 15px 15px;padding:36px}
 .case .who{font:500 24px/1.4 var(--mono);color:var(--label-paper)}
-.case .big{font:700 72px/1 var(--display);letter-spacing:-.04em}
+.case .big{font:700 96px/1 var(--display);letter-spacing:-.04em}
+.case .body{font-size:30px}
 .case.us .tab{background:var(--lime)} .case.us .file{background:var(--ink)} .case.us .who{color:var(--steel)} .case.us .big{color:var(--lime);font-size:56px} .case.us .body{color:var(--body-dark)}
-.bar{background:var(--ink);color:var(--keycap);border-radius:24px;padding:32px 40px}
+.bar{background:var(--ink);color:var(--keycap);border-radius:24px;padding:40px 48px}
+.bar .body{font-size:32px}
 
 .pipe{display:flex;align-items:center;gap:10px;margin-top:20px}
 .step{flex:1;height:440px;display:flex;flex-direction:column;gap:14px;background:var(--graphite);border-radius:24px;padding:24px}
@@ -80,14 +82,15 @@ p,h1,h2,h3,table{margin:0}
 .train .num{font:700 64px/1 var(--display);letter-spacing:-.04em}
 .train small{font-size:24px;color:var(--body-paper)}
 
-table.results{width:1250px;border-collapse:collapse;font-size:28px}
-table.results th,table.results td{padding:18px 24px;text-align:left}
+table.results{width:1250px;border-collapse:collapse;font-size:32px}
+table.results th,table.results td{padding:28px 28px;text-align:left}
 table.results th{background:var(--ink);color:var(--keycap);font-weight:600}
 table.results th:nth-child(2),table.results td:nth-child(2){text-align:center}
 table.results tr:nth-child(odd) td{background:var(--paper)} table.results tr:nth-child(even) td{background:#E4DCCB}
 table.results tr.hit td{background:var(--lime);font-weight:700}
 
-.steps{width:780px;display:flex;flex-direction:column;gap:32px}
+.steps{width:780px;display:flex;flex-direction:column;gap:52px}
+.steps .body{font-size:30px}
 .frame{position:absolute;left:960px;top:260px;width:864px;height:620px;background:var(--graphite);border-radius:24px}
 #transcript{position:absolute;left:60px;top:60px;width:744px;font-family:var(--mono);color:var(--keycap)}
 #transcript .line{font-size:52px;font-weight:700;letter-spacing:4px;height:72px;white-space:pre}
@@ -95,14 +98,15 @@ table.results tr.hit td{background:var(--lime);font-weight:700}
 #transcript .bars div{width:36px;border-radius:4px}
 
 .grid4{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:20px}
-.tip{display:flex;flex-direction:column;gap:14px;background:var(--paper);border:3px solid var(--ink);border-radius:24px;padding:36px;min-height:270px}
-.tip h3{font:700 44px/1.1 var(--display);letter-spacing:-.03em}
+.tip{display:flex;flex-direction:column;gap:18px;background:var(--paper);border:3px solid var(--ink);border-radius:24px;padding:44px;min-height:330px}
+.tip h3{font:700 52px/1.1 var(--display);letter-spacing:-.03em}
+.tip .body{font-size:32px}
 .tip.dark{background:var(--ink);color:var(--keycap)} .tip.dark .body{color:var(--body-dark)}
 
-.limits{width:1150px;display:flex;flex-direction:column;gap:22px}
+.limits{width:1200px;display:flex;flex-direction:column;gap:30px}
 .limits div{display:flex;gap:28px;align-items:baseline}
-.limits .n{width:56px;font:700 24px var(--mono);color:var(--lime)}
-.limits .t{flex:1;font-size:30px;line-height:1.35;color:var(--body-dark)}
+.limits .n{width:56px;font:700 26px var(--mono);color:var(--lime)}
+.limits .t{flex:1;font-size:34px;line-height:1.35;color:var(--body-dark)}
 
 /* ===== Chrome: progress bar, counter, notes ===== */
 #progress{position:fixed;left:0;bottom:0;height:4px;background:var(--lime);transition:width .4s}
@@ -223,7 +227,7 @@ Check the 2004 figure against the original paper before presenting.</aside>
         <h3>Guess</h3><p class="cap">Pick the key it matches best</p></div>
     </div>
     <div class="train anim" style="--d:1.3s">
-      <p class="lbl" style="width:220px">HOW WE TRAIN IT</p>
+      <p class="lbl" style="width:170px">HOW WE<br>TRAIN IT</p>
       <div class="stat" style="width:240px"><p class="num hl">[100+]</p><small>participants</small></div>
       <div class="stat" style="width:300px"><p class="num hl">[__]</p><small>labelled keystrokes</small></div>
       <p style="flex:1;font-size:26px;line-height:1.4;color:var(--body-paper)">While people type, the browser logs every real key, so each sound is labelled automatically. Always tested on [people] it never trained on.</p>
@@ -313,10 +317,10 @@ If a judge wants to try it live: same laptop, Firefox, quiet room, type one shor
       <div class="anim" style="--d:.45s"><span class="n">05</span><span class="t">Can’t reliably steal passwords: one wrong key ruins a password</span></div>
       <div class="anim" style="--d:.55s"><span class="n">06</span><span class="t">Every participant consented; recordings aren’t published</span></div>
     </div>
-    <p class="anim" style="font:700 72px/.95 var(--display);letter-spacing:-.045em;display:flex;align-items:flex-end;--d:.8s">Questions<span class="lime">?</span><span class="cursor" style="width:40px;height:12px;margin:0 0 8px 14px"></span></p>
+    <p class="anim" style="font:700 96px/.95 var(--display);letter-spacing:-.045em;display:flex;align-items:flex-end;--d:.8s">Questions<span class="lime">?</span><span class="cursor" style="width:40px;height:12px;margin:0 0 8px 14px"></span></p>
   </div>
   <svg class="mascot anim" style="left:1364px;top:300px;--d:.6s" width="460" height="442" role="img" aria-label="Agent Esc, case closed"><use href="#esc-closed"/></svg>
-  <p class="stamp anim" style="left:1500px;top:720px;width:320px;--r:-10deg;--d:1.1s">CASE CLOSED</p>
+  <p class="stamp anim" style="left:1430px;top:730px;width:400px;white-space:nowrap;--r:-10deg;--d:1.1s">CASE CLOSED</p>
   <p class="foot">SNEAKEY · [Team member names] · [Repo link]</p>
   <aside class="notes">Say this confidently, not as an apology: admitting limits makes the numbers believable.
 The password point ties back to the skit: passwords need every character right, but notes and messages don’t.</aside>
