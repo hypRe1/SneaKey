@@ -1,0 +1,10 @@
+{
+ "temperature": 1,
+ "space_threshold": 0.5,
+ "frequency_weight": 0.3,
+ "missed_key_cost": 2,
+ "extra_press_cost": 3.0,
+ "split_cost": 2.0,
+ "raw_word_cost": 20.0,
+ "min_zipf": 2.5
+}

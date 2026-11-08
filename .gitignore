@@ -1,0 +1,5 @@
+# Recordings are audio of real typing plus the typed text: never commit them.
+data/
+.venv/
+__pycache__/
+*.pyc

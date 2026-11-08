@@ -1,0 +1,8 @@
+# Tested with Python 3.14, numpy 2.5.2, scipy 1.18.1, scikit-learn 1.9.1, torch 2.15.0 (CPU), fastapi 0.162, uvicorn 0.54.
+numpy
+scipy
+scikit-learn      # the press/release classifier (models/event_classifier.joblib)
+joblib
+torch             # CPU build is enough: pip install torch --index-url https://download.pytorch.org/whl/cpu
+fastapi
+uvicorn

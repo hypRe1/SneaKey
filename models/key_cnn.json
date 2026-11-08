@@ -1,0 +1,32 @@
+{
+ "description": "CNN key classifier (log-mel, 64 bands, -15..45 ms around each press, 700 Hz high-pass).",
+ "trained_on": [
+  "session_20261107_165707",
+  "session_20261107_174947",
+  "session_20261107_175253",
+  "session_20261107_175531",
+  "session_20261107_175934",
+  "session_20261107_183742",
+  "session_20261107_184012",
+  "session_20261107_184222",
+  "session_20261107_204755",
+  "session_20261107_205047",
+  "session_20261107_205308",
+  "session_20261107_205524",
+  "session_20261107_212412",
+  "session_20261107_220329",
+  "session_20261107_223719",
+  "session_20261107_224040",
+  "session_20261107_224446",
+  "session_20261107_225651",
+  "session_20261107_231400",
+  "session_20261107_232123",
+  "session_20261107_232331",
+  "session_20261107_233840",
+  "session_20261108_000416",
+  "session_20261108_000432",
+  "session_20261108_000610",
+  "session_20261108_000708"
+ ],
+ "provenance": "Trained by SneaKey analysis/key_model_cnn.py final on 2026-11-08 (original project). Test session 182727: 77.4% key accuracy with logged timing."
+}

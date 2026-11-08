@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SneaKey</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="img/favicon-64.png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><img class="brand-mark" src="img/logo-128.png" alt="" width="30" height="30">SneaKey</div>
+    <nav class="tabs">
+      <a href="#record" data-view="record"><span class="step">1</span>Record</a>
+      <a href="#analyse" data-view="analyse"><span class="step">2</span>Analyse</a>
+      <a href="#train" data-view="train"><span class="step">3</span>Train</a>
+      <a href="#predict" data-view="predict"><span class="step">4</span>Predict</a>
+    </nav>
+    <div class="spacer"></div>
+    <label class="volume" title="Playback volume (all views). Each clip is first levelled automatically; this adds or removes gain on top.">
+      <span aria-hidden="true">🔊</span>
+      <input type="range" id="volume" min="-24" max="30" step="1" aria-label="Playback volume">
+      <output id="volumeValue" class="num"></output>
+    </label>
+  </div>
+</header>
+
+<main>
+  <div id="error" class="error hidden" role="alert"></div>
+
+  <!-- ===================== 1. RECORD ===================== -->
+  <section id="view-record" class="view hidden">
+    <div class="view-head">
+      <div>
+        <h1>Record a typing test</h1>
+        <p class="lede">Type the generated text while the microphone records. Every key event is logged with its position in the audio, giving a labelled recording for analysis and evaluation. Audio is captured raw (no echo cancellation, noise suppression or gain) at 48 kHz, as the models expect.</p>
+      </div>
+    </div>
+
+    <div class="grid side">
+      <div>
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Participant and setup</h2>
+            <span class="panel-sub">Stored in the session's metadata</span>
+          </div>
+          <div class="meta-grid">
+            <label>Participant ID <input type="text" id="participant" placeholder="e.g. P01" autocomplete="off"></label>
+            <label>Keyboard <input type="text" id="keyboard" placeholder="e.g. laptop built-in"></label>
+            <label>Microphone <input type="text" id="microphone" placeholder="e.g. laptop built-in"></label>
+            <label>Environment <input type="text" id="environment" placeholder="e.g. quiet room, desk"></label>
+          </div>
+          <label class="consent" style="margin-top:12px"><input type="checkbox" id="consent">
+            <span>The participant has agreed to have their typing audio and keystrokes recorded and stored on this laptop for this research.</span></label>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Test text</h2>
+            <div class="toolbar">
+              <label class="field">Length
+                <select id="length"><option value="180">Short (~180 chars)</option><option value="350" selected>Medium (~350)</option><option value="600">Long (~600)</option></select></label>
+              <label class="field">Words
+                <select id="mode"><option value="natural" selected>Natural</option><option value="coverage">Favour under-recorded keys</option></select></label>
+              <button id="newText" class="small">New text</button>
+            </div>
+          </div>
+          <div class="toolbar">
+            <span id="recState" class="rec-dot">Not recording</span>
+            <div class="meter" title="Microphone level"><div id="level"></div></div>
+            <div class="spacer"></div>
+            <button id="start" class="primary">Start recording</button>
+            <button id="finish" disabled>Finish and save</button>
+            <button id="discard" class="danger" disabled>Discard</button>
+          </div>
+          <div id="typing" class="typing idle" tabindex="0" aria-label="Typing area">
+            <div id="text"></div>
+            <div id="typingHint" class="typing-hint">Press “Start recording”, then type the text.</div>
+          </div>
+          <div class="progress"><div id="progress"></div></div>
+          <div class="stats" style="margin-top:12px">
+            <div class="stat"><div class="v" id="wpm">0</div><div class="l">WPM</div></div>
+            <div class="stat"><div class="v" id="accuracy">–</div><div class="l">Accuracy</div></div>
+            <div class="stat"><div class="v" id="elapsed">0.0s</div><div class="l">Time</div></div>
+            <div class="stat"><div class="v" id="presses">0</div><div class="l">Key presses</div></div>
+          </div>
+          <details style="margin-top:12px">
+            <summary>How this text was generated</summary>
+            <p class="small muted">Sentences are composed by a random grammar: twelve sentence frames (statements, questions, commands, compound, subordinate and relative clauses…) with independently optional modifiers, varied tense and person. Each sentence is the best of several candidates, penalising word sequences that appeared in earlier recordings and frames already used in this test. Seed and frames are saved with the session.</p>
+            <div class="small muted">Seed <span id="seed" class="mono"></span> · word trigrams repeated from earlier recordings: <span id="repeats" class="mono"></span></div>
+            <div id="frames" class="frames"></div>
+          </details>
+        </div>
+        <div id="saved" class="panel hidden"></div>
+      </div>
+
+      <div>
+        <div class="panel">
+          <div class="panel-head"><h2>Data coverage</h2><span class="panel-sub">Key presses recorded so far (target 400)</span></div>
+          <div id="coverage" class="coverage"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>Recordings</h2><span class="panel-sub" id="sessionCount"></span></div>
+          <div class="scroll"><table class="session-list"><thead><tr><th>Session</th><th>Participant</th><th>Length</th><th>Presses</th><th>Role</th></tr></thead><tbody id="sessionRows"></tbody></table></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 2. ANALYSE ===================== -->
+  <section id="view-analyse" class="view hidden">
+    <div class="view-head">
+      <div>
+        <h1>Analyse a recording</h1>
+        <p class="lede">The audio as recorded and as each pipeline stage hears it, with the ground-truth keystrokes placed on their sounds. Click a keystroke to see exactly what the models compute for it.</p>
+      </div>
+      <div class="session-picker"><select data-session-select="analyse"></select><span data-role-badge="analyse"></span></div>
+    </div>
+    <div data-empty="analyse" class="empty hidden">No recordings yet. Record a typing test first.</div>
+
+    <div data-content="analyse" class="hidden">
+      <div class="panel">
+        <div class="toolbar" style="margin-bottom:10px">
+          <div class="field">Upper spectrogram
+            <div class="segmented" id="specTop"></div></div>
+          <div class="field">Lower
+            <div class="segmented" id="specBottom"></div></div>
+          <label class="field"><input type="checkbox" id="whiten" checked> Subtract noise floor</label>
+          <label class="field">Contrast <input type="range" id="contrast" min="12" max="60" value="30"></label>
+          <div class="spacer"></div>
+          <span class="field">Play view</span>
+          <button id="playRaw" class="small" title="Play the visible stretch as recorded (space)">▶ Raw</button>
+          <button id="playModel" class="small" title="Play the visible stretch 700 Hz high-passed, as the model hears it">▶ Processed</button>
+        </div>
+        <div id="analyseTimeline" class="timeline"></div>
+        <div class="toolbar" style="margin-top:8px">
+          <div class="legend">
+            <span><i style="background:var(--ok)"></i>Key press (typed correctly)</span>
+            <span><i style="background:var(--bad)"></i>Typed wrong</span>
+            <span><i style="background:var(--warn)"></i>Backspace / modifier</span>
+            <span><i style="background:var(--release)"></i>Release</span>
+            <span><i style="background:var(--candidate)"></i>Detector candidate</span>
+          </div>
+          <div class="spacer"></div>
+        </div>
+      </div>
+
+      <div class="grid side">
+        <div class="panel">
+          <div class="panel-head"><h2>Keystroke inspector</h2><span class="panel-sub" id="ksPosition"></span></div>
+          <div id="keystroke"><div class="empty">Select a keystroke on the timeline.</div></div>
+        </div>
+        <div>
+          <div class="panel">
+            <div class="panel-head"><h2>Recording</h2></div>
+            <dl class="kv" id="recordingInfo"></dl>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h2>Preprocessing stages</h2></div>
+            <dl class="kv small">
+              <dt>Raw</dt><dd>16-bit mono 48 kHz exactly as captured; browser processing disabled.</dd>
+              <dt>Detector</dt><dd>180 Hz high-pass → spectral flux (1 ms frames) ÷ its 251 ms running median. Peaks above <span id="fluxThreshold"></span> are candidates.</dd>
+              <dt>Model input</dt><dd>700 Hz high-pass. The press classifier and the CNN see only this.</dd>
+              <dt>Click band</dt><dd>1.2 kHz high-pass energy, used to snap presses and labels to the loudest millisecond.</dd>
+              <dt>Noise floor</dt><dd>Display only: each frequency's median level over the recording is subtracted, so steady background hiss disappears.</dd>
+            </dl>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h2>Spectrum: background vs keystrokes</h2></div>
+            <canvas id="spectrumChart" class="heat" height="190"></canvas>
+            <div class="legend" style="margin-top:6px">
+              <span><i style="background:var(--faint)"></i>Background, raw</span>
+              <span><i style="background:var(--accent)"></i>Keystrokes, raw</span>
+              <span><i style="background:var(--warn)"></i>Keystrokes, processed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 3. TRAIN ===================== -->
+  <section id="view-train" class="view hidden">
+    <div class="view-head">
+      <div>
+        <h1>Train a key classifier</h1>
+        <p class="lede">Train a new classifier on chosen recordings and compare it with the active one on the same held-out validation recordings. Detection is unchanged; only the step that names each key is retrained. A new model is only used once you activate it.</p>
+      </div>
+    </div>
+    <div data-empty="train" class="empty hidden">No recordings yet. Record a few typing tests first.</div>
+
+    <div data-content="train" class="hidden">
+      <div class="grid side">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Recordings</h2>
+            <div class="toolbar"><button id="autoSplit" class="small" title="Newest ~20% of recordings for validation, the rest for training">Auto split</button></div>
+          </div>
+          <div class="small muted" style="margin-bottom:8px">Training recordings teach the model. Validation recordings are held out and used only to compare models, so keep them out of training. Test and locked recordings (data/splits.json) can't be used here.</div>
+          <div class="scroll"><table class="data"><thead><tr><th>Recording</th><th>Participant</th><th>Presses</th><th>Use for</th></tr></thead><tbody id="trainSessions"></tbody></table></div>
+          <div id="trainSummary" class="small" style="margin-top:10px"></div>
+          <h3 style="margin:14px 0 8px">Training-set coverage</h3>
+          <div id="trainCoverage" class="coverage"></div>
+        </div>
+
+        <div>
+          <div class="panel">
+            <div class="panel-head"><h2>Model</h2></div>
+            <div class="segmented" id="kind">
+              <button data-kind="svm" class="on">SVM</button><button data-kind="lda">LDA</button>
+              <!-- CNN training is disabled for now (sneakey/training.py ENABLED_KINDS); restore: <button data-kind="cnn">CNN</button> -->
+            </div>
+            <p id="kindInfo" class="small muted" style="margin:10px 0"></p>
+            <p class="small faint" style="margin:-4px 0 10px">CNN training is turned off for now because it is slow on a laptop. The shipped CNN can still be used for prediction.</p>
+            <div class="meta-grid">
+              <label data-param="svm">Regularisation C
+                <select id="paramC"><option>1</option><option>3</option><option selected>10</option><option>30</option></select></label>
+              <label>Min. presses per key <input type="number" id="minPresses" min="1" max="200" value="5"></label>
+              <label>Name (optional) <input type="text" id="modelName" maxlength="60" placeholder="e.g. SVM, 6 sessions"></label>
+            </div>
+            <label class="field" style="margin-top:10px"><input type="checkbox" id="endToEnd" checked> Also score end to end (detector + classifier + dictionary) on the validation recordings</label>
+            <div class="toolbar" style="margin-top:12px">
+              <button id="startTraining" class="primary">Start training</button>
+              <button id="cancelTraining" class="danger" disabled>Cancel</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><h2>Progress</h2><span id="trainElapsed" class="panel-sub"></span></div>
+            <div id="trainStage" class="small">Idle.</div>
+            <div class="progress"><div id="trainProgress"></div></div>
+            <pre id="trainLog" class="small mono" style="max-height:200px;overflow:auto;margin:10px 0 0;white-space:pre-wrap;color:var(--muted)"></pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="trainResult" class="panel hidden"></div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Models</h2><span class="panel-sub">The active model is used by Analyse and Predict</span></div>
+        <div class="scroll"><table class="data"><thead><tr><th>Model</th><th>Kind</th><th>Trained on</th><th>Validation key acc.</th><th>Compared with</th><th>Created</th><th></th></tr></thead><tbody id="modelRows"></tbody></table></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 4. PREDICT ===================== -->
+  <section id="view-predict" class="view hidden">
+    <div class="view-head">
+      <div>
+        <h1>Predict and evaluate</h1>
+        <p class="lede">Runs the audio-only pipeline on a recording: v6 detector → key classifier (<span id="activeModelName">active model</span>) → dictionary word decoder. The keystroke log is used only afterwards, to score the result.</p>
+      </div>
+      <div class="session-picker"><select data-session-select="predict"></select><span data-role-badge="predict"></span>
+        <button id="runPredict" class="primary">Run prediction</button></div>
+    </div>
+    <div data-empty="predict" class="empty hidden">No recordings yet. Record a typing test first.</div>
+
+    <div data-content="predict" class="hidden">
+      <div id="roleNotice" class="notice hidden" style="margin-bottom:14px"></div>
+      <div id="predictStatus" class="empty">Choose a recording and run the prediction.</div>
+
+      <div id="predictResults" class="hidden">
+        <div class="cards" id="metricCards"></div>
+
+        <div class="panel">
+          <div class="panel-head"><h2>Text</h2>
+            <div class="toolbar"><span class="panel-sub">Lowercase, as the pipeline renders it (Shift is not reconstructed)</span>
+              <label class="field"><input type="checkbox" data-diff-toggle checked> Highlight differences</label></div></div>
+          <div class="compare" id="textCompare"></div>
+        </div>
+
+        <div class="panel" id="llmPanel">
+          <div class="panel-head">
+            <h2>DeepSeek decoder <span class="badge locked" style="margin-left:6px">experimental · sends data</span></h2>
+            <div class="toolbar"><span class="panel-sub">An alternative to the local dictionary decoder</span>
+              <label class="field"><input type="checkbox" data-diff-toggle checked> Highlight differences</label></div>
+          </div>
+          <div class="notice" style="margin-bottom:12px">Sends this recording's per-press candidate letters (and, in the default style, the dictionary decoder's word guesses) to <b>api.deepseek.com</b>. The audio and the typed text are not sent, but the text can largely be inferred from what is sent: only use it on recordings whose participants agreed. In tests on held-out audio it did not beat the local dictionary decoder.</div>
+          <div class="toolbar">
+            <label class="field">Prompt
+              <select id="llmStyle">
+                <option value="ensemble|active" selected>Candidates from all held-out models + dictionary word guesses (best in tests)</option>
+                <option value="ensemble|ensemble">Candidates from all held-out models + word guesses on their average</option>
+                <option value="candidates|active">Top-3 candidate letters per press only</option>
+                <option value="probabilities|active">Top-4 keys with probabilities per press</option>
+              </select></label>
+            <div class="spacer"></div>
+            <button id="llmRun" class="primary">Decode with DeepSeek</button>
+          </div>
+          <div id="llmStatus" class="small muted" style="margin-top:10px"></div>
+          <div id="llmResult" class="hidden" style="margin-top:12px"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Word by word</h2>
+            <div class="toolbar">
+              <div class="legend">
+                <span><i style="background:var(--ok)"></i>Correct</span><span><i style="background:var(--bad)"></i>Wrong word</span>
+                <span><i style="background:var(--warn)"></i>Extra word</span><span><i style="background:var(--faint)"></i>Missed word</span>
+              </div>
+              <label class="field"><input type="checkbox" id="errorsOnly"> Errors only</label>
+            </div>
+          </div>
+          <div class="small muted" style="margin-bottom:10px">Large text: decoded word. Small text: what was typed. Bar: the decoder's confidence in this word over its alternatives. Click a word for the per-key probability distribution of each of its presses.</div>
+          <div id="words" class="words"></div>
+          <div id="wordDetail" class="word-detail hidden"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h2>Timeline</h2><span class="panel-sub">Top lane: typed keys. Bottom lane: predicted keys (green correct, red wrong key, amber extra; hollow = missed)</span></div>
+          <div id="predictTimeline" class="timeline"></div>
+        </div>
+
+        <div class="grid two">
+          <div class="panel">
+            <div class="panel-head"><h2>Per key</h2><span class="panel-sub">Classifier at true press times</span></div>
+            <div class="scroll"><table class="data"><thead><tr><th>Key</th><th>Presses</th><th>Recall</th><th></th><th>Most confused with</th></tr></thead><tbody id="perKey"></tbody></table></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h2>Confusion matrix</h2><span class="panel-sub">Rows: true key · columns: predicted · row-normalised</span></div>
+            <canvas id="confusion" class="heat"></canvas>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h2>All evaluated recordings</h2><span class="panel-sub">Pooled over presses and characters, by evaluation role. Only <b>unseen</b> and <b>test</b> rows measure generalisation.</span></div>
+          <table class="data"><thead><tr><th>Role</th><th>Sessions</th><th>Presses</th><th>Detection recall</th><th>Precision</th><th>Key acc. (detected)</th><th>Key acc. (logged timing)</th><th>Top-3</th><th>CER keys</th><th>CER dictionary</th></tr></thead><tbody id="summary"></tbody></table>
+          <details style="margin-top:12px"><summary>How the metrics are defined</summary>
+            <dl class="kv small" style="margin-top:8px">
+              <dt>Detection</dt><dd>Detected presses matched one-to-one to true presses within 20 ms (v6's rule). Recall = matched / typed; precision = matched / detected.</dd>
+              <dt>Key acc. (detected)</dt><dd>Of matched presses, the share named correctly. Audio-only, end to end.</dd>
+              <dt>Key acc. (logged timing)</dt><dd>The CNN run at the true press positions (auto-repeats excluded): the classifier on its own, separate from detection. Balanced = mean per-key recall.</dd>
+              <dt>CER / WER</dt><dd>Levenshtein distance between the lowercase typed text and the predicted text, divided by the typed length, in characters / words.</dd>
+              <dt>Word confidence</dt><dd>Softmax of the decoder's scores over its best candidate words for that stretch of presses.</dd>
+            </dl></details>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // If the app's modules fail to load or start, say so instead of leaving the page blank.
+  window.addEventListener("error", (event) => {
+    if (window.__sneakeyStarted || window.__sneakeyFailed) return;
+    window.__sneakeyFailed = true;
+    const box = document.getElementById("error");
+    const file = event.target && (event.target.src || event.target.href);
+    const reason = event.message || (file ? `could not load ${file}` : "a script could not be loaded");
+    box.textContent = `The page failed to start: ${reason} (page address: ${location.href}). Try a hard refresh (Ctrl+Shift+R).`;
+    box.classList.remove("hidden");
+    // A failed import anywhere in the module graph is reported against app.js, so check each file to name the culprit.
+    const modules = ["app", "common", "record", "inspect", "predict", "microphone", "spectrogram", "timeline", "charts", "player"];
+    Promise.all(modules.map((name) => fetch(`js/${name}.js`, { cache: "no-store" })
+      .then((r) => (r.ok ? null : `js/${name}.js (HTTP ${r.status})`), () => `js/${name}.js (blocked by the browser or an extension)`)))
+      .then((failed) => {
+        failed = failed.filter(Boolean);
+        box.textContent += failed.length
+          ? ` Files that failed: ${failed.join(", ")}. If an ad or tracker blocker is enabled, allow this site (localhost).`
+          : " Every script file is reachable, so something in the browser blocked the module loading; try disabling extensions for this site.";
+      });
+  }, true);
+  setTimeout(() => {
+    if (window.__sneakeyStarted) return;
+    const box = document.getElementById("error");
+    if (box.classList.contains("hidden")) {
+      box.textContent = "The page didn't start. Try a hard refresh (Ctrl+Shift+R); if that doesn't help, check the browser console for errors.";
+      box.classList.remove("hidden");
+    }
+  }, 5000);
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

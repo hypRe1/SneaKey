@@ -1,0 +1,13 @@
+{
+ "description": "keyboard_timing_v6 detector settings (spectral-flux candidates + gradient-boosting press classifier).",
+ "flux_threshold": 1.5,
+ "press_threshold": 0.35,
+ "event_classifier_trained_on": [
+  "session_20261107_165707",
+  "session_20261107_174947",
+  "session_20261107_175253",
+  "session_20261107_175531",
+  "session_20261107_175934"
+ ],
+ "provenance": "vendor/keyboard_timing_v6/results/inference_config.json and event_classifier.joblib, unchanged."
+}
