@@ -203,16 +203,18 @@ Opening line after the skit: “That was acted, but the attack is real. Every ke
   <div class="content">
     <h2 class="title">Past research</h2>
     <div class="cases">
-      <div class="case anim" style="--d:.1s"><p class="tab lbl">2004</p><div class="file"><p class="who">Asonov &amp; Agrawal</p><p class="big">79%</p><p class="body">of keys identified. The first published attack.</p></div></div>
-      <div class="case anim" style="--d:.25s"><p class="tab lbl">2005</p><div class="file"><p class="who">Zhuang, Zhou &amp; Tygar</p><p class="big">96%</p><p class="body">of characters at best, using English spelling correction.</p></div></div>
-      <div class="case anim" style="--d:.4s"><p class="tab lbl">2023</p><div class="file"><p class="who">Harrison, Toreini &amp; Mehrnezhad</p><p class="big">93%</p><p class="body">over a Zoom call (95% from a nearby phone).</p></div></div>
-      <div class="case us anim" style="--d:.55s"><p class="tab lbl">2026</p><div class="file"><p class="who">SneaKey</p><p class="big">Real typing</p><p class="body">Continuous typing, recorded by a laptop’s built-in mic.</p></div></div>
+      <div class="case anim" style="--d:.1s"><p class="tab lbl">2004</p><div class="file"><p class="who">Asonov &amp; Agrawal</p><p class="big">79%</p><p class="body">of keys identified, pressed one at a time. The first published attack.</p></div></div>
+      <div class="case anim" style="--d:.25s"><p class="tab lbl">2005</p><div class="file"><p class="who">Zhuang, Zhou &amp; Tygar</p><p class="big">96%</p><p class="body">of characters at best, only after English spelling correction.</p></div></div>
+      <div class="case anim" style="--d:.4s"><p class="tab lbl">2023</p><div class="file"><p class="who">Harrison, Toreini &amp; Mehrnezhad</p><p class="big">93%</p><p class="body">over a Zoom call (95% from a nearby phone), each key pressed 25 times in a row.</p></div></div>
+      <div class="case us anim" style="--d:.55s"><p class="tab lbl">2026</p><div class="file"><p class="who">SneaKey</p><p class="big">Real typing</p><p class="body">Continuous typing, heard by the same laptop’s built-in mic. No extra device.</p></div></div>
     </div>
     <div class="bar anim" style="--d:.7s"><p class="body" style="color:var(--keycap);display:flex;gap:.3em"><b class="lime" style="flex:none">Why it matters:</b><span>video calls, recorded meetings and phones on the table could all pose an acoustic security risk.</span></p></div>
   </div>
   <p class="foot">SOURCES: IEEE S&amp;P 2004 · ACM CCS 2005 · IEEE EuroS&amp;P Workshops 2023 (arXiv 2308.01074)</p>
   <aside class="notes">“Researchers have warned about this for 20 years. In 2023 it worked over a Zoom call with 93% accuracy. We wanted to see if we could build it ourselves in a weekend.”
-If asked: the 2023 study pressed each key 25 times in a row, one at a time, which is easier than real typing. We tested real, continuous typing.</aside>
+If asked: past work recognised keys in isolation under controlled recording. Asonov’s typist pressed one key at a time; the 2023 study pressed each key 25 times in a row on a MacBook Pro, and its accuracy fell to roughly 40–64% with touch-typing. Zhuang’s raw result was about 60%; the 96% comes after English language constraints.
+How we differ: (1) continuous, natural typing, where keystrokes overlap, so finding each press is part of the problem; (2) the victim laptop’s own mic, with no phone, external mic or Zoom stream. That is the most realistic attack (any app with mic permission) and the hardest audio: centimetres from the keys, with chassis vibration and fan noise.
+Caveat: these accuracies use different tasks and setups, so they aren’t directly comparable with ours.</aside>
 </section>
 
 <!-- ================= 3. HOW IT WORKS ================= -->
