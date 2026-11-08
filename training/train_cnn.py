@@ -27,10 +27,17 @@ from sneakey.classifier import (MAX_SHIFT_MS, MODEL_FILE, TEST_SHIFTS_MS, KeyNet
 from sneakey.evaluation import key_metrics
 
 
-def train(spectra, labels, n_keys, epochs=30, seed=0):
+def pick_device(name="auto"):
+    if name == "auto":
+        name = "mps" if torch.backends.mps.is_available() else "cuda" if torch.cuda.is_available() else "cpu"
+    return torch.device(name)
+
+
+def train(spectra, labels, n_keys, epochs=30, seed=0, device="cpu"):
+    device = torch.device(device)
     torch.manual_seed(seed)
     rng = np.random.default_rng(seed)
-    network = KeyNet(n_keys)
+    network = KeyNet(n_keys).to(device)
     optimiser = torch.optim.AdamW(network.parameters(), lr=2e-3, weight_decay=1e-3)
     steps = epochs * int(np.ceil(len(spectra) / 128))
     schedule = torch.optim.lr_scheduler.OneCycleLR(optimiser, max_lr=3e-3, total_steps=steps)
@@ -42,15 +49,15 @@ def train(spectra, labels, n_keys, epochs=30, seed=0):
         for start in range(0, len(order), 128):
             batch = order[start:start + 128]
             shift = int(rng.integers(-MAX_SHIFT_MS, MAX_SHIFT_MS + 1))
-            logits = network(torch.from_numpy(normalise(crop(spectra[batch], shift))))
-            loss = loss_fn(logits, torch.from_numpy(labels[batch]))
+            logits = network(torch.from_numpy(normalise(crop(spectra[batch], shift))).to(device))
+            loss = loss_fn(logits, torch.from_numpy(labels[batch]).to(device))
             optimiser.zero_grad()
             loss.backward()
             optimiser.step()
             schedule.step()
             total += loss.item() * len(batch)
         print(f"  epoch {epoch + 1}: loss {total / len(order):.3f}", flush=True)
-    return network
+    return network.cpu().eval()        # scoring and saving run on the CPU
 
 
 def load():
@@ -66,10 +73,10 @@ def score(network, spectra, keys, truth):
     return key_metrics(keys[probabilities.argmax(1)], truth, probabilities, keys)
 
 
-def fit(data, spectra, mask, epochs):
+def fit(data, spectra, mask, epochs, device="cpu"):
     keys = np.array(sorted(set(data["codes"][mask])))
     labels = np.searchsorted(keys, data["codes"]).clip(0, len(keys) - 1)
-    network = train(spectra[mask], labels[mask], len(keys), epochs)
+    network = train(spectra[mask], labels[mask], len(keys), epochs, device=device)
     return network, keys
 
 
