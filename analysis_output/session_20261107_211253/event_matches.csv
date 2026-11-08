@@ -1,0 +1,2153 @@
+event_index,event_type,key,code,category,repeat,time_ms,t_rel_ms,sample_index_est,status,reason,n_candidates,onset_sample,onset_strength_db,offset_ms
+0,keydown,Shift,ShiftLeft,modifier,0,546792.6,1172.072,56259,ambiguous,onset also claimed by another event,1,52708,13.1,-73.979
+1,keydown,S,KeyS,char,0,546797.3,1176.772,56485,ambiguous,onset also claimed by another event,1,52708,13.1,-78.688
+2,keyup,Shift,ShiftLeft,modifier,0,546813.6,1193.072,57267,ambiguous,onset also claimed by another event,1,52708,13.1,-94.979
+3,keydown,t,KeyT,char,0,546826.6,1206.072,57891,ambiguous,onset also claimed by another event,1,52708,13.1,-107.979
+4,keyup,s,KeyS,char,0,546878.5,1257.972,60383,missed,,0,,,
+5,keyup,t,KeyT,char,0,547039.9,1419.372,68130,ambiguous,2 onsets in window,2,62245,14.0,-122.604
+6,keydown,r,KeyR,char,0,547047.8,1427.272,68509,ambiguous,2 onsets in window,2,63407,13.7,-106.292
+7,keydown,o,KeyO,char,0,547054.8,1434.272,68845,ambiguous,2 onsets in window,2,63407,13.7,-113.292
+8,keyup,r,KeyR,char,0,547061.0,1440.472,69143,ambiguous,2 onsets in window,2,63407,13.7,-119.500
+9,keydown,n,KeyN,char,0,547078.6,1458.072,69987,ambiguous,onset also claimed by another event,1,63407,13.7,-137.083
+10,keyup,o,KeyO,char,0,547288.1,1667.572,80043,ambiguous,3 onsets in window,3,74347,12.7,-118.667
+11,keydown,g,KeyG,char,0,547295.8,1675.272,80413,ambiguous,3 onsets in window,3,74929,15.0,-114.250
+12,keyup,n,KeyN,char,0,547299.7,1679.172,80600,ambiguous,3 onsets in window,3,74929,15.0,-118.146
+13,keydown, ,Space,char,0,547299.7,1679.172,80600,ambiguous,3 onsets in window,3,74929,15.0,-118.146
+14,keyup,g,KeyG,char,0,547306.0,1685.472,80903,ambiguous,3 onsets in window,3,76270,13.3,-96.521
+15,keydown,p,KeyP,char,0,547320.2,1699.672,81584,ambiguous,2 onsets in window,2,76270,13.3,-110.708
+16,keyup, ,Space,char,0,547335.0,1714.472,82295,ambiguous,onset also claimed by another event,1,76270,13.3,-125.521
+17,keydown,a,KeyA,char,0,547357.6,1737.072,83379,missed,,0,,,
+18,keyup,p,KeyP,char,0,547367.9,1747.372,83874,missed,,0,,,
+19,keydown,s,KeyS,char,0,547377.6,1757.072,84339,missed,,0,,,
+20,keyup,a,KeyA,char,0,547424.6,1804.072,86595,missed,,0,,,
+21,keyup,s,KeyS,char,0,547442.5,1821.972,87455,missed,,0,,,
+22,keydown,s,KeyS,char,0,547512.8,1892.272,90829,missed,,0,,,
+23,keyup,s,KeyS,char,0,547568.4,1947.872,93498,missed,,0,,,
+24,keydown,w,KeyW,char,0,547665.1,2044.572,98139,matched,,1,92570,12.3,-116.021
+25,keyup,w,KeyW,char,0,547709.8,2089.272,100285,ambiguous,onset also claimed by another event,1,95609,20.5,-97.417
+26,keydown,o,KeyO,char,0,547719.7,2099.172,100760,ambiguous,onset also claimed by another event,1,95609,20.5,-107.312
+27,keydown,r,KeyR,char,0,547783.1,2162.572,103803,missed,,0,,,
+28,keyup,o,KeyO,char,0,547794.3,2173.772,104341,missed,,0,,,
+29,keyup,r,KeyR,char,0,547834.0,2213.472,106247,missed,,0,,,
+30,keydown,d,KeyD,char,0,547908.7,2288.172,109832,missed,,0,,,
+31,keydown,s,KeyS,char,0,547958.9,2338.372,112242,missed,,0,,,
+32,keyup,d,KeyD,char,0,548007.5,2386.972,114575,ambiguous,onset also claimed by another event,1,110861,21.4,-77.375
+33,keydown, ,Space,char,0,548035.1,2414.572,115899,ambiguous,onset also claimed by another event,1,110861,21.4,-104.958
+34,keyup,s,KeyS,char,0,548057.0,2436.472,116951,ambiguous,onset also claimed by another event,1,110861,21.4,-126.875
+35,keyup, ,Space,char,0,548124.5,2503.972,120191,missed,,0,,,
+36,keydown,a,KeyA,char,0,548142.0,2521.472,121031,missed,,0,,,
+37,keydown,r,KeyR,char,0,548169.3,2548.772,122341,missed,,0,,,
+38,keydown,e,KeyE,char,0,548202.3,2581.772,123925,missed,,0,,,
+39,keyup,a,KeyA,char,0,548250.9,2630.372,126258,ambiguous,onset also claimed by another event,1,122848,23.7,-71.042
+40,keydown, ,Space,char,0,548283.1,2662.572,127803,ambiguous,onset also claimed by another event,1,122848,23.7,-103.229
+41,keyup,r,KeyR,char,0,548294.8,2674.272,128365,ambiguous,onset also claimed by another event,1,122848,23.7,-114.937
+42,keyup,e,KeyE,char,0,548303.8,2683.272,128797,ambiguous,onset also claimed by another event,1,122848,23.7,-123.937
+43,keyup, ,Space,char,0,548346.2,2725.672,130832,missed,,0,,,
+44,keydown,l,KeyL,char,0,548390.5,2769.972,132959,missed,,0,,,
+45,keyup,l,KeyL,char,0,548446.0,2825.472,135623,missed,,0,,,
+46,keydown,o,KeyO,char,0,548483.2,2862.672,137408,missed,,0,,,
+47,keydown,n,KeyN,char,0,548574.2,2953.672,141776,matched,,1,134901,13.7,-143.229
+48,keyup,o,KeyO,char,0,548599.1,2978.572,142971,missed,,0,,,
+49,keyup,n,KeyN,char,0,548616.2,2995.672,143792,missed,,0,,,
+50,keydown,g,KeyG,char,0,548623.3,3002.772,144133,missed,,0,,,
+51,keyup,g,KeyG,char,0,548719.4,3098.872,148746,ambiguous,onset also claimed by another event,1,144160,18.2,-95.542
+52,keydown,",",Comma,char,0,548729.4,3108.872,149226,ambiguous,onset also claimed by another event,1,144160,18.2,-105.542
+53,keydown, ,Space,char,0,548801.7,3181.172,152696,ambiguous,2 onsets in window,2,147451,21.0,-109.271
+54,keyup,",",Comma,char,0,548831.7,3211.172,154136,ambiguous,2 onsets in window,2,149290,15.0,-100.958
+55,keyup, ,Space,char,0,548886.3,3265.772,156757,ambiguous,onset also claimed by another event,1,152310,16.8,-92.646
+56,keydown,u,KeyU,char,0,548931.6,3311.072,158931,ambiguous,2 onsets in window,2,154132,18.9,-99.979
+57,keydown,n,KeyN,char,0,549003.1,3382.572,162363,ambiguous,onset also claimed by another event,1,157029,15.4,-111.125
+58,keyup,u,KeyU,char,0,549016.0,3395.472,162983,ambiguous,onset also claimed by another event,1,157029,15.4,-124.042
+59,keydown,i,KeyI,char,0,549099.8,3479.272,167005,missed,,0,,,
+60,keyup,n,KeyN,char,0,549126.9,3506.372,168306,missed,,0,,,
+61,keyup,i,KeyI,char,0,549169.9,3549.372,170370,missed,,0,,,
+62,keydown,q,KeyQ,char,0,549178.6,3558.072,170787,missed,,0,,,
+63,keyup,q,KeyQ,char,0,549231.9,3611.372,173346,ambiguous,onset also claimed by another event,1,168481,20.7,-101.354
+64,keydown,u,KeyU,char,0,549239.2,3618.672,173696,ambiguous,onset also claimed by another event,1,168481,20.7,-108.646
+65,keyup,u,KeyU,char,0,549293.4,3672.872,176298,missed,,0,,,
+66,keydown,e,KeyE,char,0,549345.8,3725.272,178813,missed,,0,,,
+67,keydown,",",Comma,char,0,549397.9,3777.372,181314,ambiguous,onset also claimed by another event,1,176134,33.1,-107.917
+68,keyup,e,KeyE,char,0,549409.5,3788.972,181871,ambiguous,2 onsets in window,2,176134,33.1,-119.521
+69,keydown, ,Space,char,0,549444.1,3823.572,183531,ambiguous,onset also claimed by another event,1,178505,28.1,-104.708
+70,keyup,",",Comma,char,0,549478.4,3857.872,185178,ambiguous,onset also claimed by another event,1,178505,28.1,-139.021
+71,keyup, ,Space,char,0,549519.6,3899.072,187155,ambiguous,onset also claimed by another event,1,183915,23.2,-67.500
+72,keydown,a,KeyA,char,0,549528.6,3908.072,187587,ambiguous,onset also claimed by another event,1,183915,23.2,-76.500
+73,keydown,n,KeyN,char,0,549567.0,3946.472,189431,ambiguous,onset also claimed by another event,1,183915,23.2,-114.917
+74,keyup,a,KeyA,char,0,549591.8,3971.272,190621,ambiguous,onset also claimed by another event,1,183915,23.2,-139.708
+75,keyup,n,KeyN,char,0,549743.7,4123.172,197912,ambiguous,onset also claimed by another event,1,191379,27.8,-136.104
+76,keydown,d,KeyD,char,0,549751.0,4130.472,198263,ambiguous,onset also claimed by another event,1,191379,27.8,-143.417
+77,keydown, ,Space,char,0,549761.4,4140.872,198762,missed,,0,,,
+78,keyup,d,KeyD,char,0,549769.5,4148.972,199151,missed,,0,,,
+79,keyup, ,Space,char,0,549769.6,4149.072,199155,missed,,0,,,
+80,keydown,b,KeyB,char,0,549808.9,4188.372,201042,ambiguous,onset also claimed by another event,1,196160,24.1,-101.708
+81,keydown,o,KeyO,char,0,549842.5,4221.972,202655,ambiguous,onset also claimed by another event,1,196160,24.1,-135.312
+82,keyup,b,KeyB,char,0,549878.6,4258.072,204387,missed,,0,,,
+83,keyup,o,KeyO,char,0,549962.0,4341.472,208391,ambiguous,onset also claimed by another event,1,201669,18.6,-140.042
+84,keydown,r,KeyR,char,0,549966.7,4346.172,208616,ambiguous,onset also claimed by another event,1,201669,18.6,-144.729
+85,keyup,r,KeyR,char,0,549987.5,4366.972,209615,ambiguous,onset also claimed by another event,1,205770,18.2,-80.104
+86,keydown,i,KeyI,char,0,550018.5,4397.972,211103,ambiguous,onset also claimed by another event,1,205770,18.2,-111.104
+87,keydown,n,KeyN,char,0,550043.0,4422.472,212279,ambiguous,onset also claimed by another event,1,205770,18.2,-135.604
+88,keyup,i,KeyI,char,0,550116.4,4495.872,215802,ambiguous,onset also claimed by another event,1,210458,20.8,-111.333
+89,keydown,g,KeyG,char,0,550120.7,4500.172,216008,ambiguous,onset also claimed by another event,1,210458,20.8,-115.625
+90,keyup,n,KeyN,char,0,550127.7,4507.172,216344,ambiguous,onset also claimed by another event,1,210458,20.8,-122.625
+91,keyup,g,KeyG,char,0,550164.5,4543.972,218111,ambiguous,onset also claimed by another event,1,214528,30.6,-74.646
+92,keydown, ,Space,char,0,550193.5,4572.972,219503,ambiguous,onset also claimed by another event,1,214528,30.6,-103.646
+93,keyup, ,Space,char,0,550239.2,4618.672,221696,ambiguous,onset also claimed by another event,1,217454,23.0,-88.375
+94,keydown,t,KeyT,char,0,550254.4,4633.872,222426,ambiguous,onset also claimed by another event,1,217454,23.0,-103.583
+95,keydown,o,KeyO,char,0,550304.5,4683.972,224831,ambiguous,onset also claimed by another event,1,219669,22.6,-107.542
+96,keyup,t,KeyT,char,0,550319.9,4699.372,225570,ambiguous,2 onsets in window,2,219669,22.6,-122.937
+97,keydown, ,Space,char,0,550356.1,4735.572,227307,ambiguous,onset also claimed by another event,1,222167,25.9,-107.083
+98,keyup,o,KeyO,char,0,550402.0,4781.472,229511,missed,,0,,,
+99,keyup, ,Space,char,0,550412.2,4791.672,230000,missed,,0,,,
+100,keydown,a,KeyA,char,0,550419.9,4799.372,230370,missed,,0,,,
+101,keydown,n,KeyN,char,0,550485.9,4865.372,233538,ambiguous,onset also claimed by another event,1,228319,28.5,-108.729
+102,keyup,a,KeyA,char,0,550503.1,4882.572,234363,ambiguous,onset also claimed by another event,1,228319,28.5,-125.917
+103,keyup,n,KeyN,char,0,550553.7,4933.172,236792,matched,,1,232060,17.8,-98.583
+104,keydown,y,KeyY,char,0,550628.9,5008.372,240402,matched,,1,235142,17.8,-109.583
+105,keyup,y,KeyY,char,0,550669.8,5049.272,242365,missed,,0,,,
+106,keydown,o,KeyO,char,0,550725.2,5104.672,245024,ambiguous,2 onsets in window,2,240122,24.2,-102.125
+107,keydown,n,KeyN,char,0,550778.7,5158.172,247592,ambiguous,onset also claimed by another event,1,241480,19.6,-127.333
+108,keyup,o,KeyO,char,0,550842.9,5222.372,250674,missed,,0,,,
+109,keyup,n,KeyN,char,0,550855.4,5234.872,251274,missed,,0,,,
+110,keydown,e,KeyE,char,0,550866.3,5245.772,251797,missed,,0,,,
+111,keyup,e,KeyE,char,0,550906.7,5286.172,253736,ambiguous,onset also claimed by another event,1,249465,27.1,-88.979
+112,keydown, ,Space,char,0,550919.7,5299.172,254360,ambiguous,onset also claimed by another event,1,249465,27.1,-101.979
+113,keyup, ,Space,char,0,550984.6,5364.072,257475,ambiguous,onset also claimed by another event,1,253930,24.9,-73.854
+114,keydown,b,KeyB,char,0,550992.3,5371.772,257845,ambiguous,onset also claimed by another event,1,253930,24.9,-81.563
+115,keydown,u,KeyU,char,0,551017.6,5397.072,259059,ambiguous,onset also claimed by another event,1,253930,24.9,-106.854
+116,keyup,b,KeyB,char,0,551065.5,5444.972,261359,ambiguous,onset also claimed by another event,1,257837,21.9,-73.375
+117,keyup,u,KeyU,char,0,551088.3,5467.772,262453,ambiguous,onset also claimed by another event,1,257837,21.9,-96.167
+118,keydown,t,KeyT,char,0,551098.8,5478.272,262957,ambiguous,onset also claimed by another event,1,257837,21.9,-106.667
+119,keyup,t,KeyT,char,0,551160.8,5540.272,265933,ambiguous,onset also claimed by another event,1,261633,33.3,-89.583
+120,keydown, ,Space,char,0,551174.9,5554.372,266610,ambiguous,onset also claimed by another event,1,261633,33.3,-103.688
+121,keyup, ,Space,char,0,551204.7,5584.172,268040,ambiguous,2 onsets in window,2,263442,13.9,-95.792
+122,keydown,y,KeyY,char,0,551299.3,5678.772,272581,matched,,1,267618,21.5,-103.396
+123,keyup,y,KeyY,char,0,551346.2,5725.672,274832,missed,,0,,,
+124,keydown,o,KeyO,char,0,551394.1,5773.572,277131,matched,,1,272087,24.8,-105.083
+125,keydown,u,KeyU,char,0,551442.4,5821.872,279450,missed,,0,,,
+126,keyup,u,KeyU,char,0,551506.3,5885.772,282517,missed,,0,,,
+127,keyup,o,KeyO,char,0,551516.6,5896.072,283011,missed,,0,,,
+128,keydown,;,Semicolon,char,0,551594.8,5974.272,286765,matched,,1,281855,16.3,-102.292
+129,keydown, ,Space,char,0,551660.0,6039.472,289895,ambiguous,onset also claimed by another event,1,284851,25.0,-105.083
+130,keyup,;,Semicolon,char,0,551691.4,6070.872,291402,ambiguous,onset also claimed by another event,1,284851,25.0,-136.479
+131,keyup, ,Space,char,0,551721.4,6100.872,292842,matched,,1,288542,14.2,-89.583
+132,keydown,r,KeyR,char,0,552042.0,6421.472,308231,missed,,0,,,
+133,keyup,r,KeyR,char,0,552049.8,6429.272,308605,missed,,0,,,
+134,keydown,e,KeyE,char,0,552050.0,6429.472,308615,missed,,0,,,
+135,keyup,e,KeyE,char,0,552107.2,6486.672,311360,ambiguous,onset also claimed by another event,1,308038,21.2,-69.208
+136,keydown,u,KeyU,char,0,552147.7,6527.172,313304,ambiguous,onset also claimed by another event,1,308038,21.2,-109.708
+137,keyup,u,KeyU,char,0,552241.8,6621.272,317821,missed,,0,,,
+138,keydown,s,KeyS,char,0,552336.8,6716.272,322381,missed,,0,,,
+139,keydown,e,KeyE,char,0,552404.1,6783.572,325611,missed,,0,,,
+140,keyup,s,KeyS,char,0,552483.3,6862.772,329413,ambiguous,onset also claimed by another event,1,324659,24.1,-99.042
+141,keydown, ,Space,char,0,552493.7,6873.172,329912,ambiguous,onset also claimed by another event,1,324659,24.1,-109.438
+142,keyup,e,KeyE,char,0,552504.2,6883.672,330416,ambiguous,onset also claimed by another event,1,324659,24.1,-119.937
+143,keydown,i,KeyI,char,0,552540.7,6920.172,332168,missed,,0,,,
+144,keyup, ,Space,char,0,552573.6,6953.072,333747,matched,,1,329028,18.1,-98.312
+145,keydown,s,KeyS,char,0,552623.8,7003.272,336157,ambiguous,onset also claimed by another event,1,330877,19.2,-110.000
+146,keyup,i,KeyI,char,0,552636.2,7015.672,336752,ambiguous,onset also claimed by another event,1,330877,19.2,-122.396
+147,keyup,s,KeyS,char,0,552684.6,7064.072,339075,ambiguous,onset also claimed by another event,1,334666,27.2,-91.854
+148,keydown, ,Space,char,0,552694.5,7073.972,339551,ambiguous,2 onsets in window,2,334666,27.2,-101.771
+149,keyup, ,Space,char,0,552730.0,7109.472,341255,ambiguous,3 onsets in window,3,336245,12.6,-104.375
+150,keydown,t,KeyT,char,0,552765.4,7144.872,342954,ambiguous,2 onsets in window,2,337439,18.0,-114.896
+151,keydown,h,KeyH,char,0,552791.4,7170.872,344202,ambiguous,onset also claimed by another event,1,337439,18.0,-140.896
+152,keyup,t,KeyT,char,0,552879.1,7258.572,348411,ambiguous,onset also claimed by another event,1,344932,29.9,-72.479
+153,keyup,h,KeyH,char,0,552881.4,7260.872,348522,ambiguous,onset also claimed by another event,1,344932,29.9,-74.792
+154,keydown,e,KeyE,char,0,552886.1,7265.572,348747,ambiguous,onset also claimed by another event,1,344932,29.9,-79.479
+155,keydown, ,Space,char,0,552912.7,7292.172,350024,ambiguous,onset also claimed by another event,1,344932,29.9,-106.083
+156,keyup,e,KeyE,char,0,552937.0,7316.472,351191,ambiguous,2 onsets in window,2,347083,14.6,-85.583
+157,keyup, ,Space,char,0,552949.2,7328.672,351776,ambiguous,2 onsets in window,2,347083,14.6,-97.771
+158,keydown,e,KeyE,char,0,553152.4,7531.872,361530,matched,,1,356541,21.2,-103.938
+159,keyup,e,KeyE,char,0,553218.5,7597.972,364703,ambiguous,onset also claimed by another event,1,360177,26.3,-94.292
+160,keydown,n,KeyN,char,0,553252.1,7631.572,366315,ambiguous,onset also claimed by another event,1,360177,26.3,-127.875
+161,keyup,n,KeyN,char,0,553331.6,7711.072,370131,ambiguous,onset also claimed by another event,1,365593,19.2,-94.542
+162,keydown,e,KeyE,char,0,553349.4,7728.872,370986,ambiguous,onset also claimed by another event,1,365593,19.2,-112.354
+163,keydown,m,KeyM,char,0,553378.3,7757.772,372373,ambiguous,onset also claimed by another event,1,365593,19.2,-141.250
+164,keyup,e,KeyE,char,0,553390.9,7770.372,372978,ambiguous,onset also claimed by another event,1,369742,15.9,-67.417
+165,keyup,m,KeyM,char,0,553425.2,7804.672,374624,ambiguous,onset also claimed by another event,1,369742,15.9,-101.708
+166,keydown,y,KeyY,char,0,553509.4,7888.872,378666,ambiguous,2 onsets in window,2,373236,17.0,-113.125
+167,keydown, ,Space,char,0,553529.1,7908.572,379611,ambiguous,2 onsets in window,2,374468,22.5,-107.146
+168,keyup,y,KeyY,char,0,553563.0,7942.472,381239,ambiguous,2 onsets in window,2,374468,22.5,-141.063
+169,keyup, ,Space,char,0,553592.3,7971.772,382645,ambiguous,onset also claimed by another event,1,378002,20.4,-96.729
+170,keydown,o,KeyO,char,0,553600.7,7980.172,383048,ambiguous,onset also claimed by another event,1,378002,20.4,-105.125
+171,keyup,o,KeyO,char,0,553670.7,8050.172,386408,ambiguous,onset also claimed by another event,1,381535,16.1,-101.521
+172,keydown,f,KeyF,char,0,553697.2,8076.672,387680,ambiguous,2 onsets in window,2,384361,36.2,-69.146
+173,keydown, ,Space,char,0,553773.7,8153.172,391352,ambiguous,2 onsets in window,2,387293,13.5,-84.563
+174,keyup,f,KeyF,char,0,553779.7,8159.172,391640,ambiguous,onset also claimed by another event,1,387293,13.5,-90.562
+175,keyup, ,Space,char,0,553788.2,8167.672,392048,ambiguous,onset also claimed by another event,1,387293,13.5,-99.063
+176,keydown,s,KeyS,char,0,553878.9,8258.372,396402,missed,,0,,,
+177,keydown,e,KeyE,char,0,553918.8,8298.272,398317,missed,,0,,,
+178,keyup,s,KeyS,char,0,553969.4,8348.872,400746,missed,,0,,,
+179,keyup,e,KeyE,char,0,554005.5,8384.972,402479,missed,,0,,,
+180,keydown,c,KeyC,char,0,554069.4,8448.872,405546,missed,,0,,,
+181,keyup,c,KeyC,char,0,554155.3,8534.772,409669,ambiguous,2 onsets in window,2,404455,18.9,-108.625
+182,keydown,u,KeyU,char,0,554179.6,8559.072,410835,ambiguous,2 onsets in window,2,405578,20.5,-109.521
+183,keyup,u,KeyU,char,0,554227.3,8606.772,413125,missed,,0,,,
+184,keydown,r,KeyR,char,0,554237.3,8616.772,413605,missed,,0,,,
+185,keyup,r,KeyR,char,0,554278.4,8657.872,415578,missed,,0,,,
+186,keydown,i,KeyI,char,0,554313.6,8693.072,417267,missed,,0,,,
+187,keyup,i,KeyI,char,0,554367.5,8746.972,419855,missed,,0,,,
+188,keydown,y,KeyY,char,0,554426.4,8805.872,422682,ambiguous,onset also claimed by another event,1,417039,18.0,-117.563
+189,keydown,t,KeyT,char,0,554440.8,8820.272,423373,ambiguous,onset also claimed by another event,1,417039,18.0,-131.958
+190,keyup,y,KeyY,char,0,554467.9,8847.372,424674,missed,,0,,,
+191,keyup,t,KeyT,char,0,554475.0,8854.472,425015,missed,,0,,,
+192,keydown,.,Period,char,0,554631.8,9011.272,432541,ambiguous,onset also claimed by another event,1,426666,34.3,-122.396
+193,keydown, ,Space,char,0,554636.1,9015.572,432747,ambiguous,onset also claimed by another event,1,426666,34.3,-126.687
+194,keyup, ,Space,char,0,554642.9,9022.372,433074,ambiguous,onset also claimed by another event,1,426666,34.3,-133.500
+195,keyup,.,Period,char,0,554664.9,9044.372,434130,missed,,0,,,
+196,keydown,Shift,ShiftLeft,modifier,0,554674.1,9053.572,434571,missed,,0,,,
+197,keyup,Shift,ShiftLeft,modifier,0,554766.7,9146.172,439016,missed,,0,,,
+198,keydown,Backspace,Backspace,backspace,0,554918.7,9298.172,446312,matched,,1,441169,14.3,-107.146
+199,keyup,Backspace,Backspace,backspace,0,554960.4,9339.872,448314,missed,,0,,,
+200,keydown,Backspace,Backspace,backspace,0,555039.4,9418.872,452106,missed,,0,,,
+201,keyup,Backspace,Backspace,backspace,0,555086.5,9465.972,454367,missed,,0,,,
+202,keydown,Backspace,Backspace,backspace,0,555158.3,9537.772,457813,missed,,0,,,
+203,keyup,Backspace,Backspace,backspace,0,555225.7,9605.172,461048,matched,,1,456175,13.2,-101.521
+204,keydown,Backspace,Backspace,backspace,0,555299.0,9678.472,464567,missed,,0,,,
+205,keyup,Backspace,Backspace,backspace,0,555423.4,9802.872,470538,ambiguous,onset also claimed by another event,1,465159,13.8,-112.063
+206,keydown,t,KeyT,char,0,555424.6,9804.072,470595,ambiguous,onset also claimed by another event,1,465159,13.8,-113.250
+207,keyup,t,KeyT,char,0,555442.6,9822.072,471459,ambiguous,onset also claimed by another event,1,465159,13.8,-131.250
+208,keydown,y,KeyY,char,0,555505.9,9885.372,474498,matched,,1,469371,13.3,-106.813
+209,keyup,y,KeyY,char,0,555560.0,9939.472,477095,missed,,0,,,
+210,keydown,.,Period,char,0,555697.5,10076.972,483695,matched,,1,478672,23.3,-104.646
+211,keydown, ,Space,char,0,555744.0,10123.472,485927,ambiguous,onset also claimed by another event,1,480845,32.7,-105.875
+212,keyup, ,Space,char,0,555767.9,10147.372,487074,ambiguous,onset also claimed by another event,1,480845,32.7,-129.771
+213,keyup,.,Period,char,0,555775.5,10154.972,487439,ambiguous,onset also claimed by another event,1,480845,32.7,-137.375
+214,keydown,Shift,ShiftLeft,modifier,0,555817.2,10196.672,489440,missed,,0,,,
+215,keydown,E,KeyE,char,0,555845.8,10225.272,490813,missed,,0,,,
+216,keyup,Shift,ShiftLeft,modifier,0,555892.5,10271.972,493055,missed,,0,,,
+217,keyup,e,KeyE,char,0,555935.2,10314.672,495104,missed,,0,,,
+218,keydown,v,KeyV,char,0,555983.8,10363.272,497437,missed,,0,,,
+219,keyup,v,KeyV,char,0,556050.8,10430.272,500653,missed,,0,,,
+220,keydown,e,KeyE,char,0,556103.8,10483.272,503197,missed,,0,,,
+221,keydown,r,KeyR,char,0,556151.9,10531.372,505506,ambiguous,2 onsets in window,2,501039,12.5,-93.063
+222,keydown,y,KeyY,char,0,556183.3,10562.772,507013,ambiguous,2 onsets in window,2,501862,12.4,-107.313
+223,keyup,e,KeyE,char,0,556208.5,10587.972,508223,ambiguous,onset also claimed by another event,1,501862,12.4,-132.521
+224,keyup,r,KeyR,char,0,556232.1,10611.572,509355,missed,,0,,,
+225,keyup,y,KeyY,char,0,556241.4,10620.872,509802,missed,,0,,,
+226,keydown,o,KeyO,char,0,556287.7,10667.172,512024,matched,,1,507031,14.8,-104.021
+227,keydown,n,KeyN,char,0,556337.8,10717.272,514429,matched,,1,509088,24.2,-111.271
+228,keydown,e,KeyE,char,0,556403.1,10782.572,517563,ambiguous,onset also claimed by another event,1,512445,23.5,-106.625
+229,keyup,n,KeyN,char,0,556417.2,10796.672,518240,ambiguous,onset also claimed by another event,1,512445,23.5,-120.729
+230,keyup,o,KeyO,char,0,556435.5,10814.972,519119,ambiguous,onset also claimed by another event,1,512445,23.5,-139.042
+231,keyup,e,KeyE,char,0,556480.9,10860.372,521298,ambiguous,onset also claimed by another event,1,516294,34.0,-104.250
+232,keydown, ,Space,char,0,556490.6,10870.072,521763,ambiguous,onset also claimed by another event,1,516294,34.0,-113.937
+233,keyup, ,Space,char,0,556551.6,10931.072,524691,matched,,1,520284,13.0,-91.812
+234,keydown,e,KeyE,char,0,556644.2,11023.672,529136,missed,,0,,,
+235,keyup,e,KeyE,char,0,556703.5,11082.972,531983,missed,,0,,,
+236,keydown,x,KeyX,char,0,556800.5,11179.972,536639,missed,,0,,,
+237,keyup,x,KeyX,char,0,556830.0,11209.472,538055,missed,,0,,,
+238,keydown,p,KeyP,char,0,556883.3,11262.772,540613,missed,,0,,,
+239,keyup,p,KeyP,char,0,556931.8,11311.272,542941,missed,,0,,,
+240,keydown,e,KeyE,char,0,556937.9,11317.372,543234,missed,,0,,,
+241,keyup,e,KeyE,char,0,556977.0,11356.472,545111,missed,,0,,,
+242,keydown,c,KeyC,char,0,557057.6,11437.072,548979,missed,,0,,,
+243,keyup,c,KeyC,char,0,557176.6,11556.072,554691,ambiguous,onset also claimed by another event,1,549845,13.5,-100.958
+244,keydown,t,KeyT,char,0,557179.3,11558.772,554821,ambiguous,onset also claimed by another event,1,549845,13.5,-103.667
+245,keydown,e,KeyE,char,0,557242.7,11622.172,557864,missed,,0,,,
+246,keyup,t,KeyT,char,0,557258.5,11637.972,558623,missed,,0,,,
+247,keyup,e,KeyE,char,0,557309.1,11688.572,561051,missed,,0,,,
+248,keydown,d,KeyD,char,0,557359.3,11738.772,563461,missed,,0,,,
+249,keyup,d,KeyD,char,0,557427.0,11806.472,566711,missed,,0,,,
+250,keydown, ,Space,char,0,557444.2,11823.672,567536,missed,,0,,,
+251,keyup, ,Space,char,0,557511.1,11890.572,570747,ambiguous,onset also claimed by another event,1,566793,26.0,-82.375
+252,keydown,t,KeyT,char,0,557531.5,11910.972,571727,ambiguous,onset also claimed by another event,1,566793,26.0,-102.792
+253,keyup,t,KeyT,char,0,557577.9,11957.372,573954,ambiguous,onset also claimed by another event,1,569608,19.9,-90.542
+254,keydown,h,KeyH,char,0,557588.5,11967.972,574463,ambiguous,onset also claimed by another event,1,569608,19.9,-101.146
+255,keydown,t,KeyT,char,0,557651.4,12030.872,577482,missed,,0,,,
+256,keyup,h,KeyH,char,0,557658.5,12037.972,577823,missed,,0,,,
+257,keyup,t,KeyT,char,0,557710.2,12089.672,580304,missed,,0,,,
+258,keydown,e,KeyE,char,0,557718.5,12097.972,580703,missed,,0,,,
+259,keydown, ,Space,char,0,557764.1,12143.572,582891,ambiguous,2 onsets in window,2,577848,25.1,-105.062
+260,keyup, ,Space,char,0,557784.8,12164.272,583885,ambiguous,2 onsets in window,2,579284,17.7,-95.854
+261,keyup,e,KeyE,char,0,557816.2,12195.672,585392,ambiguous,onset also claimed by another event,1,579284,17.7,-127.250
+262,keydown,t,KeyT,char,0,558002.3,12381.772,594325,matched,,1,589494,22.0,-100.646
+263,keydown,e,KeyE,char,0,558083.9,12463.372,598242,missed,,0,,,
+264,keyup,t,KeyT,char,0,558101.2,12480.672,599072,missed,,0,,,
+265,keyup,e,KeyE,char,0,558128.6,12508.072,600387,missed,,0,,,
+266,keydown,Backspace,Backspace,backspace,0,558270.8,12650.272,607213,missed,,0,,,
+267,keyup,Backspace,Backspace,backspace,0,558291.7,12671.172,608216,missed,,0,,,
+268,keydown,Backspace,Backspace,backspace,0,558371.0,12750.472,612023,missed,,0,,,
+269,keyup,Backspace,Backspace,backspace,0,558435.9,12815.372,615138,missed,,0,,,
+270,keydown,Backspace,Backspace,backspace,0,558509.7,12889.172,618680,missed,,0,,,
+271,keyup,Backspace,Backspace,backspace,0,558577.6,12957.072,621939,matched,,1,617022,15.3,-102.437
+272,keydown,Backspace,Backspace,backspace,0,558647.0,13026.472,625271,missed,,0,,,
+273,keyup,Backspace,Backspace,backspace,0,558726.9,13106.372,629106,missed,,0,,,
+274,keydown,Backspace,Backspace,backspace,0,558807.1,13186.572,632955,missed,,0,,,
+275,keyup,Backspace,Backspace,backspace,0,558874.4,13253.872,636186,matched,,1,631352,13.9,-100.708
+276,keydown,e,KeyE,char,0,559092.4,13471.872,646650,missed,,0,,,
+277,keyup,e,KeyE,char,0,559158.3,13537.772,649813,ambiguous,onset also claimed by another event,1,645247,20.4,-95.125
+278,keydown, ,Space,char,0,559170.3,13549.772,650389,ambiguous,onset also claimed by another event,1,645247,20.4,-107.125
+279,keyup, ,Space,char,0,559264.7,13644.172,654920,ambiguous,2 onsets in window,2,650127,17.6,-99.854
+280,keydown,t,KeyT,char,0,559279.4,13658.872,655626,ambiguous,2 onsets in window,2,650579,16.7,-105.146
+281,keydown,e,KeyE,char,0,559303.7,13683.172,656792,ambiguous,2 onsets in window,2,650579,16.7,-129.437
+282,keyup,t,KeyT,char,0,559344.8,13724.272,658765,missed,,0,,,
+283,keydown,a,KeyA,char,0,559385.7,13765.172,660728,missed,,0,,,
+284,keyup,e,KeyE,char,0,559422.1,13801.572,662475,ambiguous,onset also claimed by another event,1,659406,21.4,-63.937
+285,keydown,m,KeyM,char,0,559475.6,13855.072,665043,ambiguous,onset also claimed by another event,1,659406,21.4,-117.438
+286,keyup,a,KeyA,char,0,559486.3,13865.772,665557,ambiguous,onset also claimed by another event,1,659406,21.4,-128.146
+287,keydown, ,Space,char,0,559528.3,13907.772,667573,missed,,0,,,
+288,keyup,m,KeyM,char,0,559574.0,13953.472,669767,ambiguous,2 onsets in window,2,664912,19.4,-101.146
+289,keydown,t,KeyT,char,0,559581.6,13961.072,670131,ambiguous,2 onsets in window,2,664912,19.4,-108.729
+290,keyup, ,Space,char,0,559595.1,13974.572,670779,ambiguous,2 onsets in window,2,665909,15.9,-101.458
+291,keyup,t,KeyT,char,0,559644.1,14023.572,673131,ambiguous,onset also claimed by another event,1,670109,26.5,-62.958
+292,keydown,o,KeyO,char,0,559657.6,14037.072,673779,ambiguous,onset also claimed by another event,1,670109,26.5,-76.458
+293,keydown, ,Space,char,0,559691.8,14071.272,675421,ambiguous,onset also claimed by another event,1,670109,26.5,-110.667
+294,keyup,o,KeyO,char,0,559726.5,14105.972,677087,ambiguous,onset also claimed by another event,1,673567,17.0,-73.333
+295,keyup, ,Space,char,0,559745.7,14125.172,678008,ambiguous,onset also claimed by another event,1,673567,17.0,-92.521
+296,keydown,l,KeyL,char,0,559815.7,14195.172,681368,missed,,0,,,
+297,keyup,l,KeyL,char,0,559873.2,14252.672,684128,missed,,0,,,
+298,keydown,o,KeyO,char,0,559919.7,14299.172,686360,missed,,0,,,
+299,keydown,s,KeyS,char,0,559976.7,14356.172,689096,missed,,0,,,
+300,keyup,o,KeyO,char,0,560009.5,14388.972,690671,missed,,0,,,
+301,keydown,e,KeyE,char,0,560017.4,14396.872,691050,missed,,0,,,
+302,keyup,s,KeyS,char,0,560049.2,14428.672,692576,ambiguous,onset also claimed by another event,1,689464,18.8,-64.833
+303,keyup,e,KeyE,char,0,560083.9,14463.372,694242,ambiguous,onset also claimed by another event,1,689464,18.8,-99.542
+304,keydown,",",Comma,char,0,560092.4,14471.872,694650,ambiguous,onset also claimed by another event,1,689464,18.8,-108.042
+305,keydown, ,Space,char,0,560149.4,14528.872,697386,ambiguous,2 onsets in window,2,692253,25.2,-106.937
+306,keyup,",",Comma,char,0,560174.0,14553.472,698567,ambiguous,3 onsets in window,3,693550,12.8,-104.521
+307,keyup, ,Space,char,0,560204.3,14583.772,700021,ambiguous,2 onsets in window,2,695549,18.3,-93.167
+308,keydown,b,KeyB,char,0,560287.0,14666.472,703991,missed,,0,,,
+309,keyup,b,KeyB,char,0,560318.4,14697.872,705498,missed,,0,,,
+310,keydown,w,KeyW,char,0,560405.6,14785.072,709683,matched,,1,704934,16.6,-98.937
+311,keyup,w,KeyW,char,0,560490.9,14870.372,713778,missed,,0,,,
+312,keydown,Backspace,Backspace,backspace,0,560569.0,14948.472,717527,ambiguous,onset also claimed by another event,1,712542,21.1,-103.854
+313,keyup,Backspace,Backspace,backspace,0,560594.3,14973.772,718741,ambiguous,onset also claimed by another event,1,712542,21.1,-129.146
+314,keydown,Backspace,Backspace,backspace,0,560701.1,15080.572,723867,missed,,0,,,
+315,keyup,Backspace,Backspace,backspace,0,560733.8,15113.272,725437,missed,,0,,,
+316,keydown,w,KeyW,char,0,560805.5,15184.972,728879,matched,,1,724176,14.1,-97.979
+317,keydown,h,KeyH,char,0,560901.0,15280.472,733463,ambiguous,onset also claimed by another event,1,729671,18.1,-79.000
+318,keyup,w,KeyW,char,0,560908.9,15288.372,733842,ambiguous,onset also claimed by another event,1,729671,18.1,-86.896
+319,keydown,i,KeyI,char,0,560935.1,15314.572,735099,ambiguous,onset also claimed by another event,1,729671,18.1,-113.083
+320,keyup,h,KeyH,char,0,560983.7,15363.172,737432,ambiguous,onset also claimed by another event,1,733647,16.5,-78.854
+321,keyup,i,KeyI,char,0,561026.5,15405.972,739487,ambiguous,onset also claimed by another event,1,733647,16.5,-121.667
+322,keydown,c,KeyC,char,0,561028.4,15407.872,739578,ambiguous,onset also claimed by another event,1,733647,16.5,-123.563
+323,keydown,h,KeyH,char,0,561068.8,15448.272,741517,ambiguous,2 onsets in window,2,737646,29.9,-80.646
+324,keyup,c,KeyC,char,0,561081.6,15461.072,742131,ambiguous,2 onsets in window,2,737646,29.9,-93.438
+325,keydown, ,Space,char,0,561089.9,15469.372,742530,ambiguous,2 onsets in window,2,737646,29.9,-101.750
+326,keydown,i,KeyI,char,0,561110.1,15489.572,743499,ambiguous,2 onsets in window,2,738472,18.3,-104.729
+327,keyup,h,KeyH,char,0,561145.2,15524.672,745184,ambiguous,2 onsets in window,2,741198,12.7,-83.042
+328,keyup, ,Space,char,0,561160.3,15539.772,745909,ambiguous,onset also claimed by another event,1,741198,12.7,-98.146
+329,keydown,s,KeyS,char,0,561200.8,15580.272,747853,ambiguous,onset also claimed by another event,1,741198,12.7,-138.646
+330,keyup,i,KeyI,char,0,561216.4,15595.872,748602,ambiguous,onset also claimed by another event,1,745630,30.5,-61.917
+331,keyup,s,KeyS,char,0,561252.6,15632.072,750339,ambiguous,onset also claimed by another event,1,745630,30.5,-98.104
+332,keydown, ,Space,char,0,561267.5,15646.972,751055,ambiguous,onset also claimed by another event,1,745630,30.5,-113.021
+333,keydown,p,KeyP,char,0,561308.4,15687.872,753018,ambiguous,onset also claimed by another event,1,750001,13.2,-62.854
+334,keyup, ,Space,char,0,561341.9,15721.372,754626,ambiguous,onset also claimed by another event,1,750001,13.2,-96.354
+335,keyup,p,KeyP,char,0,561388.4,15767.872,756858,missed,,0,,,
+336,keydown,r,KeyR,char,0,561418.7,15798.172,758312,missed,,0,,,
+337,keydown,o,KeyO,char,0,561486.6,15866.072,761571,missed,,0,,,
+338,keyup,r,KeyR,char,0,561491.2,15870.672,761792,missed,,0,,,
+339,keydown,b,KeyB,char,0,561534.2,15913.672,763856,missed,,0,,,
+340,keyup,o,KeyO,char,0,561561.9,15941.372,765186,ambiguous,onset also claimed by another event,1,761917,12.5,-68.104
+341,keyup,b,KeyB,char,0,561595.3,15974.772,766789,ambiguous,onset also claimed by another event,1,761917,12.5,-101.500
+342,keydown,a,KeyA,char,0,561602.3,15981.772,767125,ambiguous,onset also claimed by another event,1,761917,12.5,-108.500
+343,keyup,a,KeyA,char,0,561653.2,16032.672,769568,missed,,0,,,
+344,keydown,b,KeyB,char,0,561677.4,16056.872,770730,missed,,0,,,
+345,keydown,l,KeyL,char,0,561708.1,16087.572,772203,missed,,0,,,
+346,keyup,b,KeyB,char,0,561734.2,16113.672,773456,missed,,0,,,
+347,keyup,l,KeyL,char,0,561778.7,16158.172,775592,missed,,0,,,
+348,keydown,y,KeyY,char,0,561809.2,16188.672,777056,missed,,0,,,
+349,keydown, ,Space,char,0,561849.9,16229.372,779010,ambiguous,onset also claimed by another event,1,774370,16.6,-96.667
+350,keyup,y,KeyY,char,0,561879.1,16258.572,780411,ambiguous,onset also claimed by another event,1,774370,16.6,-125.854
+351,keyup, ,Space,char,0,561917.4,16296.872,782250,ambiguous,onset also claimed by another event,1,778194,19.0,-84.500
+352,keydown,w,KeyW,char,0,561925.9,16305.372,782658,ambiguous,onset also claimed by another event,1,778194,19.0,-93.000
+353,keydown,h,KeyH,char,0,561984.6,16364.072,785475,missed,,0,,,
+354,keyup,w,KeyW,char,0,561993.4,16372.872,785898,missed,,0,,,
+355,keyup,h,KeyH,char,0,562039.1,16418.572,788091,missed,,0,,,
+356,keydown,y,KeyY,char,0,562093.1,16472.572,790683,missed,,0,,,
+357,keydown, ,Space,char,0,562144.5,16523.972,793151,ambiguous,onset also claimed by another event,1,789265,23.6,-80.958
+358,keyup,y,KeyY,char,0,562159.2,16538.672,793856,ambiguous,onset also claimed by another event,1,789265,23.6,-95.646
+359,keydown,t,KeyT,char,0,562168.9,16548.372,794322,ambiguous,2 onsets in window,2,789265,23.6,-105.354
+360,keyup, ,Space,char,0,562190.4,16569.872,795354,ambiguous,2 onsets in window,2,791344,18.6,-83.542
+361,keyup,t,KeyT,char,0,562217.1,16596.572,796635,ambiguous,onset also claimed by another event,1,791344,18.6,-110.229
+362,keydown,h,KeyH,char,0,562241.3,16620.772,797797,ambiguous,onset also claimed by another event,1,791344,18.6,-134.438
+363,keydown,e,KeyE,char,0,562281.7,16661.172,799736,missed,,0,,,
+364,keyup,h,KeyH,char,0,562296.6,16676.072,800451,missed,,0,,,
+365,keyup,e,KeyE,char,0,562358.3,16737.772,803413,ambiguous,onset also claimed by another event,1,799597,26.2,-79.500
+366,keydown, ,Space,char,0,562378.7,16758.172,804392,ambiguous,onset also claimed by another event,1,799597,26.2,-99.896
+367,keyup, ,Space,char,0,562402.7,16782.172,805544,ambiguous,onset also claimed by another event,1,799597,26.2,-123.896
+368,keydown,f,KeyF,char,0,562436.5,16815.972,807167,missed,,0,,,
+369,keydown,i,KeyI,char,0,562483.9,16863.372,809442,ambiguous,2 onsets in window,2,804843,13.0,-95.813
+370,keyup,f,KeyF,char,0,562508.2,16887.672,810608,ambiguous,2 onsets in window,2,805993,26.3,-96.146
+371,keydown,n,KeyN,char,0,562518.3,16897.772,811093,ambiguous,2 onsets in window,2,805993,26.3,-106.250
+372,keyup,i,KeyI,char,0,562572.8,16952.272,813709,missed,,0,,,
+373,keyup,n,KeyN,char,0,562594.7,16974.172,814760,missed,,0,,,
+374,keydown,a,KeyA,char,0,562604.3,16983.772,815221,missed,,0,,,
+375,keydown,l,KeyL,char,0,562659.4,17038.872,817866,missed,,0,,,
+376,keyup,a,KeyA,char,0,562670.8,17050.272,818413,ambiguous,onset also claimed by another event,1,815207,28.9,-66.792
+377,keydown, ,Space,char,0,562701.1,17080.572,819867,ambiguous,onset also claimed by another event,1,815207,28.9,-97.083
+378,keyup,l,KeyL,char,0,562742.6,17122.072,821859,ambiguous,onset also claimed by another event,1,815207,28.9,-138.583
+379,keyup, ,Space,char,0,562767.5,17146.972,823055,ambiguous,onset also claimed by another event,1,819289,20.6,-78.458
+380,keydown,g,KeyG,char,0,562781.5,17160.972,823727,ambiguous,onset also claimed by another event,1,819289,20.6,-92.458
+381,keyup,g,KeyG,char,0,562843.3,17222.772,826693,ambiguous,onset also claimed by another event,1,823029,17.4,-76.333
+382,keydown,o,KeyO,char,0,562855.4,17234.872,827274,ambiguous,onset also claimed by another event,1,823029,17.4,-88.437
+383,keyup,o,KeyO,char,0,562914.4,17293.872,830106,missed,,0,,,
+384,keydown,a,KeyA,char,0,562934.8,17314.272,831085,missed,,0,,,
+385,keydown,l,KeyL,char,0,562996.9,17376.372,834066,missed,,0,,,
+386,keyup,a,KeyA,char,0,563011.3,17390.772,834757,missed,,0,,,
+387,keydown, ,Space,char,0,563048.4,17427.872,836538,missed,,0,,,
+388,keyup,l,KeyL,char,0,563071.2,17450.672,837632,missed,,0,,,
+389,keydown,f,KeyF,char,0,563115.5,17494.972,839759,ambiguous,onset also claimed by another event,1,836390,14.3,-70.187
+390,keyup, ,Space,char,0,563136.1,17515.572,840747,ambiguous,onset also claimed by another event,1,836390,14.3,-90.771
+391,keyup,f,KeyF,char,0,563175.9,17555.372,842658,ambiguous,onset also claimed by another event,1,836390,14.3,-130.583
+392,keydown,e,KeyE,char,0,563227.2,17606.672,845120,missed,,0,,,
+393,keydown,l,KeyL,char,0,563293.6,17673.072,848307,missed,,0,,,
+394,keyup,e,KeyE,char,0,563301.5,17680.972,848687,missed,,0,,,
+395,keyup,l,KeyL,char,0,563359.9,17739.372,851490,missed,,0,,,
+396,keydown,t,KeyT,char,0,563404.5,17783.972,853631,matched,,1,849169,20.6,-92.958
+397,keyup,t,KeyT,char,0,563466.3,17845.772,856597,ambiguous,onset also claimed by another event,1,852573,18.8,-83.833
+398,keydown, ,Space,char,0,563474.7,17854.172,857000,ambiguous,onset also claimed by another event,1,852573,18.8,-92.229
+399,keyup, ,Space,char,0,563526.1,17905.572,859467,matched,,1,855439,17.2,-83.917
+400,keydown,s,KeyS,char,0,563636.2,18015.672,864752,ambiguous,onset also claimed by another event,1,859540,16.0,-108.583
+401,keydown,o,KeyO,char,0,563642.1,18021.572,865035,ambiguous,onset also claimed by another event,1,859540,16.0,-114.479
+402,keyup,s,KeyS,char,0,563660.2,18039.672,865904,ambiguous,2 onsets in window,2,862567,20.1,-69.521
+403,keydown, ,Space,char,0,563684.4,18063.872,867066,ambiguous,onset also claimed by another event,1,862567,20.1,-93.729
+404,keyup,o,KeyO,char,0,563739.1,18118.572,869691,missed,,0,,,
+405,keyup, ,Space,char,0,563764.3,18143.772,870901,missed,,0,,,
+406,keydown,e,KeyE,char,0,563984.7,18364.172,881480,missed,,0,,,
+407,keyup,e,KeyE,char,0,564046.6,18426.072,884451,missed,,0,,,
+408,keydown,t,KeyT,char,0,564176.8,18556.272,890701,matched,,1,886331,18.1,-91.042
+409,keydown,r,KeyR,char,0,564232.7,18612.172,893384,missed,,0,,,
+410,keyup,t,KeyT,char,0,564251.1,18630.572,894267,missed,,0,,,
+411,keyup,r,KeyR,char,0,564303.8,18683.272,896797,missed,,0,,,
+412,keydown,Backspace,Backspace,backspace,0,564467.0,18846.472,904631,ambiguous,onset also claimed by another event,1,900232,16.5,-91.646
+413,keyup,Backspace,Backspace,backspace,0,564508.5,18887.972,906623,ambiguous,onset also claimed by another event,1,900232,16.5,-133.146
+414,keydown,Backspace,Backspace,backspace,0,564573.6,18953.072,909747,missed,,0,,,
+415,keyup,Backspace,Backspace,backspace,0,564654.3,19033.772,913621,missed,,0,,,
+416,keydown,x,KeyX,char,0,564662.5,19041.972,914015,missed,,0,,,
+417,keydown,t,KeyT,char,0,564717.4,19096.872,916650,ambiguous,onset also claimed by another event,1,911914,17.7,-98.667
+418,keyup,x,KeyX,char,0,564736.4,19115.872,917562,ambiguous,onset also claimed by another event,1,911914,17.7,-117.667
+419,keydown,r,KeyR,char,0,564779.3,19158.772,919621,missed,,0,,,
+420,keyup,t,KeyT,char,0,564795.8,19175.272,920413,missed,,0,,,
+421,keydown,a,KeyA,char,0,564858.4,19237.872,923418,missed,,0,,,
+422,keyup,r,KeyR,char,0,564879.7,19259.172,924440,missed,,0,,,
+423,keyup,a,KeyA,char,0,564928.1,19307.572,926763,missed,,0,,,
+424,keydown,o,KeyO,char,0,564967.6,19347.072,928659,missed,,0,,,
+425,keyup,o,KeyO,char,0,565070.6,19450.072,933603,missed,,0,,,
+426,keydown,r,KeyR,char,0,565089.9,19469.372,934530,missed,,0,,,
+427,keyup,r,KeyR,char,0,565186.7,19566.172,939176,missed,,0,,,
+428,keydown,i,KeyI,char,0,565257.0,19636.472,942551,missed,,0,,,
+429,keydown,d,KeyD,char,0,565359.2,19738.672,947456,missed,,0,,,
+430,keyup,i,KeyI,char,0,565374.0,19753.472,948167,missed,,0,,,
+431,keyup,d,KeyD,char,0,565429.0,19808.472,950807,missed,,0,,,
+432,keydown,Backspace,Backspace,backspace,0,565534.8,19914.272,955885,missed,,0,,,
+433,keyup,Backspace,Backspace,backspace,0,565582.1,19961.572,958155,missed,,0,,,
+434,keydown,Backspace,Backspace,backspace,0,565641.4,20020.872,961002,missed,,0,,,
+435,keydown,d,KeyD,char,0,565692.3,20071.772,963445,ambiguous,onset also claimed by another event,1,959445,14.3,-83.333
+436,keyup,Backspace,Backspace,backspace,0,565704.4,20083.872,964026,ambiguous,onset also claimed by another event,1,959445,14.3,-95.437
+437,keyup,d,KeyD,char,0,565815.2,20194.672,969344,ambiguous,2 onsets in window,2,963898,24.1,-113.458
+438,keydown,i,KeyI,char,0,565850.4,20229.872,971034,missed,,0,,,
+439,keydown,n,KeyN,char,0,565853.0,20232.472,971159,missed,,0,,,
+440,keyup,i,KeyI,char,0,565867.5,20246.972,971855,missed,,0,,,
+441,keydown,a,KeyA,char,0,565874.2,20253.672,972176,missed,,0,,,
+442,keyup,n,KeyN,char,0,565900.1,20279.572,973419,ambiguous,onset also claimed by another event,1,969613,22.7,-79.292
+443,keydown,r,KeyR,char,0,565917.8,20297.272,974269,ambiguous,onset also claimed by another event,1,969613,22.7,-97.000
+444,keyup,a,KeyA,char,0,565966.1,20345.572,976587,missed,,0,,,
+445,keyup,r,KeyR,char,0,565994.5,20373.972,977951,ambiguous,onset also claimed by another event,1,974698,18.6,-67.771
+446,keydown,y,KeyY,char,0,566020.0,20399.472,979175,ambiguous,onset also claimed by another event,1,974698,18.6,-93.271
+447,keyup,y,KeyY,char,0,566066.0,20445.472,981383,missed,,0,,,
+448,keydown,.,Period,char,0,566184.5,20563.972,987071,matched,,1,982567,14.5,-93.833
+449,keydown, ,Space,char,0,566227.3,20606.772,989125,ambiguous,onset also claimed by another event,1,984581,29.6,-94.667
+450,keyup, ,Space,char,0,566250.2,20629.672,990224,ambiguous,onset also claimed by another event,1,984581,29.6,-117.562
+451,keyup,.,Period,char,0,566257.9,20637.372,990594,ambiguous,onset also claimed by another event,1,984581,29.6,-125.271
+452,keydown,Shift,ShiftLeft,modifier,0,566300.1,20679.572,992619,missed,,0,,,
+453,keydown,A,KeyA,char,0,566557.5,20936.972,1004975,missed,,0,,,
+454,keyup,Shift,ShiftLeft,modifier,0,566638.2,21017.672,1008848,missed,,0,,,
+455,keyup,a,KeyA,char,0,566678.0,21057.472,1010759,missed,,0,,,
+456,keydown, ,Space,char,0,566703.5,21082.972,1011983,missed,,0,,,
+457,keyup, ,Space,char,0,566776.4,21155.872,1015482,ambiguous,2 onsets in window,2,1011234,12.6,-88.500
+458,keydown,g,KeyG,char,0,566810.8,21190.272,1017133,ambiguous,2 onsets in window,2,1012599,22.0,-94.458
+459,keyup,g,KeyG,char,0,566984.9,21364.372,1025490,missed,,0,,,
+460,keydown,o,KeyO,char,0,566985.2,21364.672,1025504,missed,,0,,,
+461,keyup,o,KeyO,char,0,566987.4,21366.872,1025610,missed,,0,,,
+462,keydown,o,KeyO,char,0,566987.7,21367.172,1025624,missed,,0,,,
+463,keydown,d,KeyD,char,0,567028.1,21407.572,1027563,missed,,0,,,
+464,keyup,o,KeyO,char,0,567061.5,21440.972,1029167,missed,,0,,,
+465,keyup,d,KeyD,char,0,567078.2,21457.672,1029968,ambiguous,onset also claimed by another event,1,1026856,23.1,-64.833
+466,keydown, ,Space,char,0,567102.6,21482.072,1031139,ambiguous,onset also claimed by another event,1,1026856,23.1,-89.229
+467,keyup, ,Space,char,0,567201.8,21581.272,1035901,missed,,0,,,
+468,keydown,c,KeyC,char,0,567217.4,21596.872,1036650,missed,,0,,,
+469,keydown,u,KeyU,char,0,567291.5,21670.972,1040207,ambiguous,onset also claimed by another event,1,1035369,17.7,-100.792
+470,keyup,c,KeyC,char,0,567306.4,21685.872,1040922,ambiguous,onset also claimed by another event,1,1035369,17.7,-115.687
+471,keyup,u,KeyU,char,0,567341.5,21720.972,1042607,missed,,0,,,
+472,keydown,p,KeyP,char,0,567397.5,21776.972,1045295,missed,,0,,,
+473,keydown, ,Space,char,0,567445.1,21824.572,1047579,ambiguous,onset also claimed by another event,1,1042771,28.7,-100.167
+474,keyup,p,KeyP,char,0,567464.4,21843.872,1048506,ambiguous,onset also claimed by another event,1,1042771,28.7,-119.479
+475,keyup, ,Space,char,0,567496.3,21875.772,1050037,missed,,0,,,
+476,keydown,o,KeyO,char,0,567560.3,21939.772,1053109,missed,,0,,,
+477,keydown,f,KeyF,char,0,567580.2,21959.672,1054064,missed,,0,,,
+478,keyup,o,KeyO,char,0,567602.0,21981.472,1055111,missed,,0,,,
+479,keyup,f,KeyF,char,0,567632.5,22011.972,1056575,ambiguous,onset also claimed by another event,1,1053865,23.5,-56.458
+480,keydown, ,Space,char,0,567670.3,22049.772,1058389,ambiguous,onset also claimed by another event,1,1053865,23.5,-94.250
+481,keyup, ,Space,char,0,567752.7,22132.172,1062344,ambiguous,onset also claimed by another event,1,1056901,14.8,-113.396
+482,keydown,c,KeyC,char,0,567761.5,22140.972,1062767,ambiguous,onset also claimed by another event,1,1056901,14.8,-122.208
+483,keyup,c,KeyC,char,0,567809.9,22189.372,1065090,ambiguous,onset also claimed by another event,1,1060713,16.4,-91.187
+484,keydown,o,KeyO,char,0,567820.1,22199.572,1065579,ambiguous,onset also claimed by another event,1,1060713,16.4,-101.375
+485,keyup,o,KeyO,char,0,567895.0,22274.472,1069175,missed,,0,,,
+486,keydown,f,KeyF,char,0,567947.4,22326.872,1071690,missed,,0,,,
+487,keyup,f,KeyF,char,0,567962.7,22342.172,1072424,missed,,0,,,
+488,keydown,f,KeyF,char,0,568028.7,22408.172,1075592,missed,,0,,,
+489,keyup,f,KeyF,char,0,568079.4,22458.872,1078026,missed,,0,,,
+490,keydown,e,KeyE,char,0,568177.3,22556.772,1082725,missed,,0,,,
+491,keyup,e,KeyE,char,0,568191.3,22570.772,1083397,missed,,0,,,
+492,keydown,e,KeyE,char,0,568244.2,22623.672,1085936,missed,,0,,,
+493,keyup,e,KeyE,char,0,568324.5,22703.972,1089791,ambiguous,onset also claimed by another event,1,1084696,20.0,-106.146
+494,keydown,",",Comma,char,0,568336.3,22715.772,1090357,ambiguous,onset also claimed by another event,1,1084696,20.0,-117.938
+495,keydown, ,Space,char,0,568393.2,22772.672,1093088,ambiguous,2 onsets in window,2,1087974,18.4,-106.542
+496,keyup,",",Comma,char,0,568427.7,22807.172,1094744,ambiguous,2 onsets in window,2,1090002,12.4,-98.792
+497,keyup, ,Space,char,0,568462.2,22841.672,1096400,ambiguous,2 onsets in window,2,1091856,20.4,-94.667
+498,keydown,i,KeyI,char,0,568509.4,22888.872,1098666,ambiguous,2 onsets in window,2,1093952,19.4,-98.208
+499,keydown,n,KeyN,char,0,568557.2,22936.672,1100960,ambiguous,2 onsets in window,2,1095546,16.4,-112.792
+500,keydown, ,Space,char,0,568601.8,22981.272,1103101,ambiguous,onset also claimed by another event,1,1098287,21.5,-100.292
+501,keyup,i,KeyI,char,0,568618.3,22997.772,1103893,ambiguous,onset also claimed by another event,1,1098287,21.5,-116.792
+502,keyup,n,KeyN,char,0,568644.8,23024.272,1105165,missed,,0,,,
+503,keyup, ,Space,char,0,568667.4,23046.872,1106250,missed,,0,,,
+504,keydown,m,KeyM,char,0,568700.1,23079.572,1107819,missed,,0,,,
+505,keyup,m,KeyM,char,0,569264.6,23644.072,1134915,missed,,0,,,
+506,keydown,y,KeyY,char,0,569273.9,23653.372,1135362,missed,,0,,,
+507,keydown, ,Space,char,0,569278.1,23657.572,1135563,missed,,0,,,
+508,keyup,y,KeyY,char,0,569282.0,23661.472,1135751,missed,,0,,,
+509,keydown,e,KeyE,char,0,569282.1,23661.572,1135755,missed,,0,,,
+510,keyup, ,Space,char,0,569285.1,23664.572,1135899,missed,,0,,,
+511,keyup,e,KeyE,char,0,569290.8,23670.272,1136173,missed,,0,,,
+512,keydown,p,KeyP,char,0,569291.2,23670.672,1136192,missed,,0,,,
+513,keydown,x,KeyX,char,0,569301.9,23681.372,1136706,missed,,0,,,
+514,keyup,x,KeyX,char,0,569305.5,23684.972,1136879,missed,,0,,,
+515,keyup,p,KeyP,char,0,569305.5,23684.972,1136879,missed,,0,,,
+516,keydown,e,KeyE,char,0,569496.8,23876.272,1146061,missed,,0,,,
+517,keydown,r,KeyR,char,0,569595.6,23975.072,1150803,missed,,0,,,
+518,keyup,e,KeyE,char,0,569626.1,24005.572,1152267,missed,,0,,,
+519,keyup,r,KeyR,char,0,569640.7,24020.172,1152968,missed,,0,,,
+520,keydown,Backspace,Backspace,backspace,0,569794.9,24174.372,1160370,matched,,1,1155609,12.8,-99.188
+521,keyup,Backspace,Backspace,backspace,0,569833.2,24212.672,1162208,missed,,0,,,
+522,keydown,Backspace,Backspace,backspace,0,569912.0,24291.472,1165991,missed,,0,,,
+523,keyup,Backspace,Backspace,backspace,0,569972.4,24351.872,1168890,missed,,0,,,
+524,keydown,Backspace,Backspace,backspace,0,570053.4,24432.872,1172778,missed,,0,,,
+525,keyup,Backspace,Backspace,backspace,0,570106.2,24485.672,1175312,missed,,0,,,
+526,keydown,Backspace,Backspace,backspace,0,570175.5,24554.972,1178639,missed,,0,,,
+527,keyup,Backspace,Backspace,backspace,0,570257.3,24636.772,1182565,ambiguous,onset also claimed by another event,1,1178194,20.8,-91.062
+528,keydown,x,KeyX,char,0,570266.9,24646.372,1183026,ambiguous,onset also claimed by another event,1,1178194,20.8,-100.667
+529,keydown,p,KeyP,char,0,570352.7,24732.172,1187144,ambiguous,onset also claimed by another event,1,1181983,13.2,-107.521
+530,keyup,x,KeyX,char,0,570362.9,24742.372,1187634,ambiguous,onset also claimed by another event,1,1181983,13.2,-117.729
+531,keyup,p,KeyP,char,0,570432.1,24811.572,1190955,ambiguous,onset also claimed by another event,1,1186414,13.7,-94.604
+532,keydown,e,KeyE,char,0,570438.0,24817.472,1191239,ambiguous,onset also claimed by another event,1,1186414,13.7,-100.521
+533,keydown,r,KeyR,char,0,570474.5,24853.972,1192991,missed,,0,,,
+534,keyup,e,KeyE,char,0,570513.9,24893.372,1194882,ambiguous,onset also claimed by another event,1,1190577,17.6,-89.688
+535,keydown,i,KeyI,char,0,570517.7,24897.172,1195064,ambiguous,onset also claimed by another event,1,1190577,17.6,-93.479
+536,keyup,r,KeyR,char,0,570528.6,24908.072,1195587,ambiguous,onset also claimed by another event,1,1190577,17.6,-104.375
+537,keyup,i,KeyI,char,0,570585.9,24965.372,1198338,missed,,0,,,
+538,keydown,e,KeyE,char,0,570618.0,24997.472,1199879,ambiguous,onset also claimed by another event,1,1197245,20.7,-54.875
+539,keydown,n,KeyN,char,0,570668.9,25048.372,1202322,ambiguous,onset also claimed by another event,1,1197245,20.7,-105.771
+540,keyup,e,KeyE,char,0,570687.7,25067.172,1203224,ambiguous,onset also claimed by another event,1,1197245,20.7,-124.562
+541,keyup,n,KeyN,char,0,570750.1,25129.572,1206219,matched,,1,1201856,12.9,-90.896
+542,keydown,e,KeyE,char,0,570912.6,25292.072,1214019,missed,,0,,,
+543,keyup,e,KeyE,char,0,571004.4,25383.872,1218426,ambiguous,onset also claimed by another event,1,1212668,24.8,-119.958
+544,keydown,",",Comma,char,0,571008.6,25388.072,1218627,ambiguous,onset also claimed by another event,1,1212668,24.8,-124.146
+545,keyup,",",Comma,char,0,571052.7,25432.172,1220744,missed,,0,,,
+546,keydown,Backspace,Backspace,backspace,0,571213.7,25593.172,1228472,matched,,1,1223950,13.1,-94.208
+547,keyup,Backspace,Backspace,backspace,0,571255.0,25634.472,1230455,missed,,0,,,
+548,keydown,Backspace,Backspace,backspace,0,571325.2,25704.672,1233824,missed,,0,,,
+549,keyup,Backspace,Backspace,backspace,0,571392.7,25772.172,1237064,missed,,0,,,
+550,keydown,c,KeyC,char,0,571410.5,25789.972,1237919,missed,,0,,,
+551,keyup,c,KeyC,char,0,571472.9,25852.372,1240914,missed,,0,,,
+552,keydown,e,KeyE,char,0,571541.4,25920.872,1244202,missed,,0,,,
+553,keyup,e,KeyE,char,0,571620.7,26000.172,1248008,ambiguous,onset also claimed by another event,1,1244339,25.9,-76.437
+554,keydown,",",Comma,char,0,571644.3,26023.772,1249141,ambiguous,onset also claimed by another event,1,1244339,25.9,-100.042
+555,keydown, ,Space,char,0,571709.9,26089.372,1252290,ambiguous,onset also claimed by another event,1,1249264,17.4,-63.042
+556,keyup,",",Comma,char,0,571752.3,26131.772,1254325,ambiguous,onset also claimed by another event,1,1249264,17.4,-105.438
+557,keyup, ,Space,char,0,571792.8,26172.272,1256269,ambiguous,2 onsets in window,2,1252392,18.9,-80.771
+558,keydown,i,KeyI,char,0,571819.5,26198.972,1257551,ambiguous,2 onsets in window,2,1253149,16.7,-91.708
+559,keyup,i,KeyI,char,0,571893.8,26273.272,1261117,ambiguous,onset also claimed by another event,1,1256798,19.0,-89.979
+560,keydown,s,KeyS,char,0,571902.0,26281.472,1261511,ambiguous,onset also claimed by another event,1,1256798,19.0,-98.188
+561,keyup,s,KeyS,char,0,571969.6,26349.072,1264755,ambiguous,onset also claimed by another event,1,1260314,26.3,-92.521
+562,keydown, ,Space,char,0,571977.9,26357.372,1265154,ambiguous,onset also claimed by another event,1,1260314,26.3,-100.833
+563,keyup, ,Space,char,0,572019.7,26399.172,1267160,ambiguous,onset also claimed by another event,1,1263333,15.6,-79.729
+564,keydown,h,KeyH,char,0,572053.9,26433.372,1268802,ambiguous,2 onsets in window,2,1263333,15.6,-113.938
+565,keydown,o,KeyO,char,0,572084.1,26463.572,1270251,ambiguous,onset also claimed by another event,1,1265753,13.3,-93.708
+566,keyup,h,KeyH,char,0,572140.2,26519.672,1272944,ambiguous,onset also claimed by another event,1,1270281,21.0,-55.479
+567,keyup,o,KeyO,char,0,572180.1,26559.572,1274859,ambiguous,onset also claimed by another event,1,1270281,21.0,-95.375
+568,keydown,t,KeyT,char,0,572188.7,26568.172,1275272,ambiguous,onset also claimed by another event,1,1270281,21.0,-103.979
+569,keyup,t,KeyT,char,0,572252.0,26631.472,1278311,ambiguous,onset also claimed by another event,1,1274992,20.5,-69.146
+570,keydown,",",Comma,char,0,572275.8,26655.272,1279453,ambiguous,onset also claimed by another event,1,1274992,20.5,-92.937
+571,keydown, ,Space,char,0,572336.5,26715.972,1282367,missed,,0,,,
+572,keyup,",",Comma,char,0,572375.9,26755.372,1284258,missed,,0,,,
+573,keyup, ,Space,char,0,572475.0,26854.472,1289015,missed,,0,,,
+574,keydown,s,KeyS,char,0,572607.1,26986.572,1295355,missed,,0,,,
+575,keydown,t,KeyT,char,0,572707.0,27086.472,1300151,missed,,0,,,
+576,keyup,s,KeyS,char,0,572731.4,27110.872,1301322,missed,,0,,,
+577,keydown,r,KeyR,char,0,572776.9,27156.372,1303506,missed,,0,,,
+578,keyup,t,KeyT,char,0,572802.5,27181.972,1304735,missed,,0,,,
+579,keydown,o,KeyO,char,0,572818.1,27197.572,1305483,ambiguous,onset also claimed by another event,1,1302506,21.5,-62.021
+580,keydown,n,KeyN,char,0,572852.9,27232.372,1307154,ambiguous,onset also claimed by another event,1,1302506,21.5,-96.833
+581,keyup,r,KeyR,char,0,572876.1,27255.572,1308267,ambiguous,onset also claimed by another event,1,1302506,21.5,-120.021
+582,keyup,n,KeyN,char,0,572921.0,27300.472,1310423,missed,,0,,,
+583,keyup,o,KeyO,char,0,572934.3,27313.772,1311061,ambiguous,onset also claimed by another event,1,1307993,18.9,-63.917
+584,keydown,g,KeyG,char,0,572960.4,27339.872,1312314,ambiguous,2 onsets in window,2,1307993,18.9,-90.021
+585,keyup,g,KeyG,char,0,573017.0,27396.472,1315031,ambiguous,onset also claimed by another event,1,1309549,12.7,-114.208
+586,keydown,",",Comma,char,0,573024.6,27404.072,1315395,ambiguous,2 onsets in window,2,1309549,12.7,-121.792
+587,keydown, ,Space,char,0,573060.1,27439.572,1317099,ambiguous,onset also claimed by another event,1,1312460,19.0,-96.646
+588,keyup,",",Comma,char,0,573096.2,27475.672,1318832,ambiguous,2 onsets in window,2,1315997,16.4,-59.062
+589,keyup, ,Space,char,0,573121.0,27500.472,1320023,ambiguous,onset also claimed by another event,1,1315997,16.4,-83.875
+590,keydown,a,KeyA,char,0,573130.0,27509.472,1320455,ambiguous,onset also claimed by another event,1,1315997,16.4,-92.875
+591,keyup,a,KeyA,char,0,573183.6,27563.072,1323027,ambiguous,onset also claimed by another event,1,1318648,15.4,-91.229
+592,keydown,n,KeyN,char,0,573191.5,27570.972,1323407,ambiguous,onset also claimed by another event,1,1318648,15.4,-99.146
+593,keyup,n,KeyN,char,0,573236.6,27616.072,1325571,missed,,0,,,
+594,keydown,d,KeyD,char,0,573254.1,27633.572,1326411,missed,,0,,,
+595,keydown, ,Space,char,0,573299.5,27678.972,1328591,ambiguous,onset also claimed by another event,1,1324052,23.5,-94.563
+596,keyup,d,KeyD,char,0,573320.3,27699.772,1329589,ambiguous,onset also claimed by another event,1,1324052,23.5,-115.354
+597,keyup, ,Space,char,0,573360.5,27739.972,1331519,missed,,0,,,
+598,keydown,s,KeyS,char,0,573383.8,27763.272,1332637,missed,,0,,,
+599,keyup,s,KeyS,char,0,573451.0,27830.472,1335863,missed,,0,,,
+600,keydown,h,KeyH,char,0,573462.5,27841.972,1336415,missed,,0,,,
+601,keyup,h,KeyH,char,0,573504.5,27883.972,1338431,missed,,0,,,
+602,keydown,a,KeyA,char,0,573534.4,27913.872,1339866,missed,,0,,,
+603,keydown,r,KeyR,char,0,573570.9,27950.372,1341618,missed,,0,,,
+604,keyup,a,KeyA,char,0,573602.2,27981.672,1343120,missed,,0,,,
+605,keyup,r,KeyR,char,0,573636.0,28015.472,1344743,missed,,0,,,
+606,keydown,e,KeyE,char,0,573687.9,28067.372,1347234,missed,,0,,,
+607,keyup,e,KeyE,char,0,573756.5,28135.972,1350527,missed,,0,,,
+608,keydown,d,KeyD,char,0,573820.5,28199.972,1353599,missed,,0,,,
+609,keydown, ,Space,char,0,573884.9,28264.372,1356690,missed,,0,,,
+610,keyup,d,KeyD,char,0,573896.9,28276.372,1357266,missed,,0,,,
+611,keyup, ,Space,char,0,573952.3,28331.772,1359925,ambiguous,onset also claimed by another event,1,1355934,13.8,-83.146
+612,keydown,w,KeyW,char,0,573961.7,28341.172,1360376,ambiguous,onset also claimed by another event,1,1355934,13.8,-92.542
+613,keydown,i,KeyI,char,0,574027.2,28406.672,1363520,missed,,0,,,
+614,keyup,w,KeyW,char,0,574048.9,28428.372,1364562,missed,,0,,,
+615,keyup,i,KeyI,char,0,574094.6,28474.072,1366755,missed,,0,,,
+616,keydown,t,KeyT,char,0,574103.3,28482.772,1367173,missed,,0,,,
+617,keydown,h,KeyH,char,0,574145.1,28524.572,1369179,missed,,0,,,
+618,keyup,t,KeyT,char,0,574167.4,28546.872,1370250,missed,,0,,,
+619,keydown, ,Space,char,0,574175.9,28555.372,1370658,missed,,0,,,
+620,keyup,h,KeyH,char,0,574203.6,28583.072,1371987,missed,,0,,,
+621,keyup, ,Space,char,0,574236.0,28615.472,1373543,ambiguous,onset also claimed by another event,1,1369598,14.9,-82.187
+622,keydown,s,KeyS,char,0,574245.3,28624.772,1373989,ambiguous,onset also claimed by another event,1,1369598,14.9,-91.479
+623,keydown,o,KeyO,char,0,574296.2,28675.672,1376432,ambiguous,2 onsets in window,2,1371746,17.1,-97.625
+624,keyup,s,KeyS,char,0,574307.7,28687.172,1376984,ambiguous,2 onsets in window,2,1373148,29.3,-79.917
+625,keydown,m,KeyM,char,0,574328.3,28707.772,1377973,ambiguous,2 onsets in window,2,1373148,29.3,-100.521
+626,keyup,o,KeyO,char,0,574395.3,28774.772,1381189,missed,,0,,,
+627,keydown,e,KeyE,char,0,574396.4,28775.872,1381242,missed,,0,,,
+628,keyup,m,KeyM,char,0,574408.6,28788.072,1381827,missed,,0,,,
+629,keydown,o,KeyO,char,0,574453.5,28832.972,1383983,missed,,0,,,
+630,keyup,e,KeyE,char,0,574464.3,28843.772,1384501,missed,,0,,,
+631,keydown,n,KeyN,char,0,574500.3,28879.772,1386229,missed,,0,,,
+632,keydown,e,KeyE,char,0,574534.3,28913.772,1387861,missed,,0,,,
+633,keyup,o,KeyO,char,0,574558.5,28937.972,1389023,missed,,0,,,
+634,keyup,n,KeyN,char,0,574576.2,28955.672,1389872,missed,,0,,,
+635,keyup,e,KeyE,char,0,574606.3,28985.772,1391317,missed,,0,,,
+636,keydown, ,Space,char,0,574644.8,29024.272,1393165,matched,,1,1388800,28.0,-90.937
+637,keyup, ,Space,char,0,574725.4,29104.872,1397034,ambiguous,onset also claimed by another event,1,1392270,12.3,-99.250
+638,keydown,w,KeyW,char,0,574726.7,29106.172,1397096,ambiguous,onset also claimed by another event,1,1392270,12.3,-100.542
+639,keyup,w,KeyW,char,0,574794.2,29173.672,1400336,ambiguous,onset also claimed by another event,1,1395823,13.1,-94.021
+640,keydown,h,KeyH,char,0,574801.4,29180.872,1400682,ambiguous,onset also claimed by another event,1,1395823,13.1,-101.229
+641,keydown,o,KeyO,char,0,574822.3,29201.772,1401685,ambiguous,onset also claimed by another event,1,1395823,13.1,-122.125
+642,keyup,h,KeyH,char,0,574887.9,29267.372,1404834,ambiguous,onset also claimed by another event,1,1400813,22.0,-83.771
+643,keydown, ,Space,char,0,574900.3,29279.772,1405429,ambiguous,onset also claimed by another event,1,1400813,22.0,-96.167
+644,keyup,o,KeyO,char,0,574916.2,29295.672,1406192,ambiguous,onset also claimed by another event,1,1400813,22.0,-112.063
+645,keyup, ,Space,char,0,574956.6,29336.072,1408131,missed,,0,,,
+646,keydown,k,KeyK,char,0,574969.4,29348.872,1408746,missed,,0,,,
+647,keydown,n,KeyN,char,0,575043.7,29423.172,1412312,missed,,0,,,
+648,keydown,o,KeyO,char,0,575066.4,29445.872,1413402,missed,,0,,,
+649,keyup,k,KeyK,char,0,575087.4,29466.872,1414410,missed,,0,,,
+650,keydown,w,KeyW,char,0,575120.3,29499.772,1415989,missed,,0,,,
+651,keyup,n,KeyN,char,0,575132.8,29512.272,1416589,missed,,0,,,
+652,keyup,o,KeyO,char,0,575152.9,29532.372,1417554,missed,,0,,,
+653,keyup,w,KeyW,char,0,575171.8,29551.272,1418461,missed,,0,,,
+654,keydown,s,KeyS,char,0,575232.9,29612.372,1421394,missed,,0,,,
+655,keyup,s,KeyS,char,0,575293.5,29672.972,1424303,ambiguous,onset also claimed by another event,1,1420946,20.6,-69.938
+656,keydown, ,Space,char,0,575312.8,29692.272,1425229,ambiguous,onset also claimed by another event,1,1420946,20.6,-89.229
+657,keyup, ,Space,char,0,575369.1,29748.572,1427931,ambiguous,2 onsets in window,2,1423787,13.3,-86.333
+658,keydown,w,KeyW,char,0,575401.0,29780.472,1429463,ambiguous,2 onsets in window,2,1424486,20.9,-103.687
+659,keydown,h,KeyH,char,0,575451.5,29830.972,1431887,missed,,0,,,
+660,keyup,w,KeyW,char,0,575460.3,29839.772,1432309,missed,,0,,,
+661,keyup,h,KeyH,char,0,575498.2,29877.672,1434128,missed,,0,,,
+662,keydown,e,KeyE,char,0,575519.9,29899.372,1435170,missed,,0,,,
+663,keydown,n,KeyN,char,0,575593.9,29973.372,1438722,ambiguous,2 onsets in window,2,1433094,15.6,-117.250
+664,keyup,e,KeyE,char,0,575600.5,29979.972,1439039,ambiguous,2 onsets in window,2,1435306,18.3,-77.771
+665,keydown, ,Space,char,0,575617.3,29996.772,1439845,ambiguous,onset also claimed by another event,1,1435306,18.3,-94.562
+666,keyup,n,KeyN,char,0,575660.4,30039.872,1441914,ambiguous,onset also claimed by another event,1,1437808,17.8,-85.542
+667,keydown,t,KeyT,char,0,575672.5,30051.972,1442495,ambiguous,onset also claimed by another event,1,1437808,17.8,-97.646
+668,keyup, ,Space,char,0,575684.8,30064.272,1443085,ambiguous,onset also claimed by another event,1,1437808,17.8,-109.937
+669,keydown,o,KeyO,char,0,575833.6,30213.072,1450227,missed,,0,,,
+670,keyup,t,KeyT,char,0,575844.8,30224.272,1450765,missed,,0,,,
+671,keydown, ,Space,char,0,575845.3,30224.772,1450789,missed,,0,,,
+672,keydown,s,KeyS,char,0,575859.7,30239.172,1451480,missed,,0,,,
+673,keyup,o,KeyO,char,0,575866.6,30246.072,1451811,missed,,0,,,
+674,keydown,t,KeyT,char,0,575866.8,30246.272,1451821,missed,,0,,,
+675,keyup, ,Space,char,0,575868.4,30247.872,1451898,missed,,0,,,
+676,keyup,s,KeyS,char,0,575883.2,30262.672,1452608,missed,,0,,,
+677,keyup,t,KeyT,char,0,575917.8,30297.272,1454269,missed,,0,,,
+678,keydown,a,KeyA,char,0,575945.4,30324.872,1455594,missed,,0,,,
+679,keydown,t,KeyT,char,0,575987.0,30366.472,1457591,missed,,0,,,
+680,keydown,y,KeyY,char,0,576031.4,30410.872,1459722,ambiguous,onset also claimed by another event,1,1455124,15.0,-95.792
+681,keyup,a,KeyA,char,0,576044.5,30423.972,1460351,ambiguous,onset also claimed by another event,1,1455124,15.0,-108.896
+682,keyup,t,KeyT,char,0,576125.5,30504.972,1464239,ambiguous,onset also claimed by another event,1,1461528,16.6,-56.479
+683,keydown, ,Space,char,0,576127.1,30506.572,1464315,ambiguous,onset also claimed by another event,1,1461528,16.6,-58.063
+684,keyup,y,KeyY,char,0,576131.0,30510.472,1464503,ambiguous,onset also claimed by another event,1,1461528,16.6,-61.979
+685,keyup, ,Space,char,0,576152.8,30532.272,1465549,ambiguous,2 onsets in window,2,1461528,16.6,-83.771
+686,keydown,q,KeyQ,char,0,576183.4,30562.872,1467018,ambiguous,2 onsets in window,2,1462576,20.3,-92.542
+687,keydown,u,KeyU,char,0,576252.4,30631.872,1470330,ambiguous,onset also claimed by another event,1,1465496,15.0,-100.708
+688,keyup,q,KeyQ,char,0,576259.8,30639.272,1470685,ambiguous,onset also claimed by another event,1,1465496,15.0,-108.104
+689,keydown,i,KeyI,char,0,576290.2,30669.672,1472144,missed,,0,,,
+690,keyup,u,KeyU,char,0,576356.5,30735.972,1475327,missed,,0,,,
+691,keyup,i,KeyI,char,0,576386.1,30765.572,1476747,missed,,0,,,
+692,keydown,Backspace,Backspace,backspace,0,576679.3,31058.772,1490821,missed,,0,,,
+693,keyup,Backspace,Backspace,backspace,0,576746.7,31126.172,1494056,missed,,0,,,
+694,keydown,Backspace,Backspace,backspace,0,576802.6,31182.072,1496739,missed,,0,,,
+695,keyup,Backspace,Backspace,backspace,0,576858.0,31237.472,1499399,missed,,0,,,
+696,keydown,Backspace,Backspace,backspace,0,576927.6,31307.072,1502739,missed,,0,,,
+697,keyup,Backspace,Backspace,backspace,0,577000.0,31379.472,1506215,missed,,0,,,
+698,keydown,Backspace,Backspace,backspace,0,577075.4,31454.872,1509834,missed,,0,,,
+699,keyup,Backspace,Backspace,backspace,0,577142.9,31522.372,1513074,matched,,1,1509970,26.6,-64.667
+700,keydown,Backspace,Backspace,backspace,0,577217.7,31597.172,1516664,missed,,0,,,
+701,keyup,Backspace,Backspace,backspace,0,577275.2,31654.672,1519424,missed,,0,,,
+702,keydown,Backspace,Backspace,backspace,0,577368.9,31748.372,1523922,missed,,0,,,
+703,keyup,Backspace,Backspace,backspace,0,577430.9,31810.372,1526898,missed,,0,,,
+704,keydown,y,KeyY,char,0,577536.3,31915.772,1531957,missed,,0,,,
+705,keydown, ,Space,char,0,577583.2,31962.672,1534208,missed,,0,,,
+706,keyup,y,KeyY,char,0,577627.2,32006.672,1536320,missed,,0,,,
+707,keyup, ,Space,char,0,577659.6,32039.072,1537875,ambiguous,onset also claimed by another event,1,1533914,15.6,-82.521
+708,keydown,q,KeyQ,char,0,577687.6,32067.072,1539219,ambiguous,onset also claimed by another event,1,1533914,15.6,-110.521
+709,keyup,q,KeyQ,char,0,577798.3,32177.772,1544533,ambiguous,onset also claimed by another event,1,1538845,21.3,-118.500
+710,keydown,u,KeyU,char,0,577800.6,32180.072,1544643,ambiguous,onset also claimed by another event,1,1538845,21.3,-120.792
+711,keydown,i,KeyI,char,0,577819.6,32199.072,1545555,missed,,0,,,
+712,keyup,u,KeyU,char,0,577884.0,32263.472,1548647,ambiguous,onset also claimed by another event,1,1543893,13.2,-99.042
+713,keydown,e,KeyE,char,0,577890.1,32269.572,1548939,ambiguous,onset also claimed by another event,1,1543893,13.2,-105.125
+714,keyup,i,KeyI,char,0,577916.8,32296.272,1550221,ambiguous,2 onsets in window,2,1546785,18.3,-71.583
+715,keydown,t,KeyT,char,0,577942.4,32321.872,1551450,ambiguous,onset also claimed by another event,1,1546785,18.3,-97.187
+716,keyup,e,KeyE,char,0,577968.1,32347.572,1552683,ambiguous,onset also claimed by another event,1,1546785,18.3,-122.875
+717,keyup,t,KeyT,char,0,578018.5,32397.972,1555103,ambiguous,onset also claimed by another event,1,1551735,16.5,-70.167
+718,keydown,.,Period,char,0,578042.4,32421.872,1556250,ambiguous,onset also claimed by another event,1,1551735,16.5,-94.062
+719,keydown, ,Space,char,0,578086.7,32466.172,1558376,matched,,1,1553904,31.6,-93.167
+720,keyup,.,Period,char,0,578137.5,32516.972,1560815,missed,,0,,,
+721,keyup, ,Space,char,0,578172.6,32552.072,1562499,matched,,1,1558317,16.7,-87.125
+722,keydown,Shift,ShiftLeft,modifier,0,578432.0,32811.472,1574951,missed,,0,,,
+723,keydown,T,KeyT,char,0,578612.7,32992.172,1583624,matched,,1,1579009,25.9,-96.146
+724,keyup,Shift,ShiftLeft,modifier,0,578661.0,33040.472,1585943,ambiguous,onset also claimed by another event,1,1582979,19.5,-61.750
+725,keyup,t,KeyT,char,0,578674.3,33053.772,1586581,ambiguous,onset also claimed by another event,1,1582979,19.5,-75.042
+726,keydown,h,KeyH,char,0,578689.2,33068.672,1587296,ambiguous,onset also claimed by another event,1,1582979,19.5,-89.937
+727,keyup,h,KeyH,char,0,578742.1,33121.572,1589835,missed,,0,,,
+728,keydown,e,KeyE,char,0,578754.3,33133.772,1590421,missed,,0,,,
+729,keyup,e,KeyE,char,0,578823.6,33203.072,1593747,ambiguous,onset also claimed by another event,1,1589236,32.8,-93.979
+730,keydown, ,Space,char,0,578830.4,33209.872,1594074,ambiguous,onset also claimed by another event,1,1589236,32.8,-100.792
+731,keyup, ,Space,char,0,578884.4,33263.872,1596666,matched,,1,1592455,13.5,-87.729
+732,keydown,n,KeyN,char,0,578939.7,33319.172,1599320,matched,,1,1594846,23.3,-93.208
+733,keyup,n,KeyN,char,0,579028.3,33407.772,1603573,missed,,0,,,
+734,keydown,e,KeyE,char,0,579037.8,33417.272,1604029,missed,,0,,,
+735,keydown,w,KeyW,char,0,579105.5,33484.972,1607279,ambiguous,onset also claimed by another event,1,1604495,21.8,-58.000
+736,keydown, ,Space,char,0,579154.5,33533.972,1609631,ambiguous,2 onsets in window,2,1604495,21.8,-107.000
+737,keyup,e,KeyE,char,0,579163.3,33542.772,1610053,ambiguous,2 onsets in window,2,1604495,21.8,-115.792
+738,keyup, ,Space,char,0,579175.8,33555.272,1610653,ambiguous,2 onsets in window,2,1606808,19.3,-80.104
+739,keyup,w,KeyW,char,0,579207.7,33587.172,1612184,ambiguous,2 onsets in window,2,1606808,19.3,-112.000
+740,keydown,b,KeyB,char,0,579245.5,33624.972,1613999,ambiguous,onset also claimed by another event,1,1609463,13.4,-94.500
+741,keyup,b,KeyB,char,0,579311.7,33691.172,1617176,ambiguous,onset also claimed by another event,1,1613394,19.5,-78.792
+742,keydown,r,KeyR,char,0,579320.0,33699.472,1617575,ambiguous,onset also claimed by another event,1,1613394,19.5,-87.104
+743,keyup,r,KeyR,char,0,579383.5,33762.972,1620623,missed,,0,,,
+744,keydown,i,KeyI,char,0,579392.6,33772.072,1621059,missed,,0,,,
+745,keydown,d,KeyD,char,0,579453.1,33832.572,1623963,missed,,0,,,
+746,keyup,i,KeyI,char,0,579468.5,33847.972,1624703,missed,,0,,,
+747,keyup,d,KeyD,char,0,579524.2,33903.672,1627376,missed,,0,,,
+748,keydown,g,KeyG,char,0,579533.2,33912.672,1627808,missed,,0,,,
+749,keydown,e,KeyE,char,0,579597.9,33977.372,1630914,missed,,0,,,
+750,keyup,g,KeyG,char,0,579625.6,34005.072,1632243,ambiguous,onset also claimed by another event,1,1628646,23.2,-74.938
+751,keydown,",",Comma,char,0,579651.6,34031.072,1633491,ambiguous,onset also claimed by another event,1,1628646,23.2,-100.938
+752,keyup,e,KeyE,char,0,579686.5,34065.972,1635167,ambiguous,onset also claimed by another event,1,1631918,22.1,-67.687
+753,keydown, ,Space,char,0,579710.7,34090.172,1636328,ambiguous,2 onsets in window,2,1631918,22.1,-91.875
+754,keyup,",",Comma,char,0,579748.8,34128.272,1638157,ambiguous,3 onsets in window,3,1632789,12.8,-111.833
+755,keyup, ,Space,char,0,579783.3,34162.772,1639813,ambiguous,onset also claimed by another event,1,1635480,19.6,-90.271
+756,keydown,w,KeyW,char,0,579791.5,34170.972,1640207,ambiguous,onset also claimed by another event,1,1635480,19.6,-98.479
+757,keydown,h,KeyH,char,0,579858.7,34238.172,1643432,ambiguous,onset also claimed by another event,1,1638830,21.4,-95.875
+758,keyup,w,KeyW,char,0,579868.3,34247.772,1643893,ambiguous,onset also claimed by another event,1,1638830,21.4,-105.479
+759,keydown,i,KeyI,char,0,579877.3,34256.772,1644325,ambiguous,onset also claimed by another event,1,1638830,21.4,-114.479
+760,keyup,h,KeyH,char,0,579957.2,34336.672,1648160,missed,,0,,,
+761,keyup,i,KeyI,char,0,579959.1,34338.572,1648251,missed,,0,,,
+762,keydown,c,KeyC,char,0,579960.5,34339.972,1648319,missed,,0,,,
+763,keydown,h,KeyH,char,0,580000.8,34380.272,1650253,ambiguous,onset also claimed by another event,1,1646971,24.3,-68.375
+764,keydown, ,Space,char,0,580027.0,34406.472,1651511,ambiguous,onset also claimed by another event,1,1646971,24.3,-94.583
+765,keyup,c,KeyC,char,0,580036.5,34415.972,1651967,ambiguous,onset also claimed by another event,1,1646971,24.3,-104.083
+766,keyup,h,KeyH,char,0,580081.7,34461.172,1654136,ambiguous,onset also claimed by another event,1,1651189,15.5,-61.396
+767,keyup, ,Space,char,0,580102.8,34482.272,1655149,ambiguous,onset also claimed by another event,1,1651189,15.5,-82.500
+768,keydown,c,KeyC,char,0,580199.7,34579.172,1659800,missed,,0,,,
+769,keyup,c,KeyC,char,0,580285.9,34665.372,1663938,missed,,0,,,
+770,keydown,o,KeyO,char,0,580295.1,34674.572,1664379,missed,,0,,,
+771,keyup,o,KeyO,char,0,580376.2,34755.672,1668272,missed,,0,,,
+772,keydown,s,KeyS,char,0,580410.3,34789.772,1669909,missed,,0,,,
+773,keydown,t,KeyT,char,0,580491.0,34870.472,1673783,matched,,1,1667786,18.8,-124.938
+774,keyup,s,KeyS,char,0,580501.1,34880.572,1674267,missed,,0,,,
+775,keyup,t,KeyT,char,0,580544.1,34923.572,1676331,missed,,0,,,
+776,keydown, ,Space,char,0,580604.1,34983.572,1679211,ambiguous,2 onsets in window,2,1674774,28.3,-92.437
+777,keyup, ,Space,char,0,580730.3,35109.772,1685269,ambiguous,onset also claimed by another event,1,1679053,19.0,-129.500
+778,keydown,m,KeyM,char,0,580732.6,35112.072,1685379,ambiguous,onset also claimed by another event,1,1679053,19.0,-131.792
+779,keydown,i,KeyI,char,0,580769.9,35149.372,1687170,matched,,1,1683012,13.9,-86.625
+780,keyup,m,KeyM,char,0,580828.8,35208.272,1689997,missed,,0,,,
+781,keydown,l,KeyL,char,0,580866.2,35245.672,1691792,missed,,0,,,
+782,keyup,i,KeyI,char,0,580878.2,35257.672,1692368,missed,,0,,,
+783,keyup,l,KeyL,char,0,580944.8,35324.272,1695565,missed,,0,,,
+784,keydown,l,KeyL,char,0,581008.3,35387.772,1698613,missed,,0,,,
+785,keyup,l,KeyL,char,0,581095.5,35474.972,1702799,missed,,0,,,
+786,keydown,i,KeyI,char,0,581107.7,35487.172,1703384,missed,,0,,,
+787,keydown,o,KeyO,char,0,581180.1,35559.572,1706859,ambiguous,2 onsets in window,2,1702315,12.6,-94.667
+788,keydown,n,KeyN,char,0,581229.3,35608.772,1709221,ambiguous,onset also claimed by another event,1,1703180,21.8,-125.854
+789,keyup,i,KeyI,char,0,581275.2,35654.672,1711424,missed,,0,,,
+790,keyup,o,KeyO,char,0,581295.6,35675.072,1712403,missed,,0,,,
+791,keyup,n,KeyN,char,0,581306.3,35685.772,1712917,missed,,0,,,
+792,keydown,s,KeyS,char,0,581334.9,35714.372,1714290,missed,,0,,,
+793,keydown, ,Space,char,0,581407.6,35787.072,1717779,ambiguous,onset also claimed by another event,1,1713139,31.6,-96.667
+794,keyup,s,KeyS,char,0,581438.0,35817.472,1719239,ambiguous,onset also claimed by another event,1,1713139,31.6,-127.083
+795,keyup, ,Space,char,0,581472.9,35852.372,1720914,ambiguous,onset also claimed by another event,1,1716980,19.8,-81.958
+796,keydown,o,KeyO,char,0,581482.6,35862.072,1721379,ambiguous,onset also claimed by another event,1,1716980,19.8,-91.646
+797,keyup,o,KeyO,char,0,581569.6,35949.072,1725555,missed,,0,,,
+798,keydown,f,KeyF,char,0,581598.8,35978.272,1726957,missed,,0,,,
+799,keydown, ,Space,char,0,581669.5,36048.972,1730351,ambiguous,onset also claimed by another event,1,1725873,29.6,-93.292
+800,keyup,f,KeyF,char,0,581681.3,36060.772,1730917,ambiguous,onset also claimed by another event,1,1725873,29.6,-105.083
+801,keydown,p,KeyP,char,0,581720.1,36099.572,1732779,matched,,1,1730009,14.3,-57.708
+802,keyup, ,Space,char,0,581893.8,36273.272,1741117,missed,,0,,,
+803,keyup,p,KeyP,char,0,581895.6,36275.072,1741203,missed,,0,,,
+804,keydown,o,KeyO,char,0,581898.9,36278.372,1741362,missed,,0,,,
+805,keydown,u,KeyU,char,0,581901.9,36281.372,1741506,missed,,0,,,
+806,keyup,u,KeyU,char,0,581953.3,36332.772,1743973,missed,,0,,,
+807,keyup,o,KeyO,char,0,581973.7,36353.172,1744952,missed,,0,,,
+808,keydown,n,KeyN,char,0,582077.5,36456.972,1749935,missed,,0,,,
+809,keydown,d,KeyD,char,0,582080.9,36460.372,1750098,missed,,0,,,
+810,keyup,n,KeyN,char,0,582091.5,36470.972,1750607,missed,,0,,,
+811,keydown,s,KeyS,char,0,582110.0,36489.472,1751495,missed,,0,,,
+812,keyup,d,KeyD,char,0,582167.5,36546.972,1754255,ambiguous,onset also claimed by another event,1,1750049,24.1,-87.625
+813,keydown,",",Comma,char,0,582189.4,36568.872,1755306,ambiguous,2 onsets in window,2,1750049,24.1,-109.521
+814,keydown, ,Space,char,0,582213.1,36592.572,1756443,ambiguous,2 onsets in window,2,1751817,27.9,-96.375
+815,keyup,s,KeyS,char,0,582223.3,36602.772,1756933,ambiguous,onset also claimed by another event,1,1751817,27.9,-106.583
+816,keyup,",",Comma,char,0,582253.3,36632.772,1758373,missed,,0,,,
+817,keydown,w,KeyW,char,0,582303.8,36683.272,1760797,missed,,0,,,
+818,keyup, ,Space,char,0,582317.4,36696.872,1761450,missed,,0,,,
+819,keyup,w,KeyW,char,0,582386.1,36765.572,1764747,missed,,0,,,
+820,keydown,a,KeyA,char,0,582399.9,36779.372,1765410,missed,,0,,,
+821,keydown,s,KeyS,char,0,582449.1,36828.572,1767771,missed,,0,,,
+822,keyup,a,KeyA,char,0,582490.6,36870.072,1769763,ambiguous,onset also claimed by another event,1,1766191,18.3,-74.417
+823,keydown, ,Space,char,0,582509.4,36888.872,1770666,ambiguous,onset also claimed by another event,1,1766191,18.3,-93.229
+824,keyup,s,KeyS,char,0,582525.5,36904.972,1771439,ambiguous,onset also claimed by another event,1,1766191,18.3,-109.333
+825,keyup, ,Space,char,0,582561.9,36941.372,1773186,matched,,1,1769194,12.9,-83.167
+826,keydown,c,KeyC,char,0,582623.5,37002.972,1776143,missed,,0,,,
+827,keydown,l,KeyL,char,0,582677.4,37056.872,1778730,missed,,0,,,
+828,keyup,c,KeyC,char,0,582690.9,37070.372,1779378,missed,,0,,,
+829,keyup,l,KeyL,char,0,582724.3,37103.772,1780981,missed,,0,,,
+830,keydown,o,KeyO,char,0,582774.3,37153.772,1783381,missed,,0,,,
+831,keydown,s,KeyS,char,0,582829.1,37208.572,1786011,ambiguous,onset also claimed by another event,1,1783009,13.0,-62.542
+832,keydown,e,KeyE,char,0,582862.3,37241.772,1787605,ambiguous,onset also claimed by another event,1,1783009,13.0,-95.750
+833,keyup,o,KeyO,char,0,582871.1,37250.572,1788027,ambiguous,onset also claimed by another event,1,1783009,13.0,-104.542
+834,keyup,s,KeyS,char,0,582901.8,37281.272,1789501,missed,,0,,,
+835,keyup,e,KeyE,char,0,582923.1,37302.572,1790523,missed,,0,,,
+836,keydown,d,KeyD,char,0,582968.2,37347.672,1792688,missed,,0,,,
+837,keydown, ,Space,char,0,583034.2,37413.672,1795856,ambiguous,onset also claimed by another event,1,1791111,14.8,-98.854
+838,keyup,d,KeyD,char,0,583043.5,37422.972,1796303,ambiguous,onset also claimed by another event,1,1791111,14.8,-108.167
+839,keyup, ,Space,char,0,583084.0,37463.472,1798247,missed,,0,,,
+840,keydown,f,KeyF,char,0,583114.3,37493.772,1799701,missed,,0,,,
+841,keydown,o,KeyO,char,0,583170.3,37549.772,1802389,missed,,0,,,
+842,keyup,f,KeyF,char,0,583182.1,37561.572,1802955,missed,,0,,,
+843,keyup,o,KeyO,char,0,583242.0,37621.472,1805831,missed,,0,,,
+844,keydown,r,KeyR,char,0,583255.3,37634.772,1806469,missed,,0,,,
+845,keyup,r,KeyR,char,0,583305.6,37685.072,1808883,missed,,0,,,
+846,keydown, ,Space,char,0,583419.4,37798.872,1814346,missed,,0,,,
+847,keyup, ,Space,char,0,583517.7,37897.172,1819064,missed,,0,,,
+848,keydown,r,KeyR,char,0,583594.8,37974.272,1822765,missed,,0,,,
+849,keyup,r,KeyR,char,0,583675.4,38054.872,1826634,missed,,0,,,
+850,keydown,e,KeyE,char,0,583750.5,38129.972,1830239,missed,,0,,,
+851,keyup,e,KeyE,char,0,583824.9,38204.372,1833810,ambiguous,onset also claimed by another event,1,1829714,14.9,-85.333
+852,keydown,p,KeyP,char,0,583827.2,38206.672,1833920,ambiguous,onset also claimed by another event,1,1829714,14.9,-87.625
+853,keydown,a,KeyA,char,0,583900.4,38279.872,1837434,missed,,0,,,
+854,keyup,p,KeyP,char,0,583911.3,38290.772,1837957,missed,,0,,,
+855,keydown,r,KeyR,char,0,583992.1,38371.572,1841835,missed,,0,,,
+856,keyup,a,KeyA,char,0,584017.9,38397.372,1843074,missed,,0,,,
+857,keydown,i,KeyI,char,0,584018.1,38397.572,1843083,missed,,0,,,
+858,keyup,r,KeyR,char,0,584022.8,38402.272,1843309,missed,,0,,,
+859,keyup,i,KeyI,char,0,584050.7,38430.172,1844648,missed,,0,,,
+860,keydown,s,KeyS,char,0,584125.7,38505.172,1848248,missed,,0,,,
+861,keyup,s,KeyS,char,0,584234.3,38613.772,1853461,missed,,0,,,
+862,keydown,Backspace,Backspace,backspace,0,584395.2,38774.672,1861184,missed,,0,,,
+863,keyup,Backspace,Backspace,backspace,0,584436.3,38815.772,1863157,missed,,0,,,
+864,keydown,Backspace,Backspace,backspace,0,584511.3,38890.772,1866757,missed,,0,,,
+865,keyup,Backspace,Backspace,backspace,0,584567.4,38946.872,1869450,matched,,1,1864699,15.1,-98.979
+866,keydown,Backspace,Backspace,backspace,0,584633.3,39012.772,1872613,missed,,0,,,
+867,keyup,Backspace,Backspace,backspace,0,584752.1,39131.572,1878315,missed,,0,,,
+868,keydown,i,KeyI,char,0,584859.4,39238.872,1883466,matched,,1,1878626,14.7,-100.833
+869,keyup,i,KeyI,char,0,584922.9,39302.372,1886514,missed,,0,,,
+870,keydown,r,KeyR,char,0,584929.8,39309.272,1886845,missed,,0,,,
+871,keydown,s,KeyS,char,0,584966.6,39346.072,1888611,missed,,0,,,
+872,keyup,r,KeyR,char,0,585027.7,39407.172,1891544,missed,,0,,,
+873,keydown, ,Space,char,0,585136.0,39515.472,1896743,missed,,0,,,
+874,keyup,s,KeyS,char,0,585174.1,39553.572,1898571,missed,,0,,,
+875,keyup, ,Space,char,0,585175.1,39554.572,1898619,missed,,0,,,
+876,keydown,w,KeyW,char,0,585176.6,39556.072,1898691,missed,,0,,,
+877,keydown,i,KeyI,char,0,585229.0,39608.472,1901207,missed,,0,,,
+878,keyup,w,KeyW,char,0,585242.8,39622.272,1901869,missed,,0,,,
+879,keyup,i,KeyI,char,0,585308.5,39687.972,1905023,ambiguous,onset also claimed by another event,1,1901707,14.3,-69.083
+880,keydown,t,KeyT,char,0,585342.3,39721.772,1906645,ambiguous,onset also claimed by another event,1,1901707,14.3,-102.875
+881,keydown,h,KeyH,char,0,585396.8,39776.272,1909261,missed,,0,,,
+882,keyup,t,KeyT,char,0,585441.2,39820.672,1911392,missed,,0,,,
+883,keydown,i,KeyI,char,0,585443.4,39822.872,1911498,missed,,0,,,
+884,keyup,h,KeyH,char,0,585468.7,39848.172,1912712,missed,,0,,,
+885,keydown,n,KeyN,char,0,585537.8,39917.272,1916029,missed,,0,,,
+886,keyup,i,KeyI,char,0,585577.4,39956.872,1917930,missed,,0,,,
+887,keydown, ,Space,char,0,585627.2,40006.672,1920320,missed,,0,,,
+888,keyup,n,KeyN,char,0,585649.1,40028.572,1921371,missed,,0,,,
+889,keyup, ,Space,char,0,585719.5,40098.972,1924751,missed,,0,,,
+890,keydown,a,KeyA,char,0,585745.0,40124.472,1925975,missed,,0,,,
+891,keyup,a,KeyA,char,0,585839.2,40218.672,1930496,ambiguous,onset also claimed by another event,1,1925779,16.9,-98.271
+892,keydown, ,Space,char,0,585846.2,40225.672,1930832,ambiguous,onset also claimed by another event,1,1925779,16.9,-105.271
+893,keyup, ,Space,char,0,585902.3,40281.772,1933525,missed,,0,,,
+894,keydown,f,KeyF,char,0,585948.1,40327.572,1935723,missed,,0,,,
+895,keyup,f,KeyF,char,0,586010.1,40389.572,1938699,ambiguous,onset also claimed by another event,1,1933885,13.0,-100.292
+896,keydown,o,KeyO,char,0,586018.8,40398.272,1939117,ambiguous,onset also claimed by another event,1,1933885,13.0,-109.000
+897,keydown,r,KeyR,char,0,586115.2,40494.672,1943744,missed,,0,,,
+898,keyup,o,KeyO,char,0,586135.7,40515.172,1944728,missed,,0,,,
+899,keyup,r,KeyR,char,0,586195.1,40574.572,1947579,missed,,0,,,
+900,keydown,t,KeyT,char,0,586383.2,40762.672,1956608,matched,,1,1951801,18.1,-100.146
+901,keyup,t,KeyT,char,0,586469.6,40849.072,1960755,missed,,0,,,
+902,keydown,n,KeyN,char,0,586583.2,40962.672,1966208,matched,,1,1961233,26.0,-103.646
+903,keydown,i,KeyI,char,0,586645.5,41024.972,1969199,missed,,0,,,
+904,keyup,n,KeyN,char,0,586687.8,41067.272,1971229,ambiguous,onset also claimed by another event,1,1967899,16.1,-69.375
+905,keyup,i,KeyI,char,0,586718.5,41097.972,1972703,ambiguous,onset also claimed by another event,1,1967899,16.1,-100.083
+906,keydown,g,KeyG,char,0,586726.1,41105.572,1973067,ambiguous,onset also claimed by another event,1,1967899,16.1,-107.667
+907,keyup,g,KeyG,char,0,586773.7,41153.172,1975352,missed,,0,,,
+908,keydown,h,KeyH,char,0,586785.9,41165.372,1975938,missed,,0,,,
+909,keyup,h,KeyH,char,0,586885.0,41264.472,1980695,missed,,0,,,
+910,keydown,t,KeyT,char,0,586885.4,41264.872,1980714,missed,,0,,,
+911,keyup,t,KeyT,char,0,586908.5,41287.972,1981823,ambiguous,onset also claimed by another event,1,1978155,24.2,-76.417
+912,keydown, ,Space,char,0,586932.5,41311.972,1982975,ambiguous,onset also claimed by another event,1,1978155,24.2,-100.417
+913,keyup, ,Space,char,0,586976.2,41355.672,1985072,missed,,0,,,
+914,keydown,o,KeyO,char,0,587043.9,41423.372,1988322,matched,,1,1983519,14.8,-100.062
+915,keydown,f,KeyF,char,0,587115.3,41494.772,1991749,missed,,0,,,
+916,keyup,o,KeyO,char,0,587132.1,41511.572,1992555,missed,,0,,,
+917,keyup,f,KeyF,char,0,587201.6,41581.072,1995891,ambiguous,onset also claimed by another event,1,1991395,27.2,-93.667
+918,keydown, ,Space,char,0,587210.4,41589.872,1996314,ambiguous,onset also claimed by another event,1,1991395,27.2,-102.479
+919,keyup, ,Space,char,0,587251.1,41630.572,1998267,missed,,0,,,
+920,keydown,o,KeyO,char,0,587327.3,41706.772,2001925,matched,,1,1997059,15.1,-101.375
+921,keyup,o,KeyO,char,0,587399.0,41778.472,2005367,missed,,0,,,
+922,keydown,p,KeyP,char,0,587473.5,41852.972,2008943,missed,,0,,,
+923,keyup,p,KeyP,char,0,587545.8,41925.272,2012413,missed,,0,,,
+924,keydown,e,KeyE,char,0,587556.7,41936.172,2012936,missed,,0,,,
+925,keyup,e,KeyE,char,0,587612.7,41992.172,2015624,missed,,0,,,
+926,keydown,n,KeyN,char,0,587622.5,42001.972,2016095,missed,,0,,,
+927,keydown,i,KeyI,char,0,587686.8,42066.272,2019181,missed,,0,,,
+928,keyup,n,KeyN,char,0,587704.1,42083.572,2020011,missed,,0,,,
+929,keydown,n,KeyN,char,0,587755.7,42135.172,2022488,missed,,0,,,
+930,keyup,i,KeyI,char,0,587795.2,42174.672,2024384,ambiguous,onset also claimed by another event,1,2020906,13.4,-72.458
+931,keyup,n,KeyN,char,0,587825.0,42204.472,2025815,ambiguous,onset also claimed by another event,1,2020906,13.4,-102.271
+932,keydown,g,KeyG,char,0,587834.0,42213.472,2026247,ambiguous,onset also claimed by another event,1,2020906,13.4,-111.271
+933,keyup,g,KeyG,char,0,587890.0,42269.472,2028935,ambiguous,onset also claimed by another event,1,2025548,14.6,-70.562
+934,keydown,.,Period,char,0,587919.7,42299.172,2030360,ambiguous,2 onsets in window,2,2025548,14.6,-100.250
+935,keydown, ,Space,char,0,587957.0,42336.472,2032151,ambiguous,onset also claimed by another event,1,2027123,27.9,-104.750
+936,keyup,.,Period,char,0,588002.9,42382.372,2034354,ambiguous,onset also claimed by another event,1,2029985,13.3,-91.021
+937,keydown,Shift,ShiftLeft,modifier,0,588010.6,42390.072,2034723,ambiguous,onset also claimed by another event,1,2029985,13.3,-98.708
+938,keyup, ,Space,char,0,588031.9,42411.372,2035746,ambiguous,2 onsets in window,2,2032588,12.1,-65.792
+939,keydown,E,KeyE,char,0,588118.1,42497.572,2039883,missed,,0,,,
+940,keyup,Shift,ShiftLeft,modifier,0,588154.3,42533.772,2041621,missed,,0,,,
+941,keyup,e,KeyE,char,0,588199.5,42578.972,2043791,missed,,0,,,
+942,keydown,x,KeyX,char,0,588287.0,42666.472,2047991,missed,,0,,,
+943,keyup,x,KeyX,char,0,588361.8,42741.272,2051581,ambiguous,onset also claimed by another event,1,2047473,15.0,-85.583
+944,keydown,p,KeyP,char,0,588377.1,42756.572,2052315,ambiguous,onset also claimed by another event,1,2047473,15.0,-100.875
+945,keyup,p,KeyP,char,0,588463.7,42843.172,2056472,ambiguous,2 onsets in window,2,2051559,15.9,-102.354
+946,keydown,e,KeyE,char,0,588473.2,42852.672,2056928,ambiguous,2 onsets in window,2,2052968,20.0,-82.500
+947,keydown,r,KeyR,char,0,588499.7,42879.172,2058200,ambiguous,onset also claimed by another event,1,2052968,20.0,-109.000
+948,keyup,e,KeyE,char,0,588540.2,42919.672,2060144,missed,,0,,,
+949,keyup,r,KeyR,char,0,588555.6,42935.072,2060883,missed,,0,,,
+950,keydown,t,KeyT,char,0,588635.6,43015.072,2064723,matched,,1,2059887,15.4,-100.750
+951,keyup,t,KeyT,char,0,588721.2,43100.672,2068832,missed,,0,,,
+952,keydown,s,KeyS,char,0,588731.1,43110.572,2069307,missed,,0,,,
+953,keydown, ,Space,char,0,588827.6,43207.072,2073939,ambiguous,onset also claimed by another event,1,2068973,19.8,-103.458
+954,keyup,s,KeyS,char,0,588838.2,43217.672,2074448,ambiguous,onset also claimed by another event,1,2068973,19.8,-114.063
+955,keyup, ,Space,char,0,588890.1,43269.572,2076939,missed,,0,,,
+956,keydown,r,KeyR,char,0,589039.2,43418.672,2084096,missed,,0,,,
+957,keyup,r,KeyR,char,0,589102.4,43481.872,2087130,missed,,0,,,
+958,keydown,e,KeyE,char,0,589161.6,43541.072,2089971,missed,,0,,,
+959,keyup,e,KeyE,char,0,589228.4,43607.872,2093178,missed,,0,,,
+960,keydown,c,KeyC,char,0,589296.1,43675.572,2096427,missed,,0,,,
+961,keydown,o,KeyO,char,0,589358.2,43737.672,2099408,missed,,0,,,
+962,keyup,c,KeyC,char,0,589368.2,43747.672,2099888,missed,,0,,,
+963,keydown,m,KeyM,char,0,589412.5,43791.972,2102015,ambiguous,2 onsets in window,2,2097458,15.1,-94.938
+964,keyup,m,KeyM,char,0,589435.8,43815.272,2103133,ambiguous,2 onsets in window,2,2098135,12.4,-104.125
+965,keyup,o,KeyO,char,0,589469.0,43848.472,2104727,missed,,0,,,
+966,keydown,m,KeyM,char,0,589518.5,43897.972,2107103,missed,,0,,,
+967,keyup,m,KeyM,char,0,589611.3,43990.772,2111557,ambiguous,onset also claimed by another event,1,2107658,14.9,-81.229
+968,keydown,e,KeyE,char,0,589631.1,44010.572,2112507,ambiguous,onset also claimed by another event,1,2107658,14.9,-101.021
+969,keyup,e,KeyE,char,0,589691.8,44071.272,2115421,missed,,0,,,
+970,keydown,n,KeyN,char,0,589701.5,44080.972,2115887,missed,,0,,,
+971,keyup,n,KeyN,char,0,589777.6,44157.072,2119539,missed,,0,,,
+972,keydown,d,KeyD,char,0,589787.2,44166.672,2120000,missed,,0,,,
+973,keyup,d,KeyD,char,0,589864.0,44243.472,2123687,ambiguous,onset also claimed by another event,1,2118874,14.4,-100.271
+974,keydown, ,Space,char,0,589873.5,44252.972,2124143,ambiguous,onset also claimed by another event,1,2118874,14.4,-109.771
+975,keyup, ,Space,char,0,589930.0,44309.472,2126855,ambiguous,onset also claimed by another event,1,2123802,21.2,-63.604
+976,keydown,t,KeyT,char,0,589965.6,44345.072,2128563,ambiguous,onset also claimed by another event,1,2123802,21.2,-99.187
+977,keyup,t,KeyT,char,0,590029.2,44408.672,2131616,ambiguous,2 onsets in window,2,2126426,12.8,-108.125
+978,keydown,h,KeyH,char,0,590035.9,44415.372,2131938,ambiguous,2 onsets in window,2,2126974,15.7,-103.417
+979,keydown,a,KeyA,char,0,590070.3,44449.772,2133589,missed,,0,,,
+980,keyup,h,KeyH,char,0,590098.5,44477.972,2134943,ambiguous,onset also claimed by another event,1,2131408,17.1,-73.646
+981,keydown,t,KeyT,char,0,590127.1,44506.572,2136315,ambiguous,onset also claimed by another event,1,2131408,17.1,-102.229
+982,keyup,a,KeyA,char,0,590162.6,44542.072,2138019,ambiguous,onset also claimed by another event,1,2134775,25.4,-67.583
+983,keyup,t,KeyT,char,0,590183.3,44562.772,2139013,ambiguous,onset also claimed by another event,1,2134775,25.4,-88.292
+984,keydown, ,Space,char,0,590192.0,44571.472,2139431,ambiguous,onset also claimed by another event,1,2134775,25.4,-97.000
+985,keyup, ,Space,char,0,590233.7,44613.172,2141432,missed,,0,,,
+986,keydown,y,KeyY,char,0,590458.1,44837.572,2152203,missed,,0,,,
+987,keyup,y,KeyY,char,0,590492.7,44872.172,2153864,missed,,0,,,
+988,keydown,o,KeyO,char,0,590563.3,44942.772,2157253,matched,,1,2152442,16.4,-100.229
+989,keydown,u,KeyU,char,0,590603.0,44982.472,2159159,missed,,0,,,
+990,keydown, ,Space,char,0,590665.9,45045.372,2162178,missed,,0,,,
+991,keyup,u,KeyU,char,0,590690.5,45069.972,2163359,missed,,0,,,
+992,keyup,o,KeyO,char,0,590700.2,45079.672,2163824,missed,,0,,,
+993,keyup, ,Space,char,0,590710.1,45089.572,2164299,missed,,0,,,
+994,keydown,b,KeyB,char,0,590781.2,45160.672,2167712,ambiguous,3 onsets in window,3,2163285,15.8,-92.229
+995,keyup,b,KeyB,char,0,590852.3,45231.772,2171125,ambiguous,4 onsets in window,4,2166090,18.5,-104.896
+996,keydown,a,KeyA,char,0,590860.7,45240.172,2171528,ambiguous,4 onsets in window,4,2166847,17.4,-97.521
+997,keydown,c,KeyC,char,0,590902.3,45281.772,2173525,ambiguous,onset also claimed by another event,1,2167638,14.4,-122.646
+998,keyup,a,KeyA,char,0,590964.9,45344.372,2176530,ambiguous,onset also claimed by another event,1,2173328,16.5,-66.708
+999,keydown,k,KeyK,char,0,590976.0,45355.472,2177063,ambiguous,onset also claimed by another event,1,2173328,16.5,-77.813
+1000,keyup,c,KeyC,char,0,590994.0,45373.472,2177927,ambiguous,onset also claimed by another event,1,2173328,16.5,-95.813
+1001,keydown, ,Space,char,0,591003.0,45382.472,2178359,ambiguous,onset also claimed by another event,1,2173328,16.5,-104.813
+1002,keyup,k,KeyK,char,0,591030.7,45410.172,2179688,ambiguous,onset also claimed by another event,1,2173328,16.5,-132.500
+1003,keyup, ,Space,char,0,591041.5,45420.972,2180207,missed,,0,,,
+1004,keydown,u,KeyU,char,0,591100.8,45480.272,2183053,missed,,0,,,
+1005,keyup,u,KeyU,char,0,591151.8,45531.272,2185501,missed,,0,,,
+1006,keydown,p,KeyP,char,0,591201.5,45580.972,2187887,ambiguous,onset also claimed by another event,1,2185023,18.2,-59.667
+1007,keydown, ,Space,char,0,591247.3,45626.772,2190085,ambiguous,onset also claimed by another event,1,2185023,18.2,-105.458
+1008,keyup, ,Space,char,0,591273.6,45653.072,2191347,ambiguous,onset also claimed by another event,1,2185023,18.2,-131.750
+1009,keyup,p,KeyP,char,0,591300.2,45679.672,2192624,missed,,0,,,
+1010,keydown,y,KeyY,char,0,591497.1,45876.572,2202075,missed,,0,,,
+1011,keyup,y,KeyY,char,0,591551.2,45930.672,2204672,missed,,0,,,
+1012,keydown,o,KeyO,char,0,591592.1,45971.572,2206635,missed,,0,,,
+1013,keydown,u,KeyU,char,0,591644.9,46024.372,2209170,missed,,0,,,
+1014,keydown,r,KeyR,char,0,591695.3,46074.772,2211589,missed,,0,,,
+1015,keyup,u,KeyU,char,0,591708.2,46087.672,2212208,missed,,0,,,
+1016,keyup,o,KeyO,char,0,591718.4,46097.872,2212698,missed,,0,,,
+1017,keyup,r,KeyR,char,0,591807.9,46187.372,2216994,missed,,0,,,
+1018,keydown, ,Space,char,0,591808.8,46188.272,2217037,missed,,0,,,
+1019,keyup, ,Space,char,0,591819.5,46198.972,2217551,missed,,0,,,
+1020,keydown,f,KeyF,char,0,591854.4,46233.872,2219226,missed,,0,,,
+1021,keyup,f,KeyF,char,0,591941.5,46320.972,2223407,missed,,0,,,
+1022,keydown,i,KeyI,char,0,591948.5,46327.972,2223743,missed,,0,,,
+1023,keydown,l,KeyL,char,0,591983.6,46363.072,2225427,missed,,0,,,
+1024,keyup,i,KeyI,char,0,592065.0,46444.472,2229335,missed,,0,,,
+1025,keydown,e,KeyE,char,0,592072.8,46452.272,2229709,missed,,0,,,
+1026,keyup,l,KeyL,char,0,592097.9,46477.372,2230914,missed,,0,,,
+1027,keydown,s,KeyS,char,0,592120.7,46500.172,2232008,missed,,0,,,
+1028,keyup,e,KeyE,char,0,592179.4,46558.872,2234826,missed,,0,,,
+1029,keyup,s,KeyS,char,0,592243.3,46622.772,2237893,ambiguous,onset also claimed by another event,1,2233937,15.3,-82.417
+1030,keydown, ,Space,char,0,592271.0,46650.472,2239223,ambiguous,onset also claimed by another event,1,2233937,15.3,-110.125
+1031,keyup, ,Space,char,0,592359.8,46739.272,2243485,missed,,0,,,
+1032,keydown,r,KeyR,char,0,592445.2,46824.672,2247584,missed,,0,,,
+1033,keyup,r,KeyR,char,0,592496.0,46875.472,2250023,missed,,0,,,
+1034,keydown,e,KeyE,char,0,592555.9,46935.372,2252898,missed,,0,,,
+1035,keyup,e,KeyE,char,0,592623.3,47002.772,2256133,missed,,0,,,
+1036,keydown,g,KeyG,char,0,592723.6,47103.072,2260947,matched,,1,2255655,18.2,-110.250
+1037,keyup,g,KeyG,char,0,592795.9,47175.372,2264418,ambiguous,onset also claimed by another event,1,2259789,14.0,-96.438
+1038,keydown,u,KeyU,char,0,592814.4,47193.872,2265306,ambiguous,onset also claimed by another event,1,2259789,14.0,-114.937
+1039,keydown,l,KeyL,char,0,592850.4,47229.872,2267034,ambiguous,onset also claimed by another event,1,2263608,13.6,-71.375
+1040,keydown,a,KeyA,char,0,592900.3,47279.772,2269429,ambiguous,2 onsets in window,2,2263608,13.6,-121.271
+1041,keyup,u,KeyU,char,0,592910.8,47290.272,2269933,ambiguous,2 onsets in window,2,2266518,14.9,-71.146
+1042,keyup,l,KeyL,char,0,592936.6,47316.072,2271171,ambiguous,onset also claimed by another event,1,2266518,14.9,-96.938
+1043,keydown,r,KeyR,char,0,592956.1,47335.572,2272107,ambiguous,onset also claimed by another event,1,2266518,14.9,-116.438
+1044,keyup,a,KeyA,char,0,592988.6,47368.072,2273667,missed,,0,,,
+1045,keydown,l,KeyL,char,0,593029.8,47409.272,2275645,missed,,0,,,
+1046,keyup,r,KeyR,char,0,593040.3,47419.772,2276149,missed,,0,,,
+1047,keyup,l,KeyL,char,0,593084.1,47463.572,2278251,missed,,0,,,
+1048,keydown,y,KeyY,char,0,593109.5,47488.972,2279471,missed,,0,,,
+1049,keyup,y,KeyY,char,0,593170.5,47549.972,2282399,missed,,0,,,
+1050,keydown,",",Comma,char,0,593291.4,47670.872,2288202,ambiguous,2 onsets in window,2,2282769,29.8,-113.188
+1051,keydown, ,Space,char,0,593348.9,47728.372,2290962,ambiguous,2 onsets in window,2,2285375,19.6,-116.396
+1052,keyup,",",Comma,char,0,593382.8,47762.272,2292589,ambiguous,onset also claimed by another event,1,2287098,12.9,-114.396
+1053,keyup, ,Space,char,0,593433.6,47813.072,2295027,matched,,1,2290026,13.4,-104.188
+1054,keydown,s,KeyS,char,0,593509.5,47888.972,2298671,missed,,0,,,
+1055,keydown,t,KeyT,char,0,593551.0,47930.472,2300663,missed,,0,,,
+1056,keyup,s,KeyS,char,0,593601.7,47981.172,2303096,missed,,0,,,
+1057,keyup,t,KeyT,char,0,593661.4,48040.872,2305962,missed,,0,,,
+1058,keydown,o,KeyO,char,0,593711.9,48091.372,2308386,missed,,0,,,
+1059,keyup,o,KeyO,char,0,593814.7,48194.172,2313320,missed,,0,,,
+1060,keydown,r,KeyR,char,0,593970.5,48349.972,2320799,missed,,0,,,
+1061,keydown,e,KeyE,char,0,594066.0,48445.472,2325383,missed,,0,,,
+1062,keyup,r,KeyR,char,0,594131.0,48510.472,2328503,ambiguous,onset also claimed by another event,1,2324362,12.2,-86.271
+1063,keydown, ,Space,char,0,594156.8,48536.272,2329741,ambiguous,onset also claimed by another event,1,2324362,12.2,-112.063
+1064,keyup,e,KeyE,char,0,594167.8,48547.272,2330269,ambiguous,onset also claimed by another event,1,2324362,12.2,-123.063
+1065,keyup, ,Space,char,0,594227.8,48607.272,2333149,ambiguous,3 onsets in window,3,2328715,14.0,-92.375
+1066,keydown,a,KeyA,char,0,594243.5,48622.972,2333903,ambiguous,3 onsets in window,3,2329415,13.0,-93.500
+1067,keydown, ,Space,char,0,594324.2,48703.672,2337776,missed,,0,,,
+1068,keyup,a,KeyA,char,0,594340.3,48719.772,2338549,missed,,0,,,
+1069,keyup, ,Space,char,0,594386.0,48765.472,2340743,missed,,0,,,
+1070,keydown,c,KeyC,char,0,594395.0,48774.472,2341175,missed,,0,,,
+1071,keydown,o,KeyO,char,0,594459.7,48839.172,2344280,missed,,0,,,
+1072,keyup,c,KeyC,char,0,594477.0,48856.472,2345111,missed,,0,,,
+1073,keyup,o,KeyO,char,0,594517.6,48897.072,2347059,missed,,0,,,
+1074,keydown,p,KeyP,char,0,594598.3,48977.772,2350933,missed,,0,,,
+1075,keyup,p,KeyP,char,0,594666.2,49045.672,2354192,missed,,0,,,
+1076,keydown,y,KeyY,char,0,594683.8,49063.272,2355037,missed,,0,,,
+1077,keydown, ,Space,char,0,594727.6,49107.072,2357139,missed,,0,,,
+1078,keyup,y,KeyY,char,0,594767.2,49146.672,2359040,missed,,0,,,
+1079,keyup, ,Space,char,0,594802.0,49181.472,2360711,missed,,0,,,
+1080,keydown,e,KeyE,char,0,594829.2,49208.672,2362016,missed,,0,,,
+1081,keyup,e,KeyE,char,0,594908.4,49287.872,2365818,missed,,0,,,
+1082,keydown,l,KeyL,char,0,594916.1,49295.572,2366187,missed,,0,,,
+1083,keydown,s,KeyS,char,0,594987.4,49366.872,2369610,missed,,0,,,
+1084,keyup,l,KeyL,char,0,595001.6,49381.072,2370291,missed,,0,,,
+1085,keydown,e,KeyE,char,0,595032.2,49411.672,2371760,missed,,0,,,
+1086,keyup,s,KeyS,char,0,595052.3,49431.772,2372725,missed,,0,,,
+1087,keyup,e,KeyE,char,0,595099.6,49479.072,2374995,missed,,0,,,
+1088,keydown,w,KeyW,char,0,595157.7,49537.172,2377784,missed,,0,,,
+1089,keyup,w,KeyW,char,0,595265.8,49645.272,2382973,ambiguous,2 onsets in window,2,2377050,13.8,-123.396
+1090,keydown,h,KeyH,char,0,595267.0,49646.472,2383031,ambiguous,2 onsets in window,2,2377816,12.4,-108.646
+1091,keyup,h,KeyH,char,0,595303.0,49682.472,2384759,missed,,0,,,
+1092,keydown,e,KeyE,char,0,595309.7,49689.172,2385080,missed,,0,,,
+1093,keydown,r,KeyR,char,0,595334.5,49713.972,2386271,missed,,0,,,
+1094,keyup,e,KeyE,char,0,595360.9,49740.372,2387538,missed,,0,,,
+1095,keydown,e,KeyE,char,0,595406.2,49785.672,2389712,missed,,0,,,
+1096,keyup,r,KeyR,char,0,595428.7,49808.172,2390792,missed,,0,,,
+1097,keyup,e,KeyE,char,0,595508.0,49887.472,2394599,ambiguous,onset also claimed by another event,1,2390965,14.1,-75.708
+1098,keydown,",",Comma,char,0,595517.3,49896.772,2395045,ambiguous,onset also claimed by another event,1,2390965,14.1,-85.000
+1099,keydown, ,Space,char,0,595547.7,49927.172,2396504,ambiguous,onset also claimed by another event,1,2390965,14.1,-115.396
+1100,keyup,",",Comma,char,0,595585.1,49964.572,2398299,missed,,0,,,
+1101,keyup, ,Space,char,0,595625.2,50004.672,2400224,missed,,0,,,
+1102,keydown,a,KeyA,char,0,595656.5,50035.972,2401727,ambiguous,onset also claimed by another event,1,2397764,16.8,-82.562
+1103,keydown,n,KeyN,char,0,595695.3,50074.772,2403589,ambiguous,onset also claimed by another event,1,2397764,16.8,-121.354
+1104,keyup,a,KeyA,char,0,595722.5,50101.972,2404895,missed,,0,,,
+1105,keyup,n,KeyN,char,0,595758.6,50138.072,2406627,missed,,0,,,
+1106,keydown,d,KeyD,char,0,595806.6,50186.072,2408931,missed,,0,,,
+1107,keydown, ,Space,char,0,595842.5,50221.972,2410655,missed,,0,,,
+1108,keyup, ,Space,char,0,595879.0,50258.472,2412407,missed,,0,,,
+1109,keyup,d,KeyD,char,0,595889.7,50269.172,2412920,missed,,0,,,
+1110,keydown,e,KeyE,char,0,596062.8,50442.272,2421229,missed,,0,,,
+1111,keyup,e,KeyE,char,0,596101.6,50481.072,2423091,missed,,0,,,
+1112,keydown,Backspace,Backspace,backspace,0,596327.8,50707.272,2433949,matched,,1,2428596,19.3,-111.521
+1113,keyup,Backspace,Backspace,backspace,0,596375.1,50754.572,2436219,missed,,0,,,
+1114,keydown,t,KeyT,char,0,596466.1,50845.572,2440587,missed,,0,,,
+1115,keydown,e,KeyE,char,0,596502.5,50881.972,2442335,missed,,0,,,
+1116,keyup,t,KeyT,char,0,596543.3,50922.772,2444293,missed,,0,,,
+1117,keydown,s,KeyS,char,0,596573.5,50952.972,2445743,missed,,0,,,
+1118,keyup,e,KeyE,char,0,596691.7,51071.172,2451416,ambiguous,onset also claimed by another event,1,2447879,26.0,-73.688
+1119,keydown,t,KeyT,char,0,596693.5,51072.972,2451503,ambiguous,onset also claimed by another event,1,2447879,26.0,-75.500
+1120,keyup,s,KeyS,char,0,596702.8,51082.272,2451949,ambiguous,onset also claimed by another event,1,2447879,26.0,-84.792
+1121,keyup,t,KeyT,char,0,596710.0,51089.472,2452295,ambiguous,onset also claimed by another event,1,2447879,26.0,-92.000
+1122,keydown, ,Space,char,0,596731.1,51110.572,2453307,ambiguous,onset also claimed by another event,1,2447879,26.0,-113.083
+1123,keyup, ,Space,char,0,596784.8,51164.272,2455885,missed,,0,,,
+1124,keydown,t,KeyT,char,0,596857.2,51236.672,2459360,missed,,0,,,
+1125,keydown,h,KeyH,char,0,596936.5,51315.972,2463167,matched,,1,2456978,15.5,-128.937
+1126,keyup,t,KeyT,char,0,596952.7,51332.172,2463944,missed,,0,,,
+1127,keydown,e,KeyE,char,0,596973.1,51352.572,2464923,missed,,0,,,
+1128,keyup,h,KeyH,char,0,596987.2,51366.672,2465600,missed,,0,,,
+1129,keyup,e,KeyE,char,0,597069.8,51449.272,2469565,ambiguous,2 onsets in window,2,2464236,30.1,-111.021
+1130,keydown, ,Space,char,0,597079.0,51458.472,2470007,ambiguous,2 onsets in window,2,2465087,19.0,-102.500
+1131,keyup, ,Space,char,0,597166.6,51546.072,2474211,ambiguous,onset also claimed by another event,1,2468834,12.3,-112.021
+1132,keydown,r,KeyR,char,0,597174.7,51554.172,2474600,ambiguous,onset also claimed by another event,1,2468834,12.3,-120.125
+1133,keyup,r,KeyR,char,0,597227.0,51606.472,2477111,missed,,0,,,
+1134,keydown,e,KeyE,char,0,597300.2,51679.672,2480624,missed,,0,,,
+1135,keyup,e,KeyE,char,0,597348.6,51728.072,2482947,ambiguous,onset also claimed by another event,1,2479884,16.0,-63.812
+1136,keydown,s,KeyS,char,0,597381.8,51761.272,2484541,ambiguous,onset also claimed by another event,1,2479884,16.0,-97.021
+1137,keydown,t,KeyT,char,0,597422.8,51802.272,2486509,ambiguous,onset also claimed by another event,1,2483515,16.2,-62.375
+1138,keyup,s,KeyS,char,0,597469.8,51849.272,2488765,ambiguous,onset also claimed by another event,1,2483515,16.2,-109.375
+1139,keydown,o,KeyO,char,0,597504.2,51883.672,2490416,missed,,0,,,
+1140,keyup,t,KeyT,char,0,597512.6,51892.072,2490819,missed,,0,,,
+1141,keydown,r,KeyR,char,0,597607.4,51986.872,2495370,missed,,0,,,
+1142,keyup,o,KeyO,char,0,597611.6,51991.072,2495571,missed,,0,,,
+1143,keyup,r,KeyR,char,0,597621.8,52001.272,2496061,matched,,1,2493416,25.5,-55.104
+1144,keydown, ,Space,char,0,597710.0,52089.472,2500295,missed,,0,,,
+1145,keydown,p,KeyP,char,0,597763.4,52142.872,2502858,ambiguous,onset also claimed by another event,1,2497974,12.5,-101.750
+1146,keyup, ,Space,char,0,597793.8,52173.272,2504317,ambiguous,2 onsets in window,2,2500621,12.4,-77.000
+1147,keyup,p,KeyP,char,0,597848.9,52228.372,2506962,ambiguous,onset also claimed by another event,1,2500621,12.4,-132.104
+1148,keydown,r,KeyR,char,0,597858.1,52237.572,2507403,missed,,0,,,
+1149,keyup,r,KeyR,char,0,597928.0,52307.472,2510759,missed,,0,,,
+1150,keydown,Backspace,Backspace,backspace,0,598119.1,52498.572,2519931,missed,,0,,,
+1151,keyup,Backspace,Backspace,backspace,0,598163.6,52543.072,2522067,missed,,0,,,
+1152,keydown,Backspace,Backspace,backspace,0,598235.4,52614.872,2525514,missed,,0,,,
+1153,keyup,Backspace,Backspace,backspace,0,598304.2,52683.672,2528816,missed,,0,,,
+1154,keydown,Backspace,Backspace,backspace,0,598368.1,52747.572,2531883,missed,,0,,,
+1155,keyup,Backspace,Backspace,backspace,0,598440.2,52819.672,2535344,ambiguous,onset also claimed by another event,1,2531189,19.1,-86.563
+1156,keydown,e,KeyE,char,0,598453.1,52832.572,2535963,ambiguous,onset also claimed by another event,1,2531189,19.1,-99.458
+1157,keydown, ,Space,char,0,598499.7,52879.172,2538200,ambiguous,onset also claimed by another event,1,2534024,24.5,-87.000
+1158,keyup,e,KeyE,char,0,598515.4,52894.872,2538954,ambiguous,2 onsets in window,2,2534024,24.5,-102.708
+1159,keydown,p,KeyP,char,0,598559.5,52938.972,2541071,ambiguous,onset also claimed by another event,1,2535730,12.9,-111.271
+1160,keyup, ,Space,char,0,598574.6,52954.072,2541795,ambiguous,onset also claimed by another event,1,2535730,12.9,-126.354
+1161,keydown,r,KeyR,char,0,598625.3,53004.772,2544229,missed,,0,,,
+1162,keyup,p,KeyP,char,0,598640.6,53020.072,2544963,missed,,0,,,
+1163,keyup,r,KeyR,char,0,598687.0,53066.472,2547191,missed,,0,,,
+1164,keydown,c,KeyC,char,0,598795.0,53174.472,2552375,missed,,0,,,
+1165,keydown,o,KeyO,char,0,598798.0,53177.472,2552519,missed,,0,,,
+1166,keyup,o,KeyO,char,0,598828.0,53207.472,2553959,missed,,0,,,
+1167,keyup,c,KeyC,char,0,598838.1,53217.572,2554443,missed,,0,,,
+1168,keydown,e,KeyE,char,0,598934.0,53313.472,2559047,missed,,0,,,
+1169,keyup,e,KeyE,char,0,598990.8,53370.272,2561773,missed,,0,,,
+1170,keydown,Backspace,Backspace,backspace,0,599156.0,53535.472,2569703,missed,,0,,,
+1171,keyup,Backspace,Backspace,backspace,0,599197.9,53577.372,2571714,missed,,0,,,
+1172,keydown,Backspace,Backspace,backspace,0,599273.8,53653.272,2575357,missed,,0,,,
+1173,keyup,Backspace,Backspace,backspace,0,599335.4,53714.872,2578314,missed,,0,,,
+1174,keydown,Backspace,Backspace,backspace,0,599417.4,53796.872,2582250,missed,,0,,,
+1175,keyup,Backspace,Backspace,backspace,0,599452.5,53831.972,2583935,matched,,1,2580797,22.7,-65.375
+1176,keydown,c,KeyC,char,0,599534.5,53913.972,2587871,missed,,0,,,
+1177,keydown,o,KeyO,char,0,599536.9,53916.372,2587986,missed,,0,,,
+1178,keyup,c,KeyC,char,0,599588.6,53968.072,2590467,missed,,0,,,
+1179,keyup,o,KeyO,char,0,599605.5,53984.972,2591279,matched,,1,2588415,13.3,-59.667
+1180,keydown,e,KeyE,char,0,599690.5,54069.972,2595359,missed,,0,,,
+1181,keyup,e,KeyE,char,0,599745.8,54125.272,2598013,missed,,0,,,
+1182,keydown,Backspace,Backspace,backspace,0,599953.5,54332.972,2607983,matched,,1,2602963,12.5,-104.583
+1183,keyup,Backspace,Backspace,backspace,0,599988.4,54367.872,2609658,missed,,0,,,
+1184,keydown,Backspace,Backspace,backspace,0,600059.9,54439.372,2613090,missed,,0,,,
+1185,keyup,Backspace,Backspace,backspace,0,600125.7,54505.172,2616248,missed,,0,,,
+1186,keydown,Backspace,Backspace,backspace,0,600174.1,54553.572,2618571,matched,,1,2615125,15.8,-71.792
+1187,keyup,Backspace,Backspace,backspace,0,600243.2,54622.672,2621888,matched,,1,2618745,24.1,-65.479
+1188,keydown,o,KeyO,char,0,600315.5,54694.972,2625359,missed,,0,,,
+1189,keydown,c,KeyC,char,0,600365.6,54745.072,2627763,missed,,0,,,
+1190,keyup,o,KeyO,char,0,600399.2,54778.672,2629376,missed,,0,,,
+1191,keyup,c,KeyC,char,0,600412.2,54791.672,2630000,missed,,0,,,
+1192,keydown,e,KeyE,char,0,600498.5,54877.972,2634143,missed,,0,,,
+1193,keyup,e,KeyE,char,0,600550.9,54930.372,2636658,missed,,0,,,
+1194,keydown,s,KeyS,char,0,600644.0,55023.472,2641127,missed,,0,,,
+1195,keyup,s,KeyS,char,0,600712.0,55091.472,2644391,missed,,0,,,
+1196,keydown,s,KeyS,char,0,600745.8,55125.272,2646013,missed,,0,,,
+1197,keyup,s,KeyS,char,0,600860.7,55240.172,2651528,ambiguous,onset also claimed by another event,1,2645540,25.1,-124.750
+1198,keydown,.,Period,char,0,600869.6,55249.072,2651955,ambiguous,onset also claimed by another event,1,2645540,25.1,-133.646
+1199,keydown, ,Space,char,0,600878.0,55257.472,2652359,missed,,0,,,
+1200,keyup,.,Period,char,0,600950.6,55330.072,2655843,missed,,0,,,
+1201,keydown,Shift,ShiftLeft,modifier,0,600957.4,55336.872,2656170,missed,,0,,,
+1202,keyup, ,Space,char,0,600973.9,55353.372,2656962,missed,,0,,,
+1203,keydown,T,KeyT,char,0,601013.8,55393.272,2658877,missed,,0,,,
+1204,keyup,T,KeyT,char,0,601062.1,55441.572,2661195,missed,,0,,,
+1205,keyup,Shift,ShiftLeft,modifier,0,601074.8,55454.272,2661805,missed,,0,,,
+1206,keydown,Shift,ShiftLeft,modifier,0,601111.3,55490.772,2663557,missed,,0,,,
+1207,keydown,W,KeyW,char,0,601120.0,55499.472,2663975,missed,,0,,,
+1208,keyup,Shift,ShiftLeft,modifier,0,601196.9,55576.372,2667666,missed,,0,,,
+1209,keyup,w,KeyW,char,0,601235.1,55614.572,2669499,missed,,0,,,
+1210,keydown,Backspace,Backspace,backspace,0,601373.6,55753.072,2676147,missed,,0,,,
+1211,keyup,Backspace,Backspace,backspace,0,601409.1,55788.572,2677851,missed,,0,,,
+1212,keydown,Backspace,Backspace,backspace,0,601486.0,55865.472,2681543,missed,,0,,,
+1213,keyup,Backspace,Backspace,backspace,0,601546.4,55925.872,2684442,missed,,0,,,
+1214,keydown,Shift,ShiftLeft,modifier,0,601595.8,55975.272,2686813,missed,,0,,,
+1215,keydown,W,KeyW,char,0,601616.3,55995.772,2687797,missed,,0,,,
+1216,keyup,Shift,ShiftLeft,modifier,0,601655.7,56035.172,2689688,ambiguous,onset also claimed by another event,1,2685868,18.2,-79.583
+1217,keyup,w,KeyW,char,0,601707.9,56087.372,2692194,ambiguous,onset also claimed by another event,1,2685868,18.2,-131.792
+1218,keydown,i,KeyI,char,0,601717.8,56097.272,2692669,ambiguous,onset also claimed by another event,1,2689930,13.8,-57.063
+1219,keyup,i,KeyI,char,0,601780.6,56160.072,2695683,ambiguous,2 onsets in window,2,2689930,13.8,-119.854
+1220,keydown,t,KeyT,char,0,601802.7,56182.172,2696744,ambiguous,onset also claimed by another event,1,2692580,13.8,-86.750
+1221,keydown,h,KeyH,char,0,601860.0,56239.472,2699495,missed,,0,,,
+1222,keyup,t,KeyT,char,0,601871.8,56251.272,2700061,missed,,0,,,
+1223,keydown, ,Space,char,0,601907.6,56287.072,2701779,missed,,0,,,
+1224,keyup,h,KeyH,char,0,601947.2,56326.672,2703680,missed,,0,,,
+1225,keydown,a,KeyA,char,0,601972.7,56352.172,2704904,missed,,0,,,
+1226,keyup, ,Space,char,0,601982.7,56362.172,2705384,ambiguous,onset also claimed by another event,1,2702548,14.0,-59.083
+1227,keyup,a,KeyA,char,0,602054.9,56434.372,2708850,ambiguous,2 onsets in window,2,2705198,14.3,-76.083
+1228,keydown, ,Space,char,0,602062.4,56441.872,2709210,ambiguous,onset also claimed by another event,1,2705198,14.3,-83.583
+1229,keyup, ,Space,char,0,602117.1,56496.572,2711835,missed,,0,,,
+1230,keydown,s,KeyS,char,0,602249.0,56628.472,2718167,missed,,0,,,
+1231,keyup,s,KeyS,char,0,602321.9,56701.372,2721666,matched,,1,2715959,14.5,-118.896
+1232,keydown,i,KeyI,char,0,602348.4,56727.872,2722938,missed,,0,,,
+1233,keyup,i,KeyI,char,0,602418.4,56797.872,2726298,matched,,1,2720801,18.4,-114.521
+1234,keydown,g,KeyG,char,0,602441.1,56820.572,2727387,missed,,0,,,
+1235,keydown,h,KeyH,char,0,602518.9,56898.372,2731122,missed,,0,,,
+1236,keyup,g,KeyG,char,0,602530.7,56910.172,2731688,missed,,0,,,
+1237,keyup,h,KeyH,char,0,602570.5,56949.972,2733599,missed,,0,,,
+1238,keydown,",",Comma,char,0,602674.7,57054.172,2738600,ambiguous,2 onsets in window,2,2733691,29.8,-102.271
+1239,keydown, ,Space,char,0,602717.0,57096.472,2740631,ambiguous,onset also claimed by another event,1,2734599,16.0,-125.667
+1240,keyup,",",Comma,char,0,602755.7,57135.172,2742488,matched,,1,2738029,18.8,-92.896
+1241,keyup, ,Space,char,0,602798.1,57177.572,2744523,ambiguous,onset also claimed by another event,1,2741599,14.3,-60.917
+1242,keydown,s,KeyS,char,0,602807.4,57186.872,2744970,ambiguous,onset also claimed by another event,1,2741599,14.3,-70.229
+1243,keyup,s,KeyS,char,0,602874.5,57253.972,2748191,missed,,0,,,
+1244,keydown,h,KeyH,char,0,602881.3,57260.772,2748517,missed,,0,,,
+1245,keyup,h,KeyH,char,0,602936.2,57315.672,2751152,missed,,0,,,
+1246,keydown,e,KeyE,char,0,602941.8,57321.272,2751421,ambiguous,onset also claimed by another event,1,2748766,22.9,-55.313
+1247,keyup,e,KeyE,char,0,603010.9,57390.372,2754738,ambiguous,onset also claimed by another event,1,2748766,22.9,-124.417
+1248,keydown, ,Space,char,0,603024.0,57403.472,2755367,missed,,0,,,
+1249,keyup, ,Space,char,0,603067.1,57446.572,2757435,missed,,0,,,
+1250,keydown,c,KeyC,char,0,603090.7,57470.172,2758568,missed,,0,,,
+1251,keydown,l,KeyL,char,0,603175.0,57554.472,2762615,missed,,0,,,
+1252,keyup,c,KeyC,char,0,603190.3,57569.772,2763349,missed,,0,,,
+1253,keyup,l,KeyL,char,0,603223.1,57602.572,2764923,missed,,0,,,
+1254,keydown,o,KeyO,char,0,603263.4,57642.872,2766858,ambiguous,onset also claimed by another event,1,2763437,17.9,-71.271
+1255,keydown,s,KeyS,char,0,603306.9,57686.372,2768946,ambiguous,onset also claimed by another event,1,2763437,17.9,-114.771
+1256,keydown,e,KeyE,char,0,603337.3,57716.772,2770405,missed,,0,,,
+1257,keyup,o,KeyO,char,0,603360.0,57739.472,2771495,missed,,0,,,
+1258,keyup,s,KeyS,char,0,603370.3,57749.772,2771989,missed,,0,,,
+1259,keyup,e,KeyE,char,0,603395.4,57774.872,2773194,missed,,0,,,
+1260,keydown,d,KeyD,char,0,603449.1,57828.572,2775771,matched,,1,2772261,20.9,-73.125
+1261,keyup,d,KeyD,char,0,603511.7,57891.172,2778776,missed,,0,,,
+1262,keydown, ,Space,char,0,603519.1,57898.572,2779131,missed,,0,,,
+1263,keyup, ,Space,char,0,603555.8,57935.272,2780893,missed,,0,,,
+1264,keydown,t,KeyT,char,0,603570.1,57949.572,2781579,missed,,0,,,
+1265,keydown,h,KeyH,char,0,603630.7,58010.172,2784488,missed,,0,,,
+1266,keyup,t,KeyT,char,0,603636.7,58016.172,2784776,missed,,0,,,
+1267,keydown,e,KeyE,char,0,603650.8,58030.272,2785453,missed,,0,,,
+1268,keyup,h,KeyH,char,0,603667.1,58046.572,2786235,matched,,1,2783049,25.6,-66.375
+1269,keydown, ,Space,char,0,603743.3,58122.772,2789893,missed,,0,,,
+1270,keyup,e,KeyE,char,0,603756.1,58135.572,2790507,missed,,0,,,
+1271,keyup, ,Space,char,0,603792.2,58171.672,2792240,missed,,0,,,
+1272,keydown,l,KeyL,char,0,603947.6,58327.072,2799699,missed,,0,,,
+1273,keyup,l,KeyL,char,0,604006.9,58386.372,2802546,matched,,1,2797819,12.4,-98.479
+1274,keydown,a,KeyA,char,0,604045.6,58425.072,2804403,missed,,0,,,
+1275,keyup,a,KeyA,char,0,604160.6,58540.072,2809923,ambiguous,onset also claimed by another event,1,2806499,26.0,-71.333
+1276,keydown,p,KeyP,char,0,604161.9,58541.372,2809986,ambiguous,onset also claimed by another event,1,2806499,26.0,-72.646
+1277,keyup,p,KeyP,char,0,604218.9,58598.372,2812722,ambiguous,onset also claimed by another event,1,2806499,26.0,-129.646
+1278,keydown,t,KeyT,char,0,604227.6,58607.072,2813139,missed,,0,,,
+1279,keyup,t,KeyT,char,0,604304.9,58684.372,2816850,missed,,0,,,
+1280,keydown,o,KeyO,char,0,604314.5,58693.972,2817311,missed,,0,,,
+1281,keyup,o,KeyO,char,0,604360.4,58739.872,2819514,missed,,0,,,
+1282,keydown,p,KeyP,char,0,604410.6,58790.072,2821923,missed,,0,,,
+1283,keyup,p,KeyP,char,0,604476.9,58856.372,2825106,matched,,1,2821200,17.0,-81.375
+1284,keydown,",",Comma,char,0,604542.8,58922.272,2828269,matched,,1,2823454,21.1,-100.313
+1285,keydown, ,Space,char,0,604597.6,58977.072,2830899,missed,,0,,,
+1286,keyup,",",Comma,char,0,604645.0,59024.472,2833175,matched,,1,2829221,14.3,-82.375
+1287,keyup, ,Space,char,0,604705.8,59085.272,2836093,missed,,0,,,
+1288,keydown,s,KeyS,char,0,604816.1,59195.572,2841387,missed,,0,,,
+1289,keyup,s,KeyS,char,0,604886.9,59266.372,2844786,matched,,1,2839757,19.3,-104.771
+1290,keydown,t,KeyT,char,0,604933.2,59312.672,2847008,missed,,0,,,
+1291,keydown,r,KeyR,char,0,605003.9,59383.372,2850402,missed,,0,,,
+1292,keyup,t,KeyT,char,0,605024.7,59404.172,2851400,missed,,0,,,
+1293,keyup,r,KeyR,char,0,605075.2,59454.672,2853824,missed,,0,,,
+1294,keydown,e,KeyE,char,0,605136.2,59515.672,2856752,missed,,0,,,
+1295,keydown,t,KeyT,char,0,605223.4,59602.872,2860938,missed,,0,,,
+1296,keyup,e,KeyE,char,0,605248.6,59628.072,2862147,missed,,0,,,
+1297,keyup,t,KeyT,char,0,605298.9,59678.372,2864562,missed,,0,,,
+1298,keydown,c,KeyC,char,0,605393.0,59772.472,2869079,matched,,1,2864000,18.1,-105.812
+1299,keydown,h,KeyH,char,0,605444.1,59823.572,2871531,missed,,0,,,
+1300,keyup,c,KeyC,char,0,605470.9,59850.372,2872818,missed,,0,,,
+1301,keyup,h,KeyH,char,0,605531.7,59911.172,2875736,missed,,0,,,
+1302,keydown,e,KeyE,char,0,605564.7,59944.172,2877320,missed,,0,,,
+1303,keyup,e,KeyE,char,0,605629.1,60008.572,2880411,missed,,0,,,
+1304,keydown,d,KeyD,char,0,605682.9,60062.372,2882994,matched,,1,2878662,24.3,-90.250
+1305,keydown, ,Space,char,0,605749.0,60128.472,2886167,ambiguous,onset also claimed by another event,1,2881645,19.2,-94.208
+1306,keyup,d,KeyD,char,0,605760.8,60140.272,2886733,ambiguous,onset also claimed by another event,1,2881645,19.2,-106.000
+1307,keyup, ,Space,char,0,605794.8,60174.272,2888365,ambiguous,onset also claimed by another event,1,2885433,14.4,-61.083
+1308,keydown,h,KeyH,char,0,605822.6,60202.072,2889699,ambiguous,2 onsets in window,2,2885433,14.4,-88.875
+1309,keyup,h,KeyH,char,0,605885.7,60265.172,2892728,ambiguous,2 onsets in window,2,2886712,23.0,-125.333
+1310,keydown,e,KeyE,char,0,605892.7,60272.172,2893064,ambiguous,2 onsets in window,2,2889724,26.4,-69.583
+1311,keydown,r,KeyR,char,0,605915.0,60294.472,2894135,ambiguous,onset also claimed by another event,1,2889724,26.4,-91.896
+1312,keyup,e,KeyE,char,0,605957.0,60336.472,2896151,ambiguous,2 onsets in window,2,2892623,12.5,-73.500
+1313,keyup,r,KeyR,char,0,605973.5,60352.972,2896943,ambiguous,onset also claimed by another event,1,2892623,12.5,-90.000
+1314,keydown, ,Space,char,0,605986.7,60366.172,2897576,ambiguous,onset also claimed by another event,1,2892623,12.5,-103.187
+1315,keyup, ,Space,char,0,606021.7,60401.172,2899256,ambiguous,onset also claimed by another event,1,2895190,26.3,-84.708
+1316,keydown,a,KeyA,char,0,606041.9,60421.372,2900226,ambiguous,onset also claimed by another event,1,2895190,26.3,-104.917
+1317,keydown,r,KeyR,char,0,606093.0,60472.472,2902679,ambiguous,onset also claimed by another event,1,2898557,22.3,-85.875
+1318,keyup,a,KeyA,char,0,606119.0,60498.472,2903927,ambiguous,onset also claimed by another event,1,2898557,22.3,-111.875
+1319,keyup,r,KeyR,char,0,606159.2,60538.672,2905856,missed,,0,,,
+1320,keydown,m,KeyM,char,0,606166.4,60545.872,2906202,missed,,0,,,
+1321,keyup,m,KeyM,char,0,606225.8,60605.272,2909053,missed,,0,,,
+1322,keydown,s,KeyS,char,0,606239.0,60618.472,2909687,ambiguous,onset also claimed by another event,1,2906681,15.4,-62.625
+1323,keyup,s,KeyS,char,0,606291.3,60670.772,2912197,ambiguous,onset also claimed by another event,1,2906681,15.4,-114.917
+1324,keydown,s,KeyS,char,0,606356.5,60735.972,2915327,missed,,0,,,
+1325,keydown,",",Comma,char,0,606365.7,60745.172,2915768,missed,,0,,,
+1326,keyup,",",Comma,char,0,606417.7,60797.172,2918264,missed,,0,,,
+1327,keyup,s,KeyS,char,0,606427.6,60807.072,2918739,missed,,0,,,
+1328,keydown,Backspace,Backspace,backspace,0,606977.4,61356.872,2945130,missed,,0,,,
+1329,keyup,Backspace,Backspace,backspace,0,607086.2,61465.672,2950352,missed,,0,,,
+1330,keydown,a,KeyA,char,0,607148.5,61527.972,2953343,matched,,1,2950632,25.2,-56.479
+1331,keyup,a,KeyA,char,0,607235.1,61614.572,2957499,missed,,0,,,
+1332,keydown,b,KeyB,char,0,607244.2,61623.672,2957936,missed,,0,,,
+1333,keydown,o,KeyO,char,0,607281.1,61660.572,2959707,missed,,0,,,
+1334,keyup,o,KeyO,char,0,607299.8,61679.272,2960605,missed,,0,,,
+1335,keydown,o,KeyO,char,0,607306.7,61686.172,2960936,missed,,0,,,
+1336,keyup,b,KeyB,char,0,607336.5,61715.972,2962367,missed,,0,,,
+1337,keyup,o,KeyO,char,0,607346.8,61726.272,2962861,missed,,0,,,
+1338,keydown,Backspace,Backspace,backspace,0,607495.4,61874.872,2969994,matched,,1,2964409,16.8,-116.354
+1339,keyup,Backspace,Backspace,backspace,0,607524.4,61903.872,2971386,missed,,0,,,
+1340,keydown,Backspace,Backspace,backspace,0,607606.3,61985.772,2975317,matched,,1,2971268,13.2,-84.354
+1341,keyup,Backspace,Backspace,backspace,0,607670.5,62049.972,2978399,missed,,0,,,
+1342,keydown,Backspace,Backspace,backspace,0,607755.5,62134.972,2982479,matched,,1,2978451,13.5,-83.917
+1343,keyup,Backspace,Backspace,backspace,0,607830.1,62209.572,2986059,missed,,0,,,
+1344,keydown,Backspace,Backspace,backspace,0,607893.9,62273.372,2989122,matched,,1,2985237,16.6,-80.938
+1345,keyup,Backspace,Backspace,backspace,0,607968.9,62348.372,2992722,missed,,0,,,
+1346,keydown,Backspace,Backspace,backspace,0,608039.2,62418.672,2996096,matched,,1,2992619,12.8,-72.437
+1347,keyup,Backspace,Backspace,backspace,0,608116.8,62496.272,2999821,ambiguous,onset also claimed by another event,1,2997188,19.8,-54.854
+1348,keydown,a,KeyA,char,0,608141.2,62520.672,3000992,ambiguous,onset also claimed by another event,1,2997188,19.8,-79.250
+1349,keydown, ,Space,char,0,608218.4,62597.872,3004698,ambiguous,onset also claimed by another event,1,3000505,16.6,-87.354
+1350,keyup,a,KeyA,char,0,608239.6,62619.072,3005715,ambiguous,onset also claimed by another event,1,3000505,16.6,-108.542
+1351,keyup, ,Space,char,0,608273.7,62653.172,3007352,missed,,0,,,
+1352,keydown,b,KeyB,char,0,608425.0,62804.472,3014615,missed,,0,,,
+1353,keydown,o,KeyO,char,0,608472.1,62851.572,3016875,missed,,0,,,
+1354,keyup,b,KeyB,char,0,608518.1,62897.572,3019083,missed,,0,,,
+1355,keyup,o,KeyO,char,0,608533.4,62912.872,3019818,missed,,0,,,
+1356,keydown,Backspace,Backspace,backspace,0,608688.3,63067.772,3027253,missed,,0,,,
+1357,keyup,Backspace,Backspace,backspace,0,608725.1,63104.572,3029019,missed,,0,,,
+1358,keydown,Backspace,Backspace,backspace,0,608805.9,63185.372,3032898,missed,,0,,,
+1359,keyup,Backspace,Backspace,backspace,0,608867.4,63246.872,3035850,missed,,0,,,
+1360,keydown,Backspace,Backspace,backspace,0,608945.3,63324.772,3039589,missed,,0,,,
+1361,keyup,Backspace,Backspace,backspace,0,609018.8,63398.272,3043117,missed,,0,,,
+1362,keydown,Backspace,Backspace,backspace,0,609086.9,63466.372,3046386,missed,,0,,,
+1363,keyup,Backspace,Backspace,backspace,0,609166.4,63545.872,3050202,matched,,1,3044952,21.1,-109.375
+1364,keydown, ,Space,char,0,609205.8,63585.272,3052093,matched,,1,3049130,17.3,-61.729
+1365,keyup, ,Space,char,0,609335.1,63714.572,3058299,missed,,0,,,
+1366,keydown,a,KeyA,char,0,609523.1,63902.572,3067323,missed,,0,,,
+1367,keyup,a,KeyA,char,0,609550.9,63930.372,3068658,missed,,0,,,
+1368,keydown,b,KeyB,char,0,609626.8,64006.272,3072301,missed,,0,,,
+1369,keyup,b,KeyB,char,0,609668.1,64047.572,3074283,missed,,0,,,
+1370,keydown,o,KeyO,char,0,609858.5,64237.972,3083423,missed,,0,,,
+1371,keydown,v,KeyV,char,0,609953.9,64333.372,3088002,missed,,0,,,
+1372,keyup,o,KeyO,char,0,609967.1,64346.572,3088635,ambiguous,onset also claimed by another event,1,3085940,25.0,-56.146
+1373,keydown,e,KeyE,char,0,609992.3,64371.772,3089845,ambiguous,2 onsets in window,2,3085940,25.0,-81.354
+1374,keyup,v,KeyV,char,0,610024.0,64403.472,3091367,ambiguous,2 onsets in window,2,3087206,20.7,-86.688
+1375,keydown, ,Space,char,0,610075.1,64454.572,3093819,missed,,0,,,
+1376,keyup,e,KeyE,char,0,610089.0,64468.472,3094487,missed,,0,,,
+1377,keyup, ,Space,char,0,610098.1,64477.572,3094923,missed,,0,,,
+1378,keydown,h,KeyH,char,0,610161.5,64540.972,3097967,matched,,1,3092808,23.1,-107.479
+1379,keyup,h,KeyH,char,0,610223.3,64602.772,3100933,ambiguous,onset also claimed by another event,1,3098185,29.8,-57.250
+1380,keydown,e,KeyE,char,0,610232.6,64612.072,3101379,ambiguous,onset also claimed by another event,1,3098185,29.8,-66.542
+1381,keydown,r,KeyR,char,0,610262.7,64642.172,3102824,ambiguous,2 onsets in window,2,3098185,29.8,-96.646
+1382,keyup,e,KeyE,char,0,610303.7,64683.172,3104792,ambiguous,onset also claimed by another event,1,3100007,22.8,-99.688
+1383,keydown, ,Space,char,0,610329.2,64708.672,3106016,ambiguous,onset also claimed by another event,1,3100007,22.8,-125.188
+1384,keyup,r,KeyR,char,0,610341.3,64720.772,3106597,missed,,0,,,
+1385,keyup, ,Space,char,0,610354.2,64733.672,3107216,missed,,0,,,
+1386,keydown,h,KeyH,char,0,610408.9,64788.372,3109842,missed,,0,,,
+1387,keydown,e,KeyE,char,0,610476.7,64856.172,3113096,missed,,0,,,
+1388,keyup,h,KeyH,char,0,610493.3,64872.772,3113893,missed,,0,,,
+1389,keyup,e,KeyE,char,0,610543.1,64922.572,3116283,missed,,0,,,
+1390,keydown,a,KeyA,char,0,610568.0,64947.472,3117479,missed,,0,,,
+1391,keydown,d,KeyD,char,0,610640.0,65019.472,3120935,missed,,0,,,
+1392,keyup,a,KeyA,char,0,610660.4,65039.872,3121914,missed,,0,,,
+1393,keyup,d,KeyD,char,0,610716.3,65095.772,3124597,missed,,0,,,
+1394,keydown,",",Comma,char,0,610927.8,65307.272,3134749,missed,,0,,,
+1395,keydown, ,Space,char,0,610983.3,65362.772,3137413,ambiguous,2 onsets in window,2,3132713,13.0,-97.917
+1396,keyup,",",Comma,char,0,611054.1,65433.572,3140811,ambiguous,onset also claimed by another event,1,3134521,16.7,-131.042
+1397,keyup, ,Space,char,0,611081.1,65460.572,3142107,ambiguous,onset also claimed by another event,1,3139021,29.1,-64.292
+1398,keydown,a,KeyA,char,0,611120.7,65500.172,3144008,ambiguous,onset also claimed by another event,1,3139021,29.1,-103.896
+1399,keydown,n,KeyN,char,0,611208.8,65588.272,3148237,missed,,0,,,
+1400,keyup,a,KeyA,char,0,611213.3,65592.772,3148453,ambiguous,onset also claimed by another event,1,3145828,23.3,-54.688
+1401,keyup,n,KeyN,char,0,611258.4,65637.872,3150618,ambiguous,onset also claimed by another event,1,3145828,23.3,-99.792
+1402,keydown,d,KeyD,char,0,611270.1,65649.572,3151179,ambiguous,2 onsets in window,2,3145828,23.3,-111.479
+1403,keydown, ,Space,char,0,611328.2,65707.672,3153968,ambiguous,onset also claimed by another event,1,3148273,16.6,-118.646
+1404,keyup,d,KeyD,char,0,611348.7,65728.172,3154952,missed,,0,,,
+1405,keyup, ,Space,char,0,611361.0,65740.472,3155543,missed,,0,,,
+1406,keydown,l,KeyL,char,0,611449.3,65828.772,3159781,missed,,0,,,
+1407,keyup,l,KeyL,char,0,611520.7,65900.172,3163208,missed,,0,,,
+1408,keydown,o,KeyO,char,0,611584.0,65963.472,3166247,missed,,0,,,
+1409,keyup,o,KeyO,char,0,611640.9,66020.372,3168978,missed,,0,,,
+1410,keydown,o,KeyO,char,0,611704.7,66084.172,3172040,missed,,0,,,
+1411,keydown,k,KeyK,char,0,611746.0,66125.472,3174023,missed,,0,,,
+1412,keydown,e,KeyE,char,0,611837.1,66216.572,3178395,missed,,0,,,
+1413,keyup,o,KeyO,char,0,611849.2,66228.672,3178976,missed,,0,,,
+1414,keyup,k,KeyK,char,0,611866.2,66245.672,3179792,missed,,0,,,
+1415,keyup,e,KeyE,char,0,611932.6,66312.072,3182979,ambiguous,onset also claimed by another event,1,3180177,13.9,-58.375
+1416,keydown,d,KeyD,char,0,611952.6,66332.072,3183939,ambiguous,onset also claimed by another event,1,3180177,13.9,-78.375
+1417,keydown, ,Space,char,0,612039.5,66418.972,3188111,ambiguous,onset also claimed by another event,1,3183699,15.2,-91.917
+1418,keyup,d,KeyD,char,0,612050.9,66430.372,3188658,ambiguous,onset also claimed by another event,1,3183699,15.2,-103.313
+1419,keyup, ,Space,char,0,612099.3,66478.772,3190981,missed,,0,,,
+1420,keydown,o,KeyO,char,0,612175.9,66555.372,3194658,matched,,1,3189860,14.4,-99.958
+1421,keydown,u,KeyU,char,0,612243.0,66622.472,3197879,missed,,0,,,
+1422,keyup,o,KeyO,char,0,612319.6,66699.072,3201555,ambiguous,onset also claimed by another event,1,3196662,36.1,-101.937
+1423,keyup,u,KeyU,char,0,612333.8,66713.272,3202237,ambiguous,onset also claimed by another event,1,3196662,36.1,-116.146
+1424,keydown,t,KeyT,char,0,612379.8,66759.272,3204445,ambiguous,onset also claimed by another event,1,3201605,35.2,-59.167
+1425,keyup,t,KeyT,char,0,612449.5,66828.972,3207791,ambiguous,2 onsets in window,2,3201605,35.2,-128.875
+1426,keydown, ,Space,char,0,612478.1,66857.572,3209163,ambiguous,onset also claimed by another event,1,3205148,16.4,-83.646
+1427,keyup, ,Space,char,0,612545.3,66924.772,3212389,missed,,0,,,
+1428,keydown,t,KeyT,char,0,612795.7,67175.172,3224408,missed,,0,,,
+1429,keyup,t,KeyT,char,0,612843.7,67223.172,3226712,missed,,0,,,
+1430,keydown,Backspace,Backspace,backspace,0,613020.2,67399.672,3235184,missed,,0,,,
+1431,keyup,Backspace,Backspace,backspace,0,613071.9,67451.372,3237666,ambiguous,onset also claimed by another event,1,3234943,24.1,-56.729
+1432,keydown,a,KeyA,char,0,613127.5,67506.972,3240335,ambiguous,2 onsets in window,2,3234943,24.1,-112.333
+1433,keydown,t,KeyT,char,0,613178.2,67557.672,3242768,ambiguous,onset also claimed by another event,1,3236749,22.4,-125.396
+1434,keydown, ,Space,char,0,613247.5,67626.972,3246095,ambiguous,onset also claimed by another event,1,3241897,13.7,-87.458
+1435,keyup,a,KeyA,char,0,613253.0,67632.472,3246359,ambiguous,onset also claimed by another event,1,3241897,13.7,-92.958
+1436,keyup,t,KeyT,char,0,613253.0,67632.472,3246359,ambiguous,onset also claimed by another event,1,3241897,13.7,-92.958
+1437,keyup, ,Space,char,0,613264.1,67643.572,3246891,ambiguous,onset also claimed by another event,1,3241897,13.7,-104.042
+1438,keydown,t,KeyT,char,0,613322.8,67702.272,3249709,missed,,0,,,
+1439,keydown,h,KeyH,char,0,613347.8,67727.272,3250909,missed,,0,,,
+1440,keyup,t,KeyT,char,0,613388.9,67768.372,3252882,missed,,0,,,
+1441,keyup,h,KeyH,char,0,613397.8,67777.272,3253309,missed,,0,,,
+1442,keydown,e,KeyE,char,0,613449.3,67828.772,3255781,matched,,1,3251377,17.0,-91.750
+1443,keyup,e,KeyE,char,0,613518.2,67897.672,3259088,missed,,0,,,
+1444,keydown, ,Space,char,0,613528.0,67907.472,3259559,missed,,0,,,
+1445,keyup, ,Space,char,0,613632.6,68012.072,3264579,missed,,0,,,
+1446,keydown,s,KeyS,char,0,613841.5,68220.972,3274607,matched,,1,3270776,13.8,-79.813
+1447,keyup,s,KeyS,char,0,613923.2,68302.672,3278528,missed,,0,,,
+1448,keydown,l,KeyL,char,0,613924.1,68303.572,3278571,missed,,0,,,
+1449,keyup,l,KeyL,char,0,613980.1,68359.572,3281259,missed,,0,,,
+1450,keydown,e,KeyE,char,0,614057.7,68437.172,3284984,matched,,1,3280564,14.5,-92.083
+1451,keyup,e,KeyE,char,0,614131.9,68511.372,3288546,missed,,0,,,
+1452,keydown,e,KeyE,char,0,614176.4,68555.872,3290682,missed,,0,,,
+1453,keydown,p,KeyP,char,0,614250.0,68629.472,3294215,missed,,0,,,
+1454,keyup,e,KeyE,char,0,614268.3,68647.772,3295093,missed,,0,,,
+1455,keyup,p,KeyP,char,0,614322.3,68701.772,3297685,missed,,0,,,
+1456,keydown,y,KeyY,char,0,614341.4,68720.872,3298602,missed,,0,,,
+1457,keydown, ,Space,char,0,614372.1,68751.572,3300075,ambiguous,onset also claimed by another event,1,3297199,14.1,-59.917
+1458,keyup,y,KeyY,char,0,614430.7,68810.172,3302888,ambiguous,2 onsets in window,2,3297199,14.1,-118.521
+1459,keyup, ,Space,char,0,614464.5,68843.972,3304511,ambiguous,onset also claimed by another event,1,3299082,17.9,-113.104
+1460,keydown,s,KeyS,char,0,614473.3,68852.772,3304933,ambiguous,onset also claimed by another event,1,3299082,17.9,-121.896
+1461,keydown,t,KeyT,char,0,614514.3,68893.772,3306901,missed,,0,,,
+1462,keyup,s,KeyS,char,0,614565.4,68944.872,3309354,missed,,0,,,
+1463,keydown,r,KeyR,char,0,614581.0,68960.472,3310103,missed,,0,,,
+1464,keyup,t,KeyT,char,0,614604.8,68984.272,3311245,missed,,0,,,
+1465,keyup,r,KeyR,char,0,614636.9,69016.372,3312786,missed,,0,,,
+1466,keydown,e,KeyE,char,0,614710.9,69090.372,3316338,missed,,0,,,
+1467,keyup,e,KeyE,char,0,614767.5,69146.972,3319055,missed,,0,,,
+1468,keydown,e,KeyE,char,0,614826.9,69206.372,3321906,missed,,0,,,
+1469,keydown,t,KeyT,char,0,614904.1,69283.572,3325611,ambiguous,2 onsets in window,2,3320192,12.6,-112.896
+1470,keyup,e,KeyE,char,0,614929.1,69308.572,3326811,ambiguous,onset also claimed by another event,1,3321988,28.3,-100.479
+1471,keydown,.,Period,char,0,614953.7,69333.172,3327992,ambiguous,onset also claimed by another event,1,3321988,28.3,-125.083
+1472,keyup,t,KeyT,char,0,614972.7,69352.172,3328904,missed,,0,,,
+1473,keydown, ,Space,char,0,614994.3,69373.772,3329941,missed,,0,,,
+1474,keyup,.,Period,char,0,615040.5,69419.972,3332159,missed,,0,,,
+1475,keyup, ,Space,char,0,615060.9,69440.372,3333138,missed,,0,,,
+1476,keydown,Shift,ShiftLeft,modifier,0,615081.4,69460.872,3334122,missed,,0,,,
+1477,keydown,S,KeyS,char,0,615209.3,69588.772,3340261,ambiguous,onset also claimed by another event,1,3335126,15.0,-106.979
+1478,keyup,Shift,ShiftLeft,modifier,0,615217.7,69597.172,3340664,ambiguous,onset also claimed by another event,1,3335126,15.0,-115.375
+1479,keydown,h,KeyH,char,0,615269.5,69648.972,3343151,missed,,0,,,
+1480,keyup,s,KeyS,char,0,615278.8,69658.272,3343597,missed,,0,,,
+1481,keyup,h,KeyH,char,0,615333.8,69713.272,3346237,ambiguous,onset also claimed by another event,1,3343218,27.2,-62.896
+1482,keydown,e,KeyE,char,0,615374.1,69753.572,3348171,ambiguous,onset also claimed by another event,1,3343218,27.2,-103.188
+1483,keydown, ,Space,char,0,615436.5,69815.972,3351167,missed,,0,,,
+1484,keyup,e,KeyE,char,0,615450.6,69830.072,3351843,missed,,0,,,
+1485,keydown,p,KeyP,char,0,615469.4,69848.872,3352746,missed,,0,,,
+1486,keyup, ,Space,char,0,615501.1,69880.572,3354267,missed,,0,,,
+1487,keyup,p,KeyP,char,0,615558.5,69937.972,3357023,matched,,1,3352618,17.6,-91.771
+1488,keydown,r,KeyR,char,0,615628.9,70008.372,3360402,missed,,0,,,
+1489,keyup,r,KeyR,char,0,615737.6,70117.072,3365619,missed,,0,,,
+1490,keydown,c,KeyC,char,0,615790.1,70169.572,3368139,missed,,0,,,
+1491,keyup,c,KeyC,char,0,615814.8,70194.272,3369325,missed,,0,,,
+1492,keydown,Backspace,Backspace,backspace,0,616007.4,70386.872,3378570,missed,,0,,,
+1493,keyup,Backspace,Backspace,backspace,0,616052.8,70432.272,3380749,missed,,0,,,
+1494,keydown,a,KeyA,char,0,616165.1,70544.572,3386139,missed,,0,,,
+1495,keydown,c,KeyC,char,0,616190.4,70569.872,3387354,missed,,0,,,
+1496,keyup,a,KeyA,char,0,616225.4,70604.872,3389034,missed,,0,,,
+1497,keyup,c,KeyC,char,0,616266.4,70645.872,3391002,missed,,0,,,
+1498,keydown,t,KeyT,char,0,616322.0,70701.472,3393671,missed,,0,,,
+1499,keyup,t,KeyT,char,0,616373.7,70753.172,3396152,matched,,1,3391121,18.9,-104.813
+1500,keydown,i,KeyI,char,0,616434.3,70813.772,3399061,missed,,0,,,
+1501,keydown,c,KeyC,char,0,616488.7,70868.172,3401672,missed,,0,,,
+1502,keyup,i,KeyI,char,0,616509.5,70888.972,3402671,missed,,0,,,
+1503,keyup,c,KeyC,char,0,616531.1,70910.572,3403707,missed,,0,,,
+1504,keydown,Backspace,Backspace,backspace,0,616839.1,71218.572,3418491,missed,,0,,,
+1505,keyup,Backspace,Backspace,backspace,0,616859.7,71239.172,3419480,missed,,0,,,
+1506,keydown,s,KeyS,char,0,616919.9,71299.372,3422370,missed,,0,,,
+1507,keydown,e,KeyE,char,0,616975.4,71354.872,3425034,missed,,0,,,
+1508,keyup,s,KeyS,char,0,617016.1,71395.572,3426987,missed,,0,,,
+1509,keyup,e,KeyE,char,0,617062.2,71441.672,3429200,missed,,0,,,
+1510,keydown,d,KeyD,char,0,617120.2,71499.672,3431984,matched,,1,3428697,18.2,-68.479
+1511,keyup,d,KeyD,char,0,617208.5,71587.972,3436223,missed,,0,,,
+1512,keydown, ,Space,char,0,617217.7,71597.172,3436664,missed,,0,,,
+1513,keyup, ,Space,char,0,617265.2,71644.672,3438944,matched,,1,3436210,18.6,-56.958
+1514,keydown,t,KeyT,char,0,617368.2,71747.672,3443888,ambiguous,onset also claimed by another event,1,3439780,20.1,-85.583
+1515,keyup,t,KeyT,char,0,617415.6,71795.072,3446163,ambiguous,onset also claimed by another event,1,3439780,20.1,-132.979
+1516,keydown,h,KeyH,char,0,617453.5,71832.972,3447983,missed,,0,,,
+1517,keydown,e,KeyE,char,0,617468.7,71848.172,3448712,missed,,0,,,
+1518,keyup,h,KeyH,char,0,617512.3,71891.772,3450805,matched,,1,3447611,29.4,-66.542
+1519,keyup,e,KeyE,char,0,617586.7,71966.172,3454376,missed,,0,,,
+1520,keydown, ,Space,char,0,617605.8,71985.272,3455293,missed,,0,,,
+1521,keyup, ,Space,char,0,617631.7,72011.172,3456536,missed,,0,,,
+1522,keydown,v,KeyV,char,0,617732.8,72112.272,3461389,matched,,1,3455916,12.9,-114.021
+1523,keydown,i,KeyI,char,0,617785.2,72164.672,3463904,missed,,0,,,
+1524,keydown,o,KeyO,char,0,617815.0,72194.472,3465335,missed,,0,,,
+1525,keyup,v,KeyV,char,0,617829.7,72209.172,3466040,missed,,0,,,
+1526,keyup,i,KeyI,char,0,617874.6,72254.072,3468195,missed,,0,,,
+1527,keyup,o,KeyO,char,0,617895.1,72274.572,3469179,missed,,0,,,
+1528,keydown,l,KeyL,char,0,617999.0,72378.472,3474167,matched,,1,3467850,15.4,-131.604
+1529,keydown,i,KeyI,char,0,618003.2,72382.672,3474368,missed,,0,,,
+1530,keydown,n,KeyN,char,0,618076.5,72455.972,3477887,missed,,0,,,
+1531,keyup,l,KeyL,char,0,618114.9,72494.372,3479730,missed,,0,,,
+1532,keyup,i,KeyI,char,0,618122.9,72502.372,3480114,missed,,0,,,
+1533,keydown, ,Space,char,0,618132.1,72511.572,3480555,ambiguous,onset also claimed by another event,1,3477517,16.6,-63.292
+1534,keyup,n,KeyN,char,0,618158.4,72537.872,3481818,ambiguous,onset also claimed by another event,1,3477517,16.6,-89.604
+1535,keyup, ,Space,char,0,618227.7,72607.172,3485144,missed,,0,,,
+1536,keydown,f,KeyF,char,0,618268.7,72648.172,3487112,matched,,1,3482961,21.8,-86.479
+1537,keyup,f,KeyF,char,0,618340.7,72720.172,3490568,missed,,0,,,
+1538,keydown,o,KeyO,char,0,618349.7,72729.172,3491000,missed,,0,,,
+1539,keyup,o,KeyO,char,0,618401.6,72781.072,3493491,ambiguous,onset also claimed by another event,1,3489776,26.9,-77.396
+1540,keydown,r,KeyR,char,0,618410.8,72790.272,3493933,ambiguous,2 onsets in window,2,3489776,26.9,-86.604
+1541,keyup,r,KeyR,char,0,618466.9,72846.372,3496626,ambiguous,onset also claimed by another event,1,3491140,18.9,-114.292
+1542,keydown, ,Space,char,0,618482.8,72862.272,3497389,ambiguous,onset also claimed by another event,1,3491140,18.9,-130.187
+1543,keyup, ,Space,char,0,618507.2,72886.672,3498560,missed,,0,,,
+1544,keydown,w,KeyW,char,0,618636.9,73016.372,3504786,missed,,0,,,
+1545,keyup,w,KeyW,char,0,618665.7,73045.172,3506168,missed,,0,,,
+1546,keydown,Backspace,Backspace,backspace,0,618902.8,73282.272,3517549,missed,,0,,,
+1547,keyup,Backspace,Backspace,backspace,0,618949.1,73328.572,3519771,missed,,0,,,
+1548,keydown,t,KeyT,char,0,618965.8,73345.272,3520573,missed,,0,,,
+1549,keydown,w,KeyW,char,0,619012.8,73392.272,3522829,ambiguous,onset also claimed by another event,1,3517982,26.6,-100.979
+1550,keyup,t,KeyT,char,0,619040.6,73420.072,3524163,ambiguous,2 onsets in window,2,3521116,27.4,-63.479
+1551,keydown,o,KeyO,char,0,619073.8,73453.272,3525757,ambiguous,onset also claimed by another event,1,3521116,27.4,-96.688
+1552,keyup,w,KeyW,char,0,619106.2,73485.672,3527312,ambiguous,onset also claimed by another event,1,3521116,27.4,-129.083
+1553,keydown, ,Space,char,0,619145.5,73524.972,3529199,matched,,1,3525176,13.1,-83.813
+1554,keyup,o,KeyO,char,0,619196.3,73575.772,3531637,missed,,0,,,
+1555,keyup, ,Space,char,0,619212.2,73591.672,3532400,missed,,0,,,
+1556,keydown,h,KeyH,char,0,619338.7,73718.172,3538472,missed,,0,,,
+1557,keyup,h,KeyH,char,0,619435.8,73815.272,3543133,ambiguous,onset also claimed by another event,1,3540104,13.6,-63.104
+1558,keydown,o,KeyO,char,0,619459.2,73838.672,3544256,ambiguous,onset also claimed by another event,1,3540104,13.6,-86.500
+1559,keydown,u,KeyU,char,0,619530.5,73909.972,3547679,matched,,1,3542641,13.2,-104.958
+1560,keydown,r,KeyR,char,0,619591.4,73970.872,3550602,missed,,0,,,
+1561,keyup,o,KeyO,char,0,619607.5,73986.972,3551375,missed,,0,,,
+1562,keyup,u,KeyU,char,0,619622.9,74002.372,3552114,ambiguous,onset also claimed by another event,1,3548907,32.8,-66.812
+1563,keydown,s,KeyS,char,0,619631.8,74011.272,3552541,ambiguous,onset also claimed by another event,1,3548907,32.8,-75.708
+1564,keyup,r,KeyR,char,0,619678.8,74058.272,3554797,ambiguous,onset also claimed by another event,1,3548907,32.8,-122.708
+1565,keyup,s,KeyS,char,0,619719.4,74098.872,3556746,missed,,0,,,
+1566,keydown, ,Space,char,0,619728.0,74107.472,3557159,missed,,0,,,
+1567,keyup, ,Space,char,0,619774.9,74154.372,3559410,missed,,0,,,
+1568,keydown,e,KeyE,char,0,619840.4,74219.872,3562554,missed,,0,,,
+1569,keyup,e,KeyE,char,0,619911.4,74290.872,3565962,missed,,0,,,
+1570,keydown,v,KeyV,char,0,619965.0,74344.472,3568535,matched,,1,3564995,13.2,-73.750
+1571,keyup,v,KeyV,char,0,620039.5,74418.972,3572111,ambiguous,onset also claimed by another event,1,3568984,15.2,-65.146
+1572,keydown,e,KeyE,char,0,620099.0,74478.472,3574967,ambiguous,2 onsets in window,2,3568984,15.2,-124.646
+1573,keydown,r,KeyR,char,0,620142.3,74521.772,3577045,ambiguous,onset also claimed by another event,1,3572287,20.9,-99.125
+1574,keydown,y,KeyY,char,0,620158.5,74537.972,3577823,ambiguous,onset also claimed by another event,1,3572287,20.9,-115.333
+1575,keyup,e,KeyE,char,0,620179.9,74559.372,3578850,missed,,0,,,
+1576,keydown, ,Space,char,0,620209.2,74588.672,3580256,missed,,0,,,
+1577,keyup,r,KeyR,char,0,620220.4,74599.872,3580794,ambiguous,onset also claimed by another event,1,3578144,18.8,-55.208
+1578,keyup,y,KeyY,char,0,620281.1,74660.572,3583707,ambiguous,onset also claimed by another event,1,3578144,18.8,-115.896
+1579,keyup, ,Space,char,0,620314.9,74694.372,3585330,missed,,0,,,
+1580,keydown,e,KeyE,char,0,620486.1,74865.572,3593547,missed,,0,,,
+1581,keyup,e,KeyE,char,0,620584.8,74964.272,3598285,missed,,0,,,
+1582,keydown,v,KeyV,char,0,620638.2,75017.672,3600848,missed,,0,,,
+1583,keydown,e,KeyE,char,0,620683.3,75062.772,3603013,ambiguous,onset also claimed by another event,1,3598986,24.4,-83.896
+1584,keyup,v,KeyV,char,0,620709.2,75088.672,3604256,ambiguous,onset also claimed by another event,1,3598986,24.4,-109.792
+1585,keydown,n,KeyN,char,0,620769.1,75148.572,3607131,missed,,0,,,
+1586,keyup,e,KeyE,char,0,620792.1,75171.572,3608235,missed,,0,,,
+1587,keydown,i,KeyI,char,0,620799.2,75178.672,3608576,missed,,0,,,
+1588,keyup,n,KeyN,char,0,620835.6,75215.072,3610323,missed,,0,,,
+1589,keydown,n,KeyN,char,0,620881.5,75260.972,3612527,ambiguous,onset also claimed by another event,1,3608079,32.6,-92.667
+1590,keyup,i,KeyI,char,0,620911.8,75291.272,3613981,ambiguous,onset also claimed by another event,1,3608079,32.6,-122.958
+1591,keyup,n,KeyN,char,0,620947.8,75327.272,3615709,ambiguous,onset also claimed by another event,1,3612498,27.9,-66.896
+1592,keydown,g,KeyG,char,0,620966.2,75345.672,3616592,ambiguous,onset also claimed by another event,1,3612498,27.9,-85.292
+1593,keyup,g,KeyG,char,0,621028.3,75407.772,3619573,ambiguous,onset also claimed by another event,1,3615046,23.4,-94.313
+1594,keydown,",",Comma,char,0,621064.0,75443.472,3621287,ambiguous,2 onsets in window,2,3617177,14.4,-85.625
+1595,keydown, ,Space,char,0,621118.3,75497.772,3623893,matched,,1,3619801,12.6,-85.250
+1596,keyup,",",Comma,char,0,621169.6,75549.072,3626355,missed,,0,,,
+1597,keyup, ,Space,char,0,621205.4,75584.872,3628074,missed,,0,,,
+1598,keydown,e,KeyE,char,0,621331.2,75710.672,3634112,missed,,0,,,
+1599,keyup,e,KeyE,char,0,621418.6,75798.072,3638307,missed,,0,,,
+1600,keydown,v,KeyV,char,0,621448.1,75827.572,3639723,ambiguous,onset also claimed by another event,1,3636712,19.6,-62.729
+1601,keydown,e,KeyE,char,0,621517.2,75896.672,3643040,ambiguous,onset also claimed by another event,1,3636712,19.6,-131.833
+1602,keyup,v,KeyV,char,0,621544.5,75923.972,3644351,missed,,0,,,
+1603,keydown,n,KeyN,char,0,621576.1,75955.572,3645867,missed,,0,,,
+1604,keyup,e,KeyE,char,0,621595.3,75974.772,3646789,missed,,0,,,
+1605,keydown, ,Space,char,0,621625.8,76005.272,3648253,missed,,0,,,
+1606,keyup,n,KeyN,char,0,621655.7,76035.172,3649688,missed,,0,,,
+1607,keydown,w,KeyW,char,0,621676.2,76055.672,3650672,missed,,0,,,
+1608,keyup, ,Space,char,0,621702.2,76081.672,3651920,missed,,0,,,
+1609,keydown,h,KeyH,char,0,621732.3,76111.772,3653365,ambiguous,onset also claimed by another event,1,3650024,13.4,-69.604
+1610,keyup,w,KeyW,char,0,621744.9,76124.372,3653970,ambiguous,onset also claimed by another event,1,3650024,13.4,-82.208
+1611,keyup,h,KeyH,char,0,621772.9,76152.372,3655314,ambiguous,2 onsets in window,2,3650024,13.4,-110.208
+1612,keydown,e,KeyE,char,0,621800.6,76180.072,3656643,ambiguous,onset also claimed by another event,1,3652536,21.6,-85.563
+1613,keydown,n,KeyN,char,0,621853.1,76232.572,3659163,missed,,0,,,
+1614,keyup,e,KeyE,char,0,621864.2,76243.672,3659696,missed,,0,,,
+1615,keydown, ,Space,char,0,621898.1,76277.572,3661323,ambiguous,onset also claimed by another event,1,3657681,20.2,-75.875
+1616,keyup,n,KeyN,char,0,621929.1,76308.572,3662811,ambiguous,2 onsets in window,2,3657681,20.2,-106.875
+1617,keydown,h,KeyH,char,0,621978.7,76358.172,3665192,ambiguous,onset also claimed by another event,1,3660045,12.6,-107.229
+1618,keyup, ,Space,char,0,622005.3,76384.772,3666469,ambiguous,onset also claimed by another event,1,3660045,12.6,-133.833
+1619,keydown,e,KeyE,char,0,622024.2,76403.672,3667376,ambiguous,onset also claimed by another event,1,3663903,27.1,-72.354
+1620,keyup,h,KeyH,char,0,622042.6,76422.072,3668259,ambiguous,onset also claimed by another event,1,3663903,27.1,-90.750
+1621,keydown,r,KeyR,char,0,622057.3,76436.772,3668965,ambiguous,onset also claimed by another event,1,3663903,27.1,-105.458
+1622,keyup,e,KeyE,char,0,622116.6,76496.072,3671811,missed,,0,,,
+1623,keyup,r,KeyR,char,0,622117.5,76496.972,3671855,missed,,0,,,
+1624,keydown, ,Space,char,0,622134.0,76513.472,3672647,missed,,0,,,
+1625,keyup, ,Space,char,0,622168.2,76547.672,3674288,missed,,0,,,
+1626,keydown,f,KeyF,char,0,622213.1,76592.572,3676443,ambiguous,onset also claimed by another event,1,3672378,22.8,-84.688
+1627,keydown,i,KeyI,char,0,622257.3,76636.772,3678565,ambiguous,2 onsets in window,2,3674327,16.0,-88.292
+1628,keyup,f,KeyF,char,0,622278.3,76657.772,3679573,ambiguous,onset also claimed by another event,1,3674327,16.0,-109.292
+1629,keydown,n,KeyN,char,0,622314.7,76694.172,3681320,missed,,0,,,
+1630,keydown,g,KeyG,char,0,622355.5,76734.972,3683279,missed,,0,,,
+1631,keyup,i,KeyI,char,0,622384.1,76763.572,3684651,missed,,0,,,
+1632,keyup,g,KeyG,char,0,622401.9,76781.372,3685506,missed,,0,,,
+1633,keyup,n,KeyN,char,0,622410.8,76790.272,3685933,missed,,0,,,
+1634,keydown,e,KeyE,char,0,622440.9,76820.372,3687378,missed,,0,,,
+1635,keydown,r,KeyR,char,0,622491.7,76871.172,3689816,ambiguous,onset also claimed by another event,1,3685527,17.9,-89.354
+1636,keyup,e,KeyE,char,0,622518.6,76898.072,3691107,ambiguous,onset also claimed by another event,1,3685527,17.9,-116.250
+1637,keyup,r,KeyR,char,0,622569.1,76948.572,3693531,ambiguous,onset also claimed by another event,1,3688976,26.8,-94.896
+1638,keydown,s,KeyS,char,0,622582.5,76961.972,3694175,ambiguous,onset also claimed by another event,1,3688976,26.8,-108.312
+1639,keydown, ,Space,char,0,622659.1,77038.572,3697851,missed,,0,,,
+1640,keyup,s,KeyS,char,0,622670.5,77049.972,3698399,missed,,0,,,
+1641,keyup, ,Space,char,0,622710.7,77090.172,3700328,missed,,0,,,
+1642,keydown,a,KeyA,char,0,622906.6,77286.072,3709731,missed,,0,,,
+1643,keyup,a,KeyA,char,0,622989.2,77368.672,3713696,missed,,0,,,
+1644,keydown,c,KeyC,char,0,623072.5,77451.972,3717695,missed,,0,,,
+1645,keyup,c,KeyC,char,0,623135.9,77515.372,3720738,ambiguous,onset also claimed by another event,1,3716000,15.5,-98.708
+1646,keydown,h,KeyH,char,0,623160.3,77539.772,3721909,ambiguous,onset also claimed by another event,1,3716000,15.5,-123.104
+1647,keydown,e,KeyE,char,0,623221.4,77600.872,3724842,missed,,0,,,
+1648,keyup,h,KeyH,char,0,623232.1,77611.572,3725355,missed,,0,,,
+1649,keyup,e,KeyE,char,0,623283.8,77663.272,3727837,ambiguous,onset also claimed by another event,1,3723851,22.2,-83.042
+1650,keydown,d,KeyD,char,0,623330.3,77709.772,3730069,ambiguous,onset also claimed by another event,1,3723851,22.2,-129.542
+1651,keydown, ,Space,char,0,623387.3,77766.772,3732805,missed,,0,,,
+1652,keyup,d,KeyD,char,0,623408.6,77788.072,3733827,ambiguous,onset also claimed by another event,1,3731202,28.2,-54.688
+1653,keyup, ,Space,char,0,623446.6,77826.072,3735651,ambiguous,onset also claimed by another event,1,3731202,28.2,-92.688
+1654,keydown,a,KeyA,char,0,623477.4,77856.872,3737130,ambiguous,onset also claimed by another event,1,3731202,28.2,-123.500
+1655,keyup,a,KeyA,char,0,623540.4,77919.872,3740154,ambiguous,onset also claimed by another event,1,3735767,16.5,-91.396
+1656,keydown,n,KeyN,char,0,623550.3,77929.772,3740629,ambiguous,onset also claimed by another event,1,3735767,16.5,-101.292
+1657,keyup,n,KeyN,char,0,623632.0,78011.472,3744551,ambiguous,onset also claimed by another event,1,3739546,29.0,-104.271
+1658,keydown,d,KeyD,char,0,623659.5,78038.972,3745871,ambiguous,onset also claimed by another event,1,3739546,29.0,-131.771
+1659,keyup,d,KeyD,char,0,623701.5,78080.972,3747887,missed,,0,,,
+1660,keydown, ,Space,char,0,623721.0,78100.472,3748823,missed,,0,,,
+1661,keyup, ,Space,char,0,623763.6,78143.072,3750867,matched,,1,3748089,26.4,-57.875
+1662,keydown,t,KeyT,char,0,623890.7,78270.172,3756968,matched,,1,3750808,22.8,-128.333
+1663,keydown,h,KeyH,char,0,623949.4,78328.872,3759786,missed,,0,,,
+1664,keyup,t,KeyT,char,0,623959.4,78338.872,3760266,missed,,0,,,
+1665,keyup,h,KeyH,char,0,624002.0,78381.472,3762311,ambiguous,onset also claimed by another event,1,3757944,33.2,-90.979
+1666,keydown,e,KeyE,char,0,624034.8,78414.272,3763885,ambiguous,3 onsets in window,3,3760554,16.4,-69.396
+1667,keydown, ,Space,char,0,624154.1,78533.572,3769611,missed,,0,,,
+1668,keyup,e,KeyE,char,0,624173.6,78553.072,3770547,missed,,0,,,
+1669,keyup, ,Space,char,0,624176.0,78555.472,3770663,missed,,0,,,
+1670,keydown,n,KeyN,char,0,624177.5,78556.972,3770735,missed,,0,,,
+1671,keyup,n,KeyN,char,0,624238.8,78618.272,3773677,missed,,0,,,
+1672,keydown,i,KeyI,char,0,624358.6,78738.072,3779427,missed,,0,,,
+1673,keyup,i,KeyI,char,0,624381.6,78761.072,3780531,missed,,0,,,
+1674,keydown,i,KeyI,char,0,624442.5,78821.972,3783455,missed,,0,,,
+1675,keyup,i,KeyI,char,0,624533.4,78912.872,3787818,missed,,0,,,
+1676,keydown,Backspace,Backspace,backspace,0,624809.1,79188.572,3801051,missed,,0,,,
+1677,keyup,Backspace,Backspace,backspace,0,624867.0,79246.472,3803831,missed,,0,,,
+1678,keydown,Backspace,Backspace,backspace,0,624936.8,79316.272,3807181,matched,,1,3803373,13.3,-79.333
+1679,keyup,Backspace,Backspace,backspace,0,625012.0,79391.472,3810791,missed,,0,,,
+1680,keydown,e,KeyE,char,0,625042.8,79422.272,3812269,missed,,0,,,
+1681,keydown,i,KeyI,char,0,625104.0,79483.472,3815207,ambiguous,onset also claimed by another event,1,3810411,15.2,-99.917
+1682,keyup,e,KeyE,char,0,625116.2,79495.672,3815792,ambiguous,2 onsets in window,2,3810411,15.2,-112.104
+1683,keyup,i,KeyI,char,0,625169.3,79548.772,3818341,ambiguous,onset also claimed by another event,1,3812671,16.5,-118.125
+1684,keydown,g,KeyG,char,0,625190.7,79570.172,3819368,missed,,0,,,
+1685,keydown,h,KeyH,char,0,625245.6,79625.072,3822003,missed,,0,,,
+1686,keyup,g,KeyG,char,0,625257.4,79636.872,3822570,missed,,0,,,
+1687,keyup,h,KeyH,char,0,625314.0,79693.472,3825287,missed,,0,,,
+1688,keydown,t,KeyT,char,0,625340.6,79720.072,3826563,missed,,0,,,
+1689,keyup,t,KeyT,char,0,625361.7,79741.172,3827576,missed,,0,,,
+1690,keydown,b,KeyB,char,0,625412.3,79791.772,3830005,missed,,0,,,
+1691,keyup,b,KeyB,char,0,625470.8,79850.272,3832813,missed,,0,,,
+1692,keydown,Backspace,Backspace,backspace,0,625652.5,80031.972,3841535,missed,,0,,,
+1693,keyup,Backspace,Backspace,backspace,0,625672.5,80051.972,3842495,missed,,0,,,
+1694,keydown,Backspace,Backspace,backspace,0,625734.1,80113.572,3845451,ambiguous,onset also claimed by another event,1,3842308,17.6,-65.479
+1695,keyup,Backspace,Backspace,backspace,0,625793.9,80173.372,3848322,ambiguous,3 onsets in window,3,3844088,20.0,-88.208
+1696,keydown,b,KeyB,char,0,625867.2,80246.672,3851840,missed,,0,,,
+1697,keydown,o,KeyO,char,0,625916.2,80295.672,3854192,ambiguous,onset also claimed by another event,1,3850920,16.0,-68.167
+1698,keyup,b,KeyB,char,0,625955.6,80335.072,3856083,ambiguous,onset also claimed by another event,1,3850920,16.0,-107.563
+1699,keydown,u,KeyU,char,0,625995.7,80375.172,3858008,missed,,0,,,
+1700,keydown,r,KeyR,char,0,626054.9,80434.372,3860850,missed,,0,,,
+1701,keyup,o,KeyO,char,0,626081.6,80461.072,3862131,ambiguous,onset also claimed by another event,1,3858636,19.0,-72.812
+1702,keyup,u,KeyU,char,0,626083.3,80462.772,3862213,ambiguous,onset also claimed by another event,1,3858636,19.0,-74.521
+1703,keyup,r,KeyR,char,0,626107.6,80487.072,3863379,ambiguous,onset also claimed by another event,1,3858636,19.0,-98.812
+1704,keydown,s,KeyS,char,0,626206.1,80585.572,3868107,matched,,1,3864023,34.8,-85.083
+1705,keyup,s,KeyS,char,0,626289.3,80668.772,3872101,ambiguous,onset also claimed by another event,1,3867589,21.7,-94.000
+1706,keydown, ,Space,char,0,626323.7,80703.172,3873752,ambiguous,onset also claimed by another event,1,3867589,21.7,-128.396
+1707,keyup, ,Space,char,0,626385.1,80764.572,3876699,missed,,0,,,
+1708,keydown,c,KeyC,char,0,626787.3,81166.772,3896005,matched,,1,3890497,18.1,-114.750
+1709,keydown,o,KeyO,char,0,626843.3,81222.772,3898693,missed,,0,,,
+1710,keyup,c,KeyC,char,0,626863.9,81243.372,3899682,missed,,0,,,
+1711,keydown,m,KeyM,char,0,626908.6,81288.072,3901827,missed,,0,,,
+1712,keyup,o,KeyO,char,0,626919.8,81299.272,3902365,missed,,0,,,
+1713,keydown,p,KeyP,char,0,626984.8,81364.272,3905485,missed,,0,,,
+1714,keyup,m,KeyM,char,0,627010.6,81390.072,3906723,missed,,0,,,
+1715,keyup,p,KeyP,char,0,627041.2,81420.672,3908192,missed,,0,,,
+1716,keydown,l,KeyL,char,0,627096.2,81475.672,3910832,missed,,0,,,
+1717,keydown,a,KeyA,char,0,627161.9,81541.372,3913986,ambiguous,2 onsets in window,2,3908335,22.3,-117.729
+1718,keyup,l,KeyL,char,0,627175.4,81554.872,3914634,ambiguous,3 onsets in window,3,3910171,14.2,-92.979
+1719,keyup,a,KeyA,char,0,627239.7,81619.172,3917720,ambiguous,onset also claimed by another event,1,3911381,14.9,-132.063
+1720,keydown,i,KeyI,char,0,627248.8,81628.272,3918157,missed,,0,,,
+1721,keydown,n,KeyN,char,0,627293.5,81672.972,3920303,missed,,0,,,
+1722,keydown,e,KeyE,char,0,627333.6,81713.072,3922227,missed,,0,,,
+1723,keyup,i,KeyI,char,0,627350.0,81729.472,3923015,missed,,0,,,
+1724,keyup,e,KeyE,char,0,627365.2,81744.672,3923744,ambiguous,onset also claimed by another event,1,3920783,23.0,-61.687
+1725,keyup,n,KeyN,char,0,627375.3,81754.772,3924229,ambiguous,onset also claimed by another event,1,3920783,23.0,-71.792
+1726,keydown,d,KeyD,char,0,627465.9,81845.372,3928578,matched,,1,3922659,32.4,-123.312
+1727,keydown,.,Period,char,0,627506.1,81885.572,3930507,ambiguous,onset also claimed by another event,1,3927860,13.0,-55.146
+1728,keyup,d,KeyD,char,0,627543.1,81922.572,3932283,ambiguous,onset also claimed by another event,1,3927860,13.0,-92.146
+1729,keydown, ,Space,char,0,627551.5,81930.972,3932687,ambiguous,onset also claimed by another event,1,3927860,13.0,-100.562
+1730,keyup,.,Period,char,0,627628.8,82008.272,3936397,missed,,0,,,
+1731,keyup, ,Space,char,0,627653.5,82032.972,3937583,missed,,0,,,
+1732,keydown,Shift,ShiftLeft,modifier,0,627669.3,82048.772,3938341,missed,,0,,,
+1733,keydown,Z,KeyZ,char,0,627715.4,82094.872,3940554,missed,,0,,,
+1734,keyup,Shift,ShiftLeft,modifier,0,627776.9,82156.372,3943506,missed,,0,,,
+1735,keyup,z,KeyZ,char,0,627821.7,82201.172,3945656,missed,,0,,,
+1736,keydown,e,KeyE,char,0,627918.0,82297.472,3950279,matched,,1,3946821,19.7,-72.042
+1737,keyup,e,KeyE,char,0,628031.7,82411.172,3955736,ambiguous,onset also claimed by another event,1,3951997,23.1,-77.896
+1738,keydown,b,KeyB,char,0,628043.6,82423.072,3956307,ambiguous,onset also claimed by another event,1,3951997,23.1,-89.792
+1739,keyup,b,KeyB,char,0,628130.5,82509.972,3960479,ambiguous,onset also claimed by another event,1,3955776,23.4,-97.979
+1740,keydown,r,KeyR,char,0,628155.0,82534.472,3961655,ambiguous,onset also claimed by another event,1,3955776,23.4,-122.479
+1741,keyup,r,KeyR,char,0,628226.9,82606.372,3965106,missed,,0,,,
+1742,keydown,a,KeyA,char,0,628236.2,82615.672,3965552,matched,,1,3962918,29.4,-54.875
+1743,keydown,s,KeyS,char,0,628321.3,82700.772,3969637,ambiguous,onset also claimed by another event,1,3965550,13.8,-85.146
+1744,keyup,a,KeyA,char,0,628365.0,82744.472,3971735,ambiguous,2 onsets in window,2,3967373,12.3,-90.875
+1745,keydown,",",Comma,char,0,628391.9,82771.372,3973026,ambiguous,2 onsets in window,2,3969863,17.5,-65.896
+1746,keyup,s,KeyS,char,0,628440.2,82819.672,3975344,ambiguous,2 onsets in window,2,3970844,23.5,-93.750
+1747,keydown, ,Space,char,0,628453.3,82832.772,3975973,ambiguous,2 onsets in window,2,3970844,23.5,-106.854
+1748,keyup,",",Comma,char,0,628484.5,82863.972,3977471,missed,,0,,,
+1749,keyup, ,Space,char,0,628524.3,82903.772,3979381,ambiguous,onset also claimed by another event,1,3975046,14.3,-90.313
+1750,keydown,g,KeyG,char,0,628544.7,82924.172,3980360,ambiguous,onset also claimed by another event,1,3975046,14.3,-110.708
+1751,keyup,g,KeyG,char,0,628596.2,82975.672,3982832,missed,,0,,,
+1752,keydown,i,KeyI,char,0,628635.9,83015.372,3984738,matched,,1,3981196,17.8,-73.792
+1753,keyup,i,KeyI,char,0,628703.3,83082.772,3987973,missed,,0,,,
+1754,keydown,r,KeyR,char,0,628763.6,83143.072,3990867,ambiguous,onset also claimed by another event,1,3988154,13.2,-56.521
+1755,keyup,r,KeyR,char,0,628820.5,83199.972,3993599,ambiguous,onset also claimed by another event,1,3988154,13.2,-113.438
+1756,keydown,a,KeyA,char,0,628925.5,83304.972,3998639,missed,,0,,,
+1757,keyup,a,KeyA,char,0,629022.6,83402.072,4003299,missed,,0,,,
+1758,keydown,f,KeyF,char,0,629067.9,83447.372,4005474,missed,,0,,,
+1759,keyup,f,KeyF,char,0,629189.9,83569.372,4011330,missed,,0,,,
+1760,keydown,f,KeyF,char,0,629235.0,83614.472,4013495,missed,,0,,,
+1761,keydown,e,KeyE,char,0,629255.1,83634.572,4014459,missed,,0,,,
+1762,keyup,f,KeyF,char,0,629296.7,83676.172,4016456,ambiguous,onset also claimed by another event,1,4012710,17.2,-78.042
+1763,keyup,e,KeyE,char,0,629318.6,83698.072,4017507,ambiguous,onset also claimed by another event,1,4012710,17.2,-99.938
+1764,keydown,e,KeyE,char,0,629388.3,83767.772,4020853,ambiguous,onset also claimed by another event,1,4016948,23.1,-81.354
+1765,keydown,s,KeyS,char,0,629407.3,83786.772,4021765,ambiguous,onset also claimed by another event,1,4016948,23.1,-100.354
+1766,keyup,e,KeyE,char,0,629440.8,83820.272,4023373,ambiguous,2 onsets in window,2,4020230,18.2,-65.479
+1767,keyup,s,KeyS,char,0,629521.4,83900.872,4027242,missed,,0,,,
+1768,keydown,",",Comma,char,0,629522.9,83902.372,4027314,missed,,0,,,
+1769,keydown, ,Space,char,0,629577.1,83956.572,4029915,missed,,0,,,
+1770,keyup,",",Comma,char,0,629623.6,84003.072,4032147,missed,,0,,,
+1771,keyup, ,Space,char,0,629660.8,84040.272,4033933,missed,,0,,,
+1772,keydown,Backspace,Backspace,backspace,0,629840.3,84219.772,4042549,missed,,0,,,
+1773,keyup,Backspace,Backspace,backspace,0,629880.8,84260.272,4044493,missed,,0,,,
+1774,keydown,Backspace,Backspace,backspace,0,629961.7,84341.172,4048376,missed,,0,,,
+1775,keyup,Backspace,Backspace,backspace,0,630011.3,84390.772,4050757,missed,,0,,,
+1776,keydown,Backspace,Backspace,backspace,0,630100.3,84479.772,4055029,missed,,0,,,
+1777,keyup,Backspace,Backspace,backspace,0,630149.4,84528.872,4057386,missed,,0,,,
+1778,keydown,Backspace,Backspace,backspace,0,630224.4,84603.872,4060986,missed,,0,,,
+1779,keyup,Backspace,Backspace,backspace,0,630297.3,84676.772,4064485,ambiguous,2 onsets in window,2,4059108,30.0,-112.021
+1780,keydown,s,KeyS,char,0,630320.4,84699.872,4065594,ambiguous,onset also claimed by another event,1,4061392,19.0,-87.542
+1781,keydown,",",Comma,char,0,630391.7,84771.172,4069016,ambiguous,2 onsets in window,2,4063542,14.1,-114.042
+1782,keyup,s,KeyS,char,0,630402.8,84782.272,4069549,ambiguous,2 onsets in window,2,4064661,14.6,-101.833
+1783,keydown, ,Space,char,0,630436.9,84816.372,4071186,missed,,0,,,
+1784,keydown,a,KeyA,char,0,630477.4,84856.872,4073130,missed,,0,,,
+1785,keyup,",",Comma,char,0,630489.6,84869.072,4073715,missed,,0,,,
+1786,keyup, ,Space,char,0,630499.0,84878.472,4074167,missed,,0,,,
+1787,keyup,a,KeyA,char,0,630564.8,84944.272,4077325,ambiguous,onset also claimed by another event,1,4073509,25.8,-79.500
+1788,keydown,n,KeyN,char,0,630574.6,84954.072,4077795,ambiguous,onset also claimed by another event,1,4073509,25.8,-89.292
+1789,keydown,d,KeyD,char,0,630609.3,84988.772,4079461,ambiguous,onset also claimed by another event,1,4073509,25.8,-124.000
+1790,keyup,n,KeyN,char,0,630620.4,84999.872,4079994,missed,,0,,,
+1791,keyup,d,KeyD,char,0,630680.1,85059.572,4082859,missed,,0,,,
+1792,keydown, ,Space,char,0,630685.3,85064.772,4083109,missed,,0,,,
+1793,keyup, ,Space,char,0,630752.4,85131.872,4086330,missed,,0,,,
+1794,keydown,e,KeyE,char,0,630760.9,85140.372,4086738,missed,,0,,,
+1795,keydown,l,KeyL,char,0,630811.7,85191.172,4089176,missed,,0,,,
+1796,keyup,e,KeyE,char,0,630823.9,85203.372,4089762,missed,,0,,,
+1797,keyup,l,KeyL,char,0,630873.5,85252.972,4092143,missed,,0,,,
+1798,keydown,e,KeyE,char,0,630899.0,85278.472,4093367,ambiguous,onset also claimed by another event,1,4090162,16.0,-66.771
+1799,keyup,e,KeyE,char,0,630955.7,85335.172,4096088,ambiguous,onset also claimed by another event,1,4090162,16.0,-123.458
+1800,keydown,p,KeyP,char,0,630964.0,85343.472,4096487,ambiguous,onset also claimed by another event,1,4090162,16.0,-131.771
+1801,keydown,h,KeyH,char,0,631034.4,85413.872,4099866,missed,,0,,,
+1802,keyup,p,KeyP,char,0,631045.3,85424.772,4100389,missed,,0,,,
+1803,keyup,h,KeyH,char,0,631125.4,85504.872,4104234,ambiguous,onset also claimed by another event,1,4099791,14.0,-92.562
+1804,keydown,a,KeyA,char,0,631130.9,85510.372,4104498,ambiguous,onset also claimed by another event,1,4099791,14.0,-98.062
+1805,keyup,a,KeyA,char,0,631230.4,85609.872,4109274,ambiguous,onset also claimed by another event,1,4105864,16.1,-71.042
+1806,keydown,n,KeyN,char,0,631238.0,85617.472,4109639,ambiguous,onset also claimed by another event,1,4105864,16.1,-78.646
+1807,keyup,n,KeyN,char,0,631313.9,85693.372,4113282,missed,,0,,,
+1808,keydown,t,KeyT,char,0,631359.9,85739.372,4115490,missed,,0,,,
+1809,keydown,s,KeyS,char,0,631441.6,85821.072,4119411,ambiguous,onset also claimed by another event,1,4114845,23.0,-95.125
+1810,keyup,t,KeyT,char,0,631466.7,85846.172,4120616,ambiguous,onset also claimed by another event,1,4114845,23.0,-120.229
+1811,keyup,s,KeyS,char,0,631543.3,85922.772,4124293,missed,,0,,,
+1812,keydown, ,Space,char,0,631552.5,85931.972,4124735,missed,,0,,,
+1813,keyup, ,Space,char,0,631618.4,85997.872,4127898,missed,,0,,,
+1814,keydown,g,KeyG,char,0,631709.2,86088.672,4132256,missed,,0,,,
+1815,keyup,g,KeyG,char,0,631719.6,86099.072,4132755,missed,,0,,,
+1816,keydown,a,KeyA,char,0,631915.5,86294.972,4142159,missed,,0,,,
+1817,keyup,a,KeyA,char,0,632024.8,86404.272,4147405,matched,,1,4141883,20.7,-115.042
+1818,keydown,t,KeyT,char,0,632109.8,86489.272,4151485,missed,,0,,,
+1819,keydown,h,KeyH,char,0,632137.5,86516.972,4152815,missed,,0,,,
+1820,keyup,t,KeyT,char,0,632187.6,86567.072,4155219,missed,,0,,,
+1821,keyup,h,KeyH,char,0,632189.0,86568.472,4155287,missed,,0,,,
+1822,keydown,e,KeyE,char,0,632350.4,86729.872,4163034,missed,,0,,,
+1823,keyup,e,KeyE,char,0,632493.2,86872.672,4169888,missed,,0,,,
+1824,keydown,r,KeyR,char,0,632512.2,86891.672,4170800,missed,,0,,,
+1825,keyup,r,KeyR,char,0,632564.8,86944.272,4173325,matched,,1,4169737,15.3,-74.750
+1826,keydown,e,KeyE,char,0,632694.9,87074.372,4179570,missed,,0,,,
+1827,keyup,e,KeyE,char,0,632773.7,87153.172,4183352,missed,,0,,,
+1828,keydown,d,KeyD,char,0,632847.2,87226.672,4186880,matched,,1,4182038,17.4,-100.875
+1829,keyup,d,KeyD,char,0,632943.7,87323.172,4191512,ambiguous,onset also claimed by another event,1,4185594,13.3,-123.292
+1830,keydown, ,Space,char,0,632952.9,87332.372,4191954,ambiguous,onset also claimed by another event,1,4185594,13.3,-132.500
+1831,keyup, ,Space,char,0,633015.2,87394.672,4194944,matched,,1,4191810,24.2,-65.292
+1832,keydown,a,KeyA,char,0,633099.9,87479.372,4199010,ambiguous,onset also claimed by another event,1,4195345,27.9,-76.354
+1833,keydown,t,KeyT,char,0,633156.6,87536.072,4201731,ambiguous,onset also claimed by another event,1,4195345,27.9,-133.042
+1834,keyup,a,KeyA,char,0,633197.0,87576.472,4203671,ambiguous,onset also claimed by another event,1,4200965,14.2,-56.375
+1835,keyup,t,KeyT,char,0,633211.8,87591.272,4204381,ambiguous,onset also claimed by another event,1,4200965,14.2,-71.167
+1836,keydown, ,Space,char,0,633222.4,87601.872,4204890,ambiguous,onset also claimed by another event,1,4200965,14.2,-81.771
+1837,keyup, ,Space,char,0,633287.2,87666.672,4208000,missed,,0,,,
+1838,keydown,t,KeyT,char,0,633297.7,87677.172,4208504,missed,,0,,,
+1839,keydown,h,KeyH,char,0,633342.4,87721.872,4210650,ambiguous,onset also claimed by another event,1,4207154,30.0,-72.833
+1840,keyup,t,KeyT,char,0,633353.2,87732.672,4211168,ambiguous,onset also claimed by another event,1,4207154,30.0,-83.625
+1841,keydown,e,KeyE,char,0,633384.3,87763.772,4212661,ambiguous,onset also claimed by another event,1,4207154,30.0,-114.729
+1842,keyup,h,KeyH,char,0,633394.2,87773.672,4213136,ambiguous,2 onsets in window,2,4207154,30.0,-124.625
+1843,keyup,e,KeyE,char,0,633449.7,87829.172,4215800,ambiguous,onset also claimed by another event,1,4210175,14.5,-117.188
+1844,keydown, ,Space,char,0,633473.4,87852.872,4216938,missed,,0,,,
+1845,keyup, ,Space,char,0,633522.1,87901.572,4219275,missed,,0,,,
+1846,keydown,w,KeyW,char,0,633686.1,88065.572,4227147,missed,,0,,,
+1847,keyup,w,KeyW,char,0,633769.0,88148.472,4231127,matched,,1,4224956,20.0,-128.563
+1848,keydown,a,KeyA,char,0,633823.4,88202.872,4233738,missed,,0,,,
+1849,keydown,t,KeyT,char,0,633843.7,88223.172,4234712,missed,,0,,,
+1850,keyup,t,KeyT,char,0,633901.9,88281.372,4237506,missed,,0,,,
+1851,keyup,a,KeyA,char,0,633912.2,88291.672,4238000,missed,,0,,,
+1852,keydown,e,KeyE,char,0,633926.0,88305.472,4238663,missed,,0,,,
+1853,keydown,r,KeyR,char,0,633965.2,88344.672,4240544,ambiguous,onset also claimed by another event,1,4236952,21.0,-74.833
+1854,keyup,e,KeyE,char,0,634015.7,88395.172,4242968,ambiguous,onset also claimed by another event,1,4236952,21.0,-125.333
+1855,keyup,r,KeyR,char,0,634047.3,88426.772,4244485,ambiguous,onset also claimed by another event,1,4240707,17.7,-78.708
+1856,keydown,h,KeyH,char,0,634092.6,88472.072,4246659,ambiguous,onset also claimed by another event,1,4240707,17.7,-124.000
+1857,keydown,o,KeyO,char,0,634172.3,88551.772,4250485,ambiguous,onset also claimed by another event,1,4247127,15.2,-69.958
+1858,keyup,h,KeyH,char,0,634210.0,88589.472,4252295,ambiguous,onset also claimed by another event,1,4247127,15.2,-107.667
+1859,keyup,o,KeyO,char,0,634224.3,88603.772,4252981,ambiguous,onset also claimed by another event,1,4247127,15.2,-121.958
+1860,keydown,l,KeyL,char,0,634300.5,88679.972,4256639,missed,,0,,,
+1861,keydown,e,KeyE,char,0,634371.7,88751.172,4260056,ambiguous,onset also claimed by another event,1,4254374,28.5,-118.375
+1862,keyup,l,KeyL,char,0,634386.0,88765.472,4260743,ambiguous,onset also claimed by another event,1,4254374,28.5,-132.688
+1863,keyup,e,KeyE,char,0,634432.9,88812.372,4262994,ambiguous,onset also claimed by another event,1,4258383,14.9,-96.063
+1864,keydown, ,Space,char,0,634452.5,88831.972,4263935,ambiguous,onset also claimed by another event,1,4258383,14.9,-115.667
+1865,keyup, ,Space,char,0,634492.6,88872.072,4265859,ambiguous,onset also claimed by another event,1,4263034,30.7,-58.854
+1866,keydown,a,KeyA,char,0,634497.9,88877.372,4266114,ambiguous,onset also claimed by another event,1,4263034,30.7,-64.167
+1867,keydown,s,KeyS,char,0,634538.5,88917.972,4268063,ambiguous,2 onsets in window,2,4264128,15.2,-81.979
+1868,keyup,a,KeyA,char,0,634589.7,88969.172,4270520,ambiguous,onset also claimed by another event,1,4264128,15.2,-133.167
+1869,keyup,s,KeyS,char,0,634610.0,88989.472,4271495,ambiguous,onset also claimed by another event,1,4267925,16.9,-74.375
+1870,keydown, ,Space,char,0,634635.2,89014.672,4272704,ambiguous,onset also claimed by another event,1,4267925,16.9,-99.563
+1871,keydown,t,KeyT,char,0,634659.2,89038.672,4273856,ambiguous,onset also claimed by another event,1,4267925,16.9,-123.563
+1872,keyup, ,Space,char,0,634670.4,89049.872,4274394,missed,,0,,,
+1873,keyup,t,KeyT,char,0,634727.6,89107.072,4277139,ambiguous,onset also claimed by another event,1,4274214,34.1,-60.937
+1874,keydown,h,KeyH,char,0,634736.3,89115.772,4277557,ambiguous,onset also claimed by another event,1,4274214,34.1,-69.646
+1875,keydown,e,KeyE,char,0,634751.8,89131.272,4278301,ambiguous,2 onsets in window,2,4274214,34.1,-85.146
+1876,keyup,h,KeyH,char,0,634788.0,89167.472,4280039,ambiguous,2 onsets in window,2,4275604,21.7,-92.396
+1877,keyup,e,KeyE,char,0,634801.9,89181.372,4280706,ambiguous,onset also claimed by another event,1,4275604,21.7,-106.292
+1878,keydown, ,Space,char,0,634867.8,89247.272,4283869,ambiguous,2 onsets in window,2,4279130,18.7,-98.729
+1879,keyup, ,Space,char,0,634899.5,89278.972,4285391,ambiguous,2 onsets in window,2,4280207,27.0,-108.000
+1880,keydown,s,KeyS,char,0,634909.3,89288.772,4285861,ambiguous,onset also claimed by another event,1,4280207,27.0,-117.792
+1881,keydown,u,KeyU,char,0,634974.5,89353.972,4288991,ambiguous,onset also claimed by another event,1,4286193,18.3,-58.292
+1882,keyup,s,KeyS,char,0,634993.7,89373.172,4289912,ambiguous,onset also claimed by another event,1,4286193,18.3,-77.479
+1883,keydown,n,KeyN,char,0,634999.5,89378.972,4290191,ambiguous,onset also claimed by another event,1,4286193,18.3,-83.292
+1884,keyup,u,KeyU,char,0,635056.3,89435.772,4292917,ambiguous,onset also claimed by another event,1,4289702,15.3,-66.979
+1885,keyup,n,KeyN,char,0,635106.7,89486.172,4295336,ambiguous,onset also claimed by another event,1,4289702,15.3,-117.375
+1886,keydown, ,Space,char,0,635114.8,89494.272,4295725,ambiguous,onset also claimed by another event,1,4289702,15.3,-125.479
+1887,keyup, ,Space,char,0,635182.7,89562.172,4298984,missed,,0,,,
+1888,keydown,d,KeyD,char,0,635227.4,89606.872,4301130,missed,,0,,,
+1889,keyup,d,KeyD,char,0,635268.6,89648.072,4303107,missed,,0,,,
+1890,keydown,i,KeyI,char,0,635307.9,89687.372,4304994,missed,,0,,,
+1891,keyup,i,KeyI,char,0,635359.8,89739.272,4307485,missed,,0,,,
+1892,keydown,p,KeyP,char,0,635409.9,89789.372,4309890,missed,,0,,,
+1893,keyup,p,KeyP,char,0,635496.5,89875.972,4314047,missed,,0,,,
+1894,keydown,p,KeyP,char,0,635555.3,89934.772,4316869,missed,,0,,,
+1895,keydown,e,KeyE,char,0,635639.5,90018.972,4320911,missed,,0,,,
+1896,keyup,p,KeyP,char,0,635664.1,90043.572,4322091,ambiguous,onset also claimed by another event,1,4318808,24.4,-68.396
+1897,keyup,e,KeyE,char,0,635716.8,90096.272,4324621,ambiguous,onset also claimed by another event,1,4318808,24.4,-121.104
+1898,keydown,d,KeyD,char,0,635753.2,90132.672,4326368,missed,,0,,,
+1899,keydown, ,Space,char,0,635797.4,90176.872,4328490,ambiguous,onset also claimed by another event,1,4324294,12.9,-87.417
+1900,keyup,d,KeyD,char,0,635842.5,90221.972,4330655,ambiguous,onset also claimed by another event,1,4324294,12.9,-132.521
+1901,keyup, ,Space,char,0,635848.4,90227.872,4330938,ambiguous,onset also claimed by another event,1,4328267,17.6,-55.646
+1902,keydown,b,KeyB,char,0,635908.9,90288.372,4333842,ambiguous,onset also claimed by another event,1,4328267,17.6,-116.146
+1903,keyup,b,KeyB,char,0,635975.4,90354.872,4337034,missed,,0,,,
+1904,keydown,e,KeyE,char,0,635997.0,90376.472,4338071,missed,,0,,,
+1905,keyup,e,KeyE,char,0,636071.1,90450.572,4341627,missed,,0,,,
+1906,keydown,l,KeyL,char,0,636085.5,90464.972,4342319,missed,,0,,,
+1907,keyup,l,KeyL,char,0,636138.6,90518.072,4344867,matched,,1,4341183,15.4,-76.750
+1908,keydown,o,KeyO,char,0,636202.4,90581.872,4347930,ambiguous,onset also claimed by another event,1,4344653,28.2,-68.271
+1909,keyup,o,KeyO,char,0,636264.1,90643.572,4350891,ambiguous,2 onsets in window,2,4344653,28.2,-129.958
+1910,keydown,w,KeyW,char,0,636273.7,90653.172,4351352,ambiguous,onset also claimed by another event,1,4348112,20.2,-67.500
+1911,keyup,w,KeyW,char,0,636319.4,90698.872,4353546,ambiguous,onset also claimed by another event,1,4348112,20.2,-113.208
+1912,keydown, ,Space,char,0,636333.8,90713.272,4354237,ambiguous,onset also claimed by another event,1,4348112,20.2,-127.604
+1913,keyup, ,Space,char,0,636375.0,90754.472,4356215,missed,,0,,,
+1914,keydown,t,KeyT,char,0,636404.9,90784.372,4357650,missed,,0,,,
+1915,keydown,h,KeyH,char,0,636441.4,90820.872,4359402,ambiguous,onset also claimed by another event,1,4355773,31.4,-75.604
+1916,keyup,t,KeyT,char,0,636464.5,90843.972,4360511,ambiguous,onset also claimed by another event,1,4355773,31.4,-98.708
+1917,keyup,h,KeyH,char,0,636486.5,90865.972,4361567,ambiguous,2 onsets in window,2,4358120,14.0,-71.812
+1918,keydown,e,KeyE,char,0,636510.8,90890.272,4362733,ambiguous,onset also claimed by another event,1,4358120,14.0,-96.104
+1919,keydown, ,Space,char,0,636582.8,90962.272,4366189,ambiguous,onset also claimed by another event,1,4360742,15.6,-113.479
+1920,keyup,e,KeyE,char,0,636602.8,90982.272,4367149,ambiguous,2 onsets in window,2,4364108,22.4,-63.354
+1921,keyup, ,Space,char,0,636614.0,90993.472,4367687,ambiguous,onset also claimed by another event,1,4364108,22.4,-74.562
+1922,keydown,h,KeyH,char,0,636647.6,91027.072,4369299,ambiguous,onset also claimed by another event,1,4364108,22.4,-108.146
+1923,keydown,o,KeyO,char,0,636683.2,91062.672,4371008,missed,,0,,,
+1924,keyup,h,KeyH,char,0,636734.6,91114.072,4373475,missed,,0,,,
+1925,keyup,o,KeyO,char,0,636753.0,91132.472,4374359,missed,,0,,,
+1926,keydown,r,KeyR,char,0,636759.6,91139.072,4374675,missed,,0,,,
+1927,keyup,r,KeyR,char,0,636822.7,91202.172,4377704,missed,,0,,,
+1928,keydown,i,KeyI,char,0,636830.6,91210.072,4378083,ambiguous,onset also claimed by another event,1,4375329,21.6,-57.375
+1929,keyup,i,KeyI,char,0,636893.4,91272.872,4381098,ambiguous,2 onsets in window,2,4376535,21.4,-95.062
+1930,keydown,z,KeyZ,char,0,636913.1,91292.572,4382043,ambiguous,onset also claimed by another event,1,4376535,21.4,-114.750
+1931,keyup,z,KeyZ,char,0,636983.6,91363.072,4385427,missed,,0,,,
+1932,keydown,o,KeyO,char,0,636992.7,91372.172,4385864,missed,,0,,,
+1933,keydown,i,KeyI,char,0,637002.7,91382.172,4386344,missed,,0,,,
+1934,keyup,i,KeyI,char,0,637018.0,91397.472,4387079,missed,,0,,,
+1935,keydown,n,KeyN,char,0,637027.5,91406.972,4387535,missed,,0,,,
+1936,keyup,n,KeyN,char,0,637165.2,91544.672,4394144,missed,,0,,,
+1937,keyup,o,KeyO,char,0,637168.4,91547.872,4394298,missed,,0,,,
+1938,keydown,.,Period,char,0,637186.2,91565.672,4395152,ambiguous,onset also claimed by another event,1,4392224,12.5,-61.000
+1939,keydown, ,Space,char,0,637210.2,91589.672,4396304,ambiguous,onset also claimed by another event,1,4392224,12.5,-85.000
+1940,keyup,.,Period,char,0,637251.8,91631.272,4398301,ambiguous,onset also claimed by another event,1,4392224,12.5,-126.604
+1941,keyup, ,Space,char,0,637283.3,91662.772,4399813,missed,,0,,,
+1942,keydown,Shift,ShiftLeft,modifier,0,637291.4,91670.872,4400202,missed,,0,,,
+1943,keyup,Shift,ShiftLeft,modifier,0,637347.7,91727.172,4402904,matched,,1,4397674,16.9,-108.958
+1944,keydown,Backspace,Backspace,backspace,0,637447.7,91827.172,4407704,missed,,0,,,
+1945,keyup,Backspace,Backspace,backspace,0,637493.3,91872.772,4409893,missed,,0,,,
+1946,keydown,Backspace,Backspace,backspace,0,637560.2,91939.672,4413104,missed,,0,,,
+1947,keyup,Backspace,Backspace,backspace,0,637621.2,92000.672,4416032,missed,,0,,,
+1948,keydown,Backspace,Backspace,backspace,0,637692.2,92071.672,4419440,missed,,0,,,
+1949,keyup,Backspace,Backspace,backspace,0,637759.3,92138.772,4422661,missed,,0,,,
+1950,keydown,Backspace,Backspace,backspace,0,637827.6,92207.072,4425939,matched,,1,4422188,14.9,-78.146
+1951,keyup,Backspace,Backspace,backspace,0,637896.8,92276.272,4429261,missed,,0,,,
+1952,keydown,n,KeyN,char,0,637972.4,92351.872,4432890,matched,,1,4429930,27.7,-61.667
+1953,keydown,.,Period,char,0,638045.6,92425.072,4436403,ambiguous,onset also claimed by another event,1,4433074,15.9,-69.354
+1954,keyup,n,KeyN,char,0,638058.1,92437.572,4437003,ambiguous,onset also claimed by another event,1,4433074,15.9,-81.854
+1955,keydown, ,Space,char,0,638126.0,92505.472,4440263,ambiguous,onset also claimed by another event,1,4436645,17.2,-75.375
+1956,keyup,.,Period,char,0,638143.7,92523.172,4441112,ambiguous,2 onsets in window,2,4436645,17.2,-93.063
+1957,keydown,Shift,ShiftLeft,modifier,0,638166.1,92545.572,4442187,ambiguous,2 onsets in window,2,4437787,31.3,-91.667
+1958,keyup, ,Space,char,0,638184.3,92563.772,4443061,ambiguous,2 onsets in window,2,4437787,31.3,-109.875
+1959,keydown,I,KeyI,char,0,638267.8,92647.272,4447069,ambiguous,onset also claimed by another event,1,4442846,15.3,-87.979
+1960,keydown, ,Space,char,0,638289.9,92669.372,4448130,ambiguous,onset also claimed by another event,1,4442846,15.3,-110.083
+1961,keyup,Shift,ShiftLeft,modifier,0,638300.5,92679.972,4448639,ambiguous,onset also claimed by another event,1,4442846,15.3,-120.688
+1962,keyup,i,KeyI,char,0,638361.4,92740.872,4451562,missed,,0,,,
+1963,keydown,c,KeyC,char,0,638371.9,92751.372,4452066,ambiguous,onset also claimed by another event,1,4449430,27.4,-54.917
+1964,keyup, ,Space,char,0,638387.1,92766.572,4452795,ambiguous,onset also claimed by another event,1,4449430,27.4,-70.104
+1965,keydown,a,KeyA,char,0,638422.0,92801.472,4454471,ambiguous,2 onsets in window,2,4449430,27.4,-105.021
+1966,keyup,c,KeyC,char,0,638453.0,92832.472,4455959,ambiguous,onset also claimed by another event,1,4451403,17.4,-94.917
+1967,keyup,a,KeyA,char,0,638530.8,92910.272,4459693,ambiguous,onset also claimed by another event,1,4455258,13.8,-92.396
+1968,keydown,n,KeyN,char,0,638535.4,92914.872,4459914,ambiguous,onset also claimed by another event,1,4455258,13.8,-97.000
+1969,keydown,',Quote,char,0,638571.7,92951.172,4461656,ambiguous,onset also claimed by another event,1,4455258,13.8,-133.292
+1970,keyup,n,KeyN,char,0,638624.4,93003.872,4464186,matched,,1,4459180,30.7,-104.292
+1971,keyup,',Quote,char,0,638661.3,93040.772,4465957,missed,,0,,,
+1972,keydown,t,KeyT,char,0,638663.7,93043.172,4466072,missed,,0,,,
+1973,keydown, ,Space,char,0,638733.3,93112.772,4469413,missed,,0,,,
+1974,keyup,t,KeyT,char,0,638746.2,93125.672,4470032,missed,,0,,,
+1975,keyup, ,Space,char,0,638806.8,93186.272,4472941,missed,,0,,,
+1976,keydown,p,KeyP,char,0,639007.3,93386.772,4482565,matched,,1,4476885,17.0,-118.333
+1977,keyup,p,KeyP,char,0,639074.4,93453.872,4485786,ambiguous,2 onsets in window,2,4480339,16.6,-113.479
+1978,keydown,r,KeyR,char,0,639098.5,93477.972,4486943,ambiguous,onset also claimed by another event,1,4482933,25.1,-83.542
+1979,keyup,r,KeyR,char,0,639192.6,93572.072,4491459,missed,,0,,,
+1980,keydown,o,KeyO,char,0,639193.4,93572.872,4491498,missed,,0,,,
+1981,keydown,m,KeyM,char,0,639234.1,93613.572,4493451,ambiguous,onset also claimed by another event,1,4489860,21.5,-74.813
+1982,keyup,o,KeyO,char,0,639278.0,93657.472,4495559,ambiguous,2 onsets in window,2,4491186,21.8,-91.104
+1983,keydown,i,KeyI,char,0,639295.1,93674.572,4496379,ambiguous,onset also claimed by another event,1,4491186,21.8,-108.187
+1984,keyup,m,KeyM,char,0,639363.7,93743.172,4499672,ambiguous,onset also claimed by another event,1,4494939,23.6,-98.604
+1985,keydown,s,KeyS,char,0,639372.4,93751.872,4500090,ambiguous,onset also claimed by another event,1,4494939,23.6,-107.312
+1986,keyup,i,KeyI,char,0,639397.3,93776.772,4501285,ambiguous,onset also claimed by another event,1,4494939,23.6,-132.208
+1987,keydown,e,KeyE,char,0,639406.8,93786.272,4501741,ambiguous,onset also claimed by another event,1,4499002,12.1,-57.063
+1988,keyup,s,KeyS,char,0,639437.6,93817.072,4503219,ambiguous,onset also claimed by another event,1,4499002,12.1,-87.854
+1989,keyup,e,KeyE,char,0,639478.6,93858.072,4505187,ambiguous,2 onsets in window,2,4501116,14.8,-84.812
+1990,keydown, ,Space,char,0,639484.1,93863.572,4505451,ambiguous,2 onsets in window,2,4501116,14.8,-90.312
+1991,keydown,i,KeyI,char,0,639517.9,93897.372,4507074,ambiguous,onset also claimed by another event,1,4501116,14.8,-124.125
+1992,keyup, ,Space,char,0,639557.4,93936.872,4508970,missed,,0,,,
+1993,keydown,t,KeyT,char,0,639609.2,93988.672,4511456,ambiguous,onset also claimed by another event,1,4507725,24.1,-77.729
+1994,keyup,i,KeyI,char,0,639620.1,93999.572,4511979,ambiguous,2 onsets in window,2,4507725,24.1,-88.625
+1995,keyup,t,KeyT,char,0,639688.2,94067.672,4515248,ambiguous,onset also claimed by another event,1,4508929,15.7,-131.646
+1996,keydown, ,Space,char,0,639740.6,94120.072,4517763,missed,,0,,,
+1997,keyup, ,Space,char,0,639763.8,94143.272,4518877,missed,,0,,,
+1998,keydown,w,KeyW,char,0,639965.2,94344.672,4528544,missed,,0,,,
+1999,keydown,i,KeyI,char,0,640019.6,94399.072,4531155,missed,,0,,,
+2000,keyup,w,KeyW,char,0,640037.1,94416.572,4531995,missed,,0,,,
+2001,keydown,l,KeyL,char,0,640047.0,94426.472,4532471,ambiguous,onset also claimed by another event,1,4529379,26.7,-64.417
+2002,keyup,i,KeyI,char,0,640077.4,94456.872,4533930,ambiguous,onset also claimed by another event,1,4529379,26.7,-94.813
+2003,keyup,l,KeyL,char,0,640091.9,94471.372,4534626,ambiguous,onset also claimed by another event,1,4529379,26.7,-109.313
+2004,keydown,l,KeyL,char,0,640148.2,94527.672,4537328,matched,,1,4532530,14.8,-99.958
+2005,keydown, ,Space,char,0,640198.8,94578.272,4539757,missed,,0,,,
+2006,keyup, ,Space,char,0,640229.2,94608.672,4541216,missed,,0,,,
+2007,keyup,l,KeyL,char,0,640234.2,94613.672,4541456,ambiguous,onset also claimed by another event,1,4538663,34.1,-58.187
+2008,keydown,b,KeyB,char,0,640248.3,94627.772,4542133,ambiguous,onset also claimed by another event,1,4538663,34.1,-72.292
+2009,keyup,b,KeyB,char,0,640325.8,94705.272,4545853,missed,,0,,,
+2010,keydown,e,KeyE,char,0,640334.5,94713.972,4546271,missed,,0,,,
+2011,keydown, ,Space,char,0,640389.9,94769.372,4548930,ambiguous,onset also claimed by another event,1,4544267,13.1,-97.146
+2012,keyup,e,KeyE,char,0,640404.0,94783.472,4549607,ambiguous,onset also claimed by another event,1,4544267,13.1,-111.250
+2013,keyup, ,Space,char,0,640458.2,94837.672,4552208,matched,,1,4548359,12.8,-80.187
+2014,keydown,e,KeyE,char,0,640513.7,94893.172,4554872,missed,,0,,,
+2015,keydown,a,KeyA,char,0,640597.0,94976.472,4558871,ambiguous,onset also claimed by another event,1,4554271,23.8,-95.833
+2016,keyup,e,KeyE,char,0,640609.6,94989.072,4559475,ambiguous,onset also claimed by another event,1,4554271,23.8,-108.417
+2017,keydown,s,KeyS,char,0,640646.9,95026.372,4561266,missed,,0,,,
+2018,keyup,a,KeyA,char,0,640705.3,95084.772,4564069,missed,,0,,,
+2019,keydown,y,KeyY,char,0,640718.1,95097.572,4564683,missed,,0,,,
+2020,keyup,s,KeyS,char,0,640783.8,95163.272,4567837,missed,,0,,,
+2021,keyup,y,KeyY,char,0,640786.5,95165.972,4567967,missed,,0,,,
+2022,keydown,",",Comma,char,0,640986.1,95365.572,4577547,missed,,0,,,
+2023,keydown, ,Space,char,0,641041.0,95420.472,4580183,missed,,0,,,
+2024,keyup,",",Comma,char,0,641094.8,95474.272,4582765,missed,,0,,,
+2025,keyup, ,Space,char,0,641148.7,95528.172,4585352,missed,,0,,,
+2026,keydown,b,KeyB,char,0,641315.2,95694.672,4593344,missed,,0,,,
+2027,keydown,u,KeyU,char,0,641359.0,95738.472,4595447,matched,,1,4591070,14.9,-91.188
+2028,keyup,b,KeyB,char,0,641416.7,95796.172,4598216,ambiguous,2 onsets in window,2,4593302,29.6,-102.375
+2029,keyup,u,KeyU,char,0,641443.7,95823.172,4599512,ambiguous,2 onsets in window,2,4595385,13.9,-85.979
+2030,keydown,t,KeyT,char,0,641476.4,95855.872,4601082,ambiguous,onset also claimed by another event,1,4595385,13.9,-118.687
+2031,keydown, ,Space,char,0,641527.2,95906.672,4603520,ambiguous,onset also claimed by another event,1,4599100,14.5,-92.083
+2032,keyup,t,KeyT,char,0,641545.1,95924.572,4604379,ambiguous,onset also claimed by another event,1,4599100,14.5,-109.979
+2033,keyup, ,Space,char,0,641568.3,95947.772,4605493,ambiguous,onset also claimed by another event,1,4599100,14.5,-133.188
+2034,keydown,Shift,ShiftLeft,modifier,0,641643.3,96022.772,4609093,matched,,1,4603132,24.7,-124.188
+2035,keydown,I,KeyI,char,0,641694.4,96073.872,4611546,ambiguous,onset also claimed by another event,1,4608870,14.5,-55.750
+2036,keydown, ,Space,char,0,641734.9,96114.372,4613490,ambiguous,onset also claimed by another event,1,4608870,14.5,-96.250
+2037,keyup,Shift,ShiftLeft,modifier,0,641748.8,96128.272,4614157,ambiguous,onset also claimed by another event,1,4608870,14.5,-110.146
+2038,keyup,i,KeyI,char,0,641816.7,96196.172,4617416,ambiguous,2 onsets in window,2,4611565,16.8,-121.896
+2039,keyup, ,Space,char,0,641826.6,96206.072,4617891,ambiguous,2 onsets in window,2,4612843,26.9,-105.167
+2040,keydown,c,KeyC,char,0,641845.2,96224.672,4618784,ambiguous,onset also claimed by another event,1,4612843,26.9,-123.771
+2041,keydown,a,KeyA,char,0,641851.4,96230.872,4619082,ambiguous,onset also claimed by another event,1,4612843,26.9,-129.979
+2042,keyup,c,KeyC,char,0,641888.4,96267.872,4620858,missed,,0,,,
+2043,keydown,n,KeyN,char,0,641917.3,96296.772,4622245,missed,,0,,,
+2044,keydown, ,Space,char,0,641937.2,96316.672,4623200,missed,,0,,,
+2045,keyup,a,KeyA,char,0,641985.3,96364.772,4625509,ambiguous,onset also claimed by another event,1,4622432,12.1,-64.104
+2046,keyup,n,KeyN,char,0,642007.9,96387.372,4626594,ambiguous,onset also claimed by another event,1,4622432,12.1,-86.708
+2047,keyup, ,Space,char,0,642032.1,96411.572,4627755,ambiguous,onset also claimed by another event,1,4622432,12.1,-110.896
+2048,keydown,p,KeyP,char,0,642034.0,96413.472,4627847,ambiguous,onset also claimed by another event,1,4622432,12.1,-112.812
+2049,keyup,p,KeyP,char,0,642076.3,96455.772,4629877,ambiguous,onset also claimed by another event,1,4625707,23.8,-86.875
+2050,keydown,r,KeyR,char,0,642109.7,96489.172,4631480,ambiguous,onset also claimed by another event,1,4625707,23.8,-120.271
+2051,keydown,o,KeyO,char,0,642157.0,96536.472,4633751,ambiguous,onset also claimed by another event,1,4630930,18.1,-58.771
+2052,keyup,r,KeyR,char,0,642167.2,96546.672,4634240,ambiguous,onset also claimed by another event,1,4630930,18.1,-68.958
+2053,keydown,m,KeyM,char,0,642227.0,96606.472,4637111,ambiguous,2 onsets in window,2,4632604,20.3,-93.896
+2054,keyup,o,KeyO,char,0,642257.0,96636.472,4638551,ambiguous,onset also claimed by another event,1,4632604,20.3,-123.896
+2055,keydown,i,KeyI,char,0,642286.5,96665.972,4639967,ambiguous,onset also claimed by another event,1,4637286,23.0,-55.854
+2056,keydown,s,KeyS,char,0,642332.9,96712.372,4642194,ambiguous,onset also claimed by another event,1,4637286,23.0,-102.250
+2057,keyup,m,KeyM,char,0,642345.2,96724.672,4642784,ambiguous,onset also claimed by another event,1,4637286,23.0,-114.542
+2058,keydown,e,KeyE,char,0,642367.4,96746.872,4643850,ambiguous,onset also claimed by another event,1,4640206,13.9,-75.917
+2059,keyup,i,KeyI,char,0,642384.5,96763.972,4644671,ambiguous,onset also claimed by another event,1,4640206,13.9,-93.021
+2060,keyup,s,KeyS,char,0,642398.7,96778.172,4645352,ambiguous,onset also claimed by another event,1,4640206,13.9,-107.208
+2061,keyup,e,KeyE,char,0,642419.1,96798.572,4646331,ambiguous,onset also claimed by another event,1,4640206,13.9,-127.604
+2062,keydown, ,Space,char,0,642458.9,96838.372,4648242,ambiguous,onset also claimed by another event,1,4644736,15.8,-73.042
+2063,keyup, ,Space,char,0,642517.4,96896.872,4651050,ambiguous,onset also claimed by another event,1,4644736,15.8,-131.542
+2064,keydown,t,KeyT,char,0,642531.4,96910.872,4651722,ambiguous,onset also claimed by another event,1,4649047,17.4,-55.729
+2065,keyup,t,KeyT,char,0,642567.1,96946.572,4653435,ambiguous,onset also claimed by another event,1,4649047,17.4,-91.417
+2066,keydown,h,KeyH,char,0,642616.5,96995.972,4655807,ambiguous,onset also claimed by another event,1,4651901,28.1,-81.375
+2067,keydown,a,KeyA,char,0,642650.6,97030.072,4657443,ambiguous,onset also claimed by another event,1,4651901,28.1,-115.458
+2068,keyup,h,KeyH,char,0,642672.7,97052.172,4658504,missed,,0,,,
+2069,keydown,t,KeyT,char,0,642711.4,97090.872,4660362,missed,,0,,,
+2070,keyup,a,KeyA,char,0,642742.8,97122.272,4661869,missed,,0,,,
+2071,keydown, ,Space,char,0,642768.2,97147.672,4663088,missed,,0,,,
+2072,keyup,t,KeyT,char,0,642780.3,97159.772,4663669,missed,,0,,,
+2073,keyup, ,Space,char,0,642824.0,97203.472,4665767,missed,,0,,,
+2074,keydown,i,KeyI,char,0,642833.5,97212.972,4666223,missed,,0,,,
+2075,keyup,i,KeyI,char,0,642900.8,97280.272,4669453,missed,,0,,,
+2076,keydown,t,KeyT,char,0,642971.6,97351.072,4672851,matched,,1,4667327,14.2,-115.083
+2077,keyup,t,KeyT,char,0,643053.6,97433.072,4676787,matched,,1,4671965,17.6,-100.458
+2078,keydown, ,Space,char,0,643088.8,97468.272,4678477,matched,,1,4674408,12.3,-84.771
+2079,keyup, ,Space,char,0,643170.1,97549.572,4682379,missed,,0,,,
+2080,keydown,w,KeyW,char,0,643196.3,97575.772,4683637,missed,,0,,,
+2081,keydown,i,KeyI,char,0,643244.0,97623.472,4685927,ambiguous,onset also claimed by another event,1,4683066,25.0,-59.604
+2082,keydown,l,KeyL,char,0,643265.9,97645.372,4686978,ambiguous,onset also claimed by another event,1,4683066,25.0,-81.500
+2083,keyup,w,KeyW,char,0,643280.9,97660.372,4687698,ambiguous,onset also claimed by another event,1,4683066,25.0,-96.500
+2084,keyup,i,KeyI,char,0,643310.3,97689.772,4689109,ambiguous,3 onsets in window,3,4685102,16.9,-83.479
+2085,keyup,l,KeyL,char,0,643377.0,97756.472,4692311,ambiguous,onset also claimed by another event,1,4686330,12.8,-124.604
+2086,keydown,l,KeyL,char,0,643381.4,97760.872,4692522,ambiguous,onset also claimed by another event,1,4686330,12.8,-129.000
+2087,keydown, ,Space,char,0,643431.6,97811.072,4694931,missed,,0,,,
+2088,keyup, ,Space,char,0,643452.4,97831.872,4695930,missed,,0,,,
+2089,keyup,l,KeyL,char,0,643462.4,97841.872,4696410,ambiguous,onset also claimed by another event,1,4693745,24.7,-55.521
+2090,keydown,b,KeyB,char,0,643498.0,97877.472,4698119,ambiguous,onset also claimed by another event,1,4693745,24.7,-91.125
+2091,keydown,e,KeyE,char,0,643546.5,97925.972,4700447,ambiguous,onset also claimed by another event,1,4697486,12.9,-61.687
+2092,keyup,b,KeyB,char,0,643564.0,97943.472,4701287,ambiguous,onset also claimed by another event,1,4697486,12.9,-79.187
+2093,keyup,e,KeyE,char,0,643615.6,97995.072,4703763,ambiguous,2 onsets in window,2,4700304,17.1,-72.063
+2094,keydown, ,Space,char,0,643648.1,98027.572,4705323,ambiguous,onset also claimed by another event,1,4700304,17.1,-104.563
+2095,keyup, ,Space,char,0,643696.8,98076.272,4707661,missed,,0,,,
+2096,keydown,w,KeyW,char,0,643736.3,98115.772,4709557,missed,,0,,,
+2097,keydown,o,KeyO,char,0,643790.7,98170.172,4712168,missed,,0,,,
+2098,keyup,w,KeyW,char,0,643823.0,98202.472,4713719,ambiguous,onset also claimed by another event,1,4710523,22.2,-66.583
+2099,keyup,o,KeyO,char,0,643858.5,98237.972,4715423,ambiguous,onset also claimed by another event,1,4710523,22.2,-102.083
+2100,keydown,r,KeyR,char,0,643890.8,98270.272,4716973,ambiguous,onset also claimed by another event,1,4710523,22.2,-134.375
+2101,keydown,t,KeyT,char,0,643942.1,98321.572,4719435,ambiguous,onset also claimed by another event,1,4715242,13.0,-87.354
+2102,keyup,r,KeyR,char,0,643957.6,98337.072,4720179,ambiguous,onset also claimed by another event,1,4715242,13.0,-102.854
+2103,keydown,h,KeyH,char,0,643966.8,98346.272,4720621,ambiguous,onset also claimed by another event,1,4715242,13.0,-112.063
+2104,keydown, ,Space,char,0,644002.2,98381.672,4722320,missed,,0,,,
+2105,keyup,t,KeyT,char,0,644015.8,98395.272,4722973,missed,,0,,,
+2106,keyup,h,KeyH,char,0,644047.7,98427.172,4724504,missed,,0,,,
+2107,keydown,e,KeyE,char,0,644078.7,98458.172,4725992,missed,,0,,,
+2108,keyup, ,Space,char,0,644088.9,98468.372,4726482,missed,,0,,,
+2109,keyup,e,KeyE,char,0,644160.1,98539.572,4729899,missed,,0,,,
+2110,keydown,v,KeyV,char,0,644211.3,98590.772,4732357,missed,,0,,,
+2111,keyup,v,KeyV,char,0,644276.8,98656.272,4735501,matched,,1,4730990,16.0,-93.979
+2112,keydown,e,KeyE,char,0,644317.4,98696.872,4737450,ambiguous,onset also claimed by another event,1,4734162,20.4,-68.500
+2113,keydown,r,KeyR,char,0,644383.1,98762.572,4740603,ambiguous,2 onsets in window,2,4737368,12.1,-67.396
+2114,keydown,y,KeyY,char,0,644390.4,98769.872,4740954,ambiguous,onset also claimed by another event,1,4737368,12.1,-74.708
+2115,keyup,e,KeyE,char,0,644407.9,98787.372,4741794,ambiguous,onset also claimed by another event,1,4737368,12.1,-92.208
+2116,keyup,r,KeyR,char,0,644427.9,98807.372,4742754,ambiguous,onset also claimed by another event,1,4737368,12.1,-112.208
+2117,keydown, ,Space,char,0,644439.7,98819.172,4743320,ambiguous,onset also claimed by another event,1,4737368,12.1,-124.000
+2118,keyup,y,KeyY,char,0,644458.4,98837.872,4744218,missed,,0,,,
+2119,keyup, ,Space,char,0,644488.9,98868.372,4745682,missed,,0,,,
+2120,keydown,d,KeyD,char,0,644508.6,98888.072,4746627,missed,,0,,,
+2121,keydown,i,KeyI,char,0,644574.0,98953.472,4749767,missed,,0,,,
+2122,keyup,d,KeyD,char,0,644606.0,98985.472,4751303,missed,,0,,,
+2123,keyup,i,KeyI,char,0,644660.9,99040.372,4753938,missed,,0,,,
+2124,keydown,f,KeyF,char,0,644677.2,99056.672,4754720,missed,,0,,,
+2125,keyup,f,KeyF,char,0,644727.3,99106.772,4757125,missed,,0,,,
+2126,keydown,f,KeyF,char,0,644787.4,99166.872,4760010,missed,,0,,,
+2127,keyup,f,KeyF,char,0,644849.0,99228.472,4762967,missed,,0,,,
+2128,keydown,i,KeyI,char,0,644858.1,99237.572,4763403,missed,,0,,,
+2129,keyup,i,KeyI,char,0,644955.6,99335.072,4768083,ambiguous,onset also claimed by another event,1,4765353,21.8,-56.875
+2130,keydown,c,KeyC,char,0,644965.6,99345.072,4768563,ambiguous,onset also claimed by another event,1,4765353,21.8,-66.875
+2131,keyup,c,KeyC,char,0,645026.4,99405.872,4771482,ambiguous,2 onsets in window,2,4766922,12.4,-95.000
+2132,keydown,u,KeyU,char,0,645061.2,99440.672,4773152,ambiguous,2 onsets in window,2,4769477,30.7,-76.563
+2133,keydown,l,KeyL,char,0,645090.4,99469.872,4774554,ambiguous,onset also claimed by another event,1,4769477,30.7,-105.771
+2134,keyup,u,KeyU,char,0,645144.0,99523.472,4777127,ambiguous,onset also claimed by another event,1,4773087,15.7,-84.167
+2135,keydown,t,KeyT,char,0,645152.2,99531.672,4777520,ambiguous,onset also claimed by another event,1,4773087,15.7,-92.354
+2136,keyup,l,KeyL,char,0,645180.1,99559.572,4778859,ambiguous,onset also claimed by another event,1,4773087,15.7,-120.250
+2137,keyup,t,KeyT,char,0,645218.6,99598.072,4780707,missed,,0,,,
+2138,keydown, ,Space,char,0,645232.4,99611.872,4781370,missed,,0,,,
+2139,keyup, ,Space,char,0,645299.7,99679.172,4784600,missed,,0,,,
+2140,keydown,s,KeyS,char,0,645437.0,99816.472,4791191,missed,,0,,,
+2141,keydown,t,KeyT,char,0,645545.0,99924.472,4796375,missed,,0,,,
+2142,keyup,s,KeyS,char,0,645589.2,99968.672,4798496,missed,,0,,,
+2143,keydown,e,KeyE,char,0,645623.9,100003.372,4800162,missed,,0,,,
+2144,keyup,t,KeyT,char,0,645650.4,100029.872,4801434,ambiguous,onset also claimed by another event,1,4798252,19.4,-66.292
+2145,keydown,p,KeyP,char,0,645694.0,100073.472,4803527,ambiguous,2 onsets in window,2,4798252,19.4,-109.896
+2146,keyup,e,KeyE,char,0,645721.0,100100.472,4804823,ambiguous,onset also claimed by another event,1,4799866,36.8,-103.271
+2147,keyup,p,KeyP,char,0,645764.1,100143.572,4806891,matched,,1,4803696,14.1,-66.563
+2148,keydown,.,Period,char,0,645851.9,100231.372,4811106,missed,,0,,,
+2149,keydown, ,Space,char,0,645873.6,100253.072,4812147,missed,,0,,,
+2150,keyup,.,Period,char,0,645907.2,100286.672,4813760,missed,,0,,,
+2151,keyup, ,Space,char,0,645943.8,100323.272,4815517,missed,,0,,,
